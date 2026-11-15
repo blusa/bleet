@@ -1,6 +1,6 @@
 # Bleet v0.1 verification
 
-Observed on BUSTER, November 14–15, 2026. This is beta implementation evidence, not a TestFlight release receipt.
+Observed on BUSTER, November 14–15, 2026. The initial implementation checks and the subsequent signed TestFlight release are recorded separately below.
 
 | Area | Evidence |
 | --- | --- |
@@ -21,7 +21,7 @@ Observed on BUSTER, November 14–15, 2026. This is beta implementation evidence
 
 The repository is now `blusa/bleet`; existing macOS and Omarchy release identities remain blussh. The branch incorporates the latest main-branch desktop fixes. Source and Caddy deployment are reproducible in `deploy/` and `dotfiles-macos/zorak/bleet/`.
 
-Remaining release work: CI/merge, replace ZORAK's clearly labeled working-tree source with a public clone at the exact release commit, and complete Apple web authentication, App Group assignment, distribution signing, ASC app creation, upload/processing and the requested tester invitation. No TestFlight build or invitation has been claimed as completed.
+Implementation merged in PR #6 at `532d256866327365d66e2f8b50a6891dc38a8c09`, with CI passing. ZORAK now mounts a clean anonymous public clone at that exact commit; all 126 tracked blobs matched the public source. The signed TestFlight release and requested tester invitation subsequently completed as recorded below and in [the beta handoff](testflight.md).
 
 ## Review regressions
 
@@ -38,3 +38,13 @@ The iOS system offered to save the enrollment code as a password during normal e
 Final manual acceptance on the dedicated state-test simulator successfully repeated normal live enrollment after the session guards changed. With oneTimeCode semantics, enrollment returned directly to real host readings without the Save Password sheet. Home Screen widget configuration was changed to DEXTER; its GPU menu offered only DEXTER · GPU 0. Both acceptance bearer credentials were then revoked (zero active server tokens), and the local device credential was removed. Apple web authentication remains unavailable; the third secure password request timed out without receiving a secret.
 
 Independent review approved the current behavior after two sol-loop rounds with gpt-6.1-sol on xhigh. All six findings are resolved; no blocker or should findings remain. Usage was not exposed.
+
+## Signed TestFlight release
+
+After Apple web authentication and the authorized account-agreement update, App Store Connect registered **Bleet Private Fleet**, app `6835056287`. App Group `group.cloud.blusa.bleet` was created and assigned to both app and widget. The unchanged release source at `532d256866327365d66e2f8b50a6891dc38a8c09` was archived and exported on BUSTER with Xcode 27.1 and automatic API-key provisioning.
+
+The IPA passed deep, strict signature verification. Both targets have the expected team and App Group, `get-task-allow=false`, and valid App Store provisioning profiles without device restrictions. The source icon is 1024×1024 with no alpha; Apple exposes the processed build's icon asset. IPA SHA-256: `940fef16d5b1fa501c4883a1654137d79ab166d170517c72edd13bc73f0f0002`.
+
+Apple processed **0.1.0 (1)** as build `40808a35-4d98-44d8-aafd-ff6f71dce0a6`: `VALID`, non-exempt encryption false, and internal state `READY_FOR_BETA_TESTING`, advancing to `IN_BETA_TESTING` after inviting the tester. Both build-to-group and group-to-build reads confirm `Bleet Internal` membership. A separate group-tester read confirms the requested tester as `INVITED` after the invitation operation returned its receipt. Beta notes, description and privacy link were read back successfully. Email receipt, invitation acceptance and installation on the tester's own phone are not yet observed.
+
+No external beta review or public App Store release was submitted. Private runtime credentials remain separate from TestFlight distribution; release preparation issued no new gateway bearer.
