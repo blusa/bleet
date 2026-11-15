@@ -1,1 +1,15 @@
 __pycache__/
+.asc/
+.superpowers/
+**/.venv/
+**/.pytest_cache/
+*.pyc
+*.sqlite3
+*.sqlite3-*
+ios/.derived-data/
+ios/.build/
+ios/build/
+**/xcuserdata/
+.env
+.env.*
+!.env.example

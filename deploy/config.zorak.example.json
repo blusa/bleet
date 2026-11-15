@@ -1,0 +1,14 @@
+{
+  "state_dir": "/var/lib/bleetd",
+  "gateway_name": "ZORAK",
+  "known_hosts": "/etc/bleetd/known_hosts",
+  "identity_file": "/etc/bleetd/ssh/id_ed25519",
+  "public_origin": "https://bleet.zorak.blusa.cloud",
+  "repositories": {"blussh": "/code/blussh"},
+  "hosts": [
+    {"id":"ts:brak","name":"BRAK","address":"brak.tail32621d.ts.net","ssh_target":"blusa@brak.tail32621d.ts.net","magic_dns":"brak.tail32621d.ts.net","is_t3":true},
+    {"id":"ts:dexter","name":"DEXTER","address":"dexter.tail32621d.ts.net","ssh_target":"blusa@dexter.tail32621d.ts.net","magic_dns":"dexter.tail32621d.ts.net","is_t3":true},
+    {"id":"ts:buster","name":"BUSTER","address":"buster.tail32621d.ts.net","ssh_target":"blusa@buster.tail32621d.ts.net","magic_dns":"buster.tail32621d.ts.net","is_t3":true},
+    {"id":"ts:zorak","name":"ZORAK","collector":"mounted_linux","address":"zorak.tail32621d.ts.net","ssh_target":"root@zorak.tail32621d.ts.net","magic_dns":"zorak.tail32621d.ts.net","is_t3":false}
+  ]
+}

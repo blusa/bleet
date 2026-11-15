@@ -1,0 +1,15 @@
+{
+  "state_dir": "/var/lib/bleetd",
+  "gateway_name": "ZORAK",
+  "known_hosts": "/etc/bleetd/known_hosts",
+  "identity_file": "/etc/bleetd/ssh/id_ed25519",
+  "public_origin": "https://bleet.zorak.blusa.cloud",
+  "cache_seconds": 5,
+  "hosts": [
+    {"id":"ts:brak","name":"BRAK","address":"brak.example.ts.net","ssh_target":"bleet@brak.example.ts.net","magic_dns":"brak.example.ts.net","source":"tailscale","is_t3":true},
+    {"id":"ts:dexter","name":"DEXTER","address":"dexter.example.ts.net","ssh_target":"bleet@dexter.example.ts.net","magic_dns":"dexter.example.ts.net","source":"tailscale","is_t3":true},
+    {"id":"ts:buster","name":"BUSTER","address":"buster.example.ts.net","ssh_target":"bleet@buster.example.ts.net","magic_dns":"buster.example.ts.net","source":"tailscale","is_t3":true},
+    {"id":"ts:zorak","name":"ZORAK","address":"zorak.example.ts.net","ssh_target":"bleet@zorak.example.ts.net","magic_dns":"zorak.example.ts.net","source":"tailscale","is_t3":true}
+  ],
+  "repositories": {"blussh": "/code/blussh"}
+}

@@ -1,8 +1,22 @@
 <p align="center">
-  <img src="macos/blussh/Assets.xcassets/AppIcon.appiconset/icon_256.png" width="128" alt="blussh icon">
+  <img src="ios/Bleet/Resources/Assets.xcassets/AppIcon.appiconset/AppIcon.png" width="112" alt="Bleet matrix icon">
 </p>
 
-# blussh
+# Bleet
+
+Your private fleet, within reach. Native iOS instruments show CPU core heatmaps,
+GPU gauges, RAM and VRAM bars, hardware inventory, T3 pairing and an interactive
+SSH terminal. Configurable widgets keep timestamped snapshots on the Home and
+Lock Screens. The layout adapts to compact iPhones and the iPhone Duo.
+
+The authenticated `bleetd` API and MCP run in Docker on ZORAK, behind Caddy at
+`https://bleet.zorak.blusa.cloud`, with ingress restricted to the tailnet.
+Set or change the gateway URL in the app and enroll each device with a short-lived
+code. [Build the iOS app](ios/README.md), [run the backend](backend/README.md),
+or [deploy privately](deploy/README.md).
+
+This repository also preserves the existing **blussh** desktop apps and their
+release identities:
 
 Host connectivity monitor for your menu bar / status bar. Hosts are discovered
 automatically from your **SSH config**, **Tailscale** tailnet, and **ZeroTier**
@@ -60,8 +74,8 @@ Requires Omarchy 4 (the Quickshell-based Omarchy shell). Python 3, `jq` and
 `wl-copy` ship with Omarchy; Tailscale and ZeroTier are optional.
 
 ```bash
-git clone https://github.com/blusa/blussh.git
-cd blussh
+git clone https://github.com/blusa/bleet.git
+cd bleet
 omarchy/install.sh
 ```
 
@@ -77,6 +91,10 @@ ZeroTier. Usage, keyboard shortcuts and ZeroTier setup:
 ## Repository layout
 
 ```
+ios/       SwiftUI Bleet app, WidgetKit extension, Xcode project and model tests
+backend/   bleetd API, authenticated MCP, SSH collectors and terminal gateway
+shared/    versioned API contract and explicitly labeled example snapshot
+deploy/    private ZORAK Docker deployment and reproducible source staging
 macos/     SwiftUI app, Xcode project, release scripts (Homebrew cask)
 omarchy/   Omarchy shell plugin: manifest, QML UI, blussh.py engine, tests
 docs/      shared functional spec, design notes, screenshots
@@ -84,6 +102,9 @@ docs/      shared functional spec, design notes, screenshots
 
 ## Docs
 
+- [Bleet: iOS app, widgets and private backend proposal](docs/ios-proposal.md)
+  — the iPhone app and `bleetd` backend design, with hardware
+  metrics, T3 pairing and MCP access; includes interactive mockups.
 - [`docs/monitoring-spec.md`](docs/monitoring-spec.md) — platform-agnostic
   functional spec: every external interface (verified JSON shapes) and the
   algorithms (merge, liveness, debounce) both versions implement.

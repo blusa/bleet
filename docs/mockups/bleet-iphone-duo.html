@@ -1,0 +1,144 @@
+<style>
+#bleet-duo{--d-bg:light-dark(#f4f4f7,#101114);--d-panel:light-dark(#fff,#1c1e23);--d-ink:light-dark(#171a20,#f3f4f7);--d-sub:light-dark(#646976,#a0a6b2);--d-line:light-dark(#e2e5ea,#2d3038);--d-mint:light-dark(#077b62,#8cdec2);--d-blue:light-dark(#1665bc,#90b8f2);--d-core0:light-dark(#e4e9e7,#28312e);--d-core1:light-dark(#c5e1d6,#30594b);--d-core2:light-dark(#8ac5ad,#6aaa8e);--d-core3:light-dark(#d2b66e,#c8ab6c);--d-core4:#d98e66;max-width:728px;margin:0 auto;color:var(--d-ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:13px;line-height:1.4}
+#bleet-duo *{box-sizing:border-box}
+#bleet-duo h1,#bleet-duo h2,#bleet-duo h3,#bleet-duo p{margin:0}
+#bleet-duo button,#bleet-duo select{font:inherit}
+#bleet-duo button{cursor:pointer}
+#bleet-duo button:focus-visible,#bleet-duo select:focus-visible{outline:2px solid var(--d-blue);outline-offset:3px}
+#bleet-duo .modes{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:18px}
+#bleet-duo .modes button{background:transparent;border:0;border-radius:8px;padding:9px 12px;min-height:38px;font-size:12px;color:var(--d-sub)}
+#bleet-duo .modes button[aria-pressed=true]{color:var(--d-ink);background:var(--d-panel)}
+#bleet-duo .device{border:6px solid light-dark(#363940,#42464e);border-radius:30px;overflow:hidden;background:var(--d-bg);margin:0 auto;box-shadow:0 12px 24px #00000013;position:relative}
+#bleet-duo .device[data-mode=open]{width:100%;aspect-ratio:2670/1878;min-height:492px}
+#bleet-duo .device[data-mode=closed]{width:100%;max-width:380px;aspect-ratio:1398/2034;min-height:530px}
+#bleet-duo .device[data-mode=desk]{width:100%;max-width:420px;aspect-ratio:1878/2670;min-height:590px;display:flex;flex-direction:column}
+#bleet-duo .status{height:28px;display:flex;align-items:center;justify-content:space-between;padding:7px 18px 0;font-size:11px;font-weight:500;flex-shrink:0}
+#bleet-duo .screen{display:flex;flex-direction:column;min-height:100%;height:auto}
+#bleet-duo .layout{display:grid;grid-template-columns:170px minmax(0,1fr);gap:0;min-height:445px}
+#bleet-duo .sidebar{padding:13px 12px 16px;border-right:1px solid var(--d-line);display:flex;flex-direction:column}
+#bleet-duo .wordmark{font-size:19px;letter-spacing:-.5px;font-weight:600;margin:3px 8px 18px}
+#bleet-duo .source{display:flex;justify-content:space-between;gap:8px;color:var(--d-sub);font-size:10px;margin:14px 8px 6px}
+#bleet-duo .host{width:100%;text-align:left;border:0;background:transparent;color:var(--d-ink);padding:10px 9px;border-radius:9px;display:flex;align-items:center;gap:7px;font-size:12px;min-height:38px}
+#bleet-duo .host[aria-pressed=true]{background:var(--d-panel)}
+#bleet-duo .host small{margin-left:auto;color:var(--d-sub);font-size:10px}
+#bleet-duo .dot{height:5px;width:5px;display:inline-block;border-radius:50%;background:var(--d-mint);flex-shrink:0}
+#bleet-duo .dot.warn{background:var(--d-core3)}
+#bleet-duo .dot.down{background:var(--d-core4)}
+#bleet-duo .sidebar-bottom{font-size:10px;color:var(--d-sub);padding:16px 8px 0;margin-top:auto;line-height:1.6}
+#bleet-duo .content{padding:12px 17px 14px;min-width:0}
+#bleet-duo .node-select{display:none;margin-bottom:10px}
+#bleet-duo .node-select select{border:0;background:var(--d-panel);color:var(--d-ink);border-radius:8px;padding:6px 9px;max-width:100%;min-height:32px;font-size:12px}
+#bleet-duo .heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}
+#bleet-duo h1{font-size:27px;letter-spacing:-.7px;font-weight:500;line-height:1.2}
+#bleet-duo .heading>span{font-size:10px;color:var(--d-sub)}
+#bleet-duo .subtitle{color:var(--d-sub);font-size:11px;margin-bottom:15px;display:flex;align-items:center;gap:5px}
+#bleet-duo .instruments{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+#bleet-duo .instrument{background:var(--d-panel);border-radius:13px;padding:11px 10px 10px;min-width:0;text-align:left;color:var(--d-ink);border:0}
+#bleet-duo .instrument.gpu[aria-pressed=true]{outline:1px solid color-mix(in srgb,var(--d-mint) 45%,transparent);outline-offset:-1px}
+#bleet-duo .instrument-title{display:flex;justify-content:space-between;gap:5px;font-size:11px;font-weight:500;margin-bottom:4px}
+#bleet-duo .model{font-size:10px;color:var(--d-sub);line-height:1.5;min-height:15px}
+#bleet-duo .matrix{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;max-width:75px;margin:12px auto 8px}
+#bleet-duo .matrix span{aspect-ratio:1;border-radius:3px;display:block}
+#bleet-duo .matrix-caption{font-size:10px;text-align:center;color:var(--d-sub);margin-top:11px}
+#bleet-duo .gauge{width:100%;max-width:115px;height:98px;display:block;margin:3px auto 0}
+#bleet-duo .gauge circle{fill:none;stroke-width:7;stroke-linecap:round}
+#bleet-duo .gauge .track{stroke:var(--d-line)}
+#bleet-duo .gauge .fill{stroke:var(--d-mint)}
+#bleet-duo .gauge text{fill:var(--d-ink);font:500 22px -apple-system,BlinkMacSystemFont,sans-serif;font-variant-numeric:tabular-nums}
+#bleet-duo .gauge .label{font-size:11px;fill:var(--d-sub);font-weight:400}
+#bleet-duo .instrument-foot{font-size:10px;color:var(--d-sub);text-align:center}
+#bleet-duo .memory{background:var(--d-panel);border-radius:13px;padding:12px 13px;margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:13px}
+#bleet-duo .memory-row+.memory-row{margin-top:0}
+#bleet-duo .memory-label{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:11px}
+#bleet-duo .memory-label>span:last-child{font-size:10px;color:var(--d-sub);font-variant-numeric:tabular-nums}
+#bleet-duo .bar{height:5px;background:var(--d-line);border-radius:4px;overflow:hidden;margin-top:7px}
+#bleet-duo .bar span{height:5px;display:block;background:var(--d-mint);border-radius:4px}
+#bleet-duo .actions{display:flex;gap:8px;margin-top:12px}
+#bleet-duo .actions button{border:0;background:var(--d-panel);border-radius:9px;min-height:35px;color:var(--d-ink);font-size:11px;padding:9px 12px;flex:1}
+#bleet-duo .small-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:11px;font-size:10px;color:var(--d-sub)}
+#bleet-duo .homebar{width:92px;height:3px;border-radius:4px;background:var(--d-ink);margin:10px auto 8px}
+#bleet-duo .device[data-mode=closed] .layout,#bleet-duo .device[data-mode=desk] .layout{display:block;min-height:0}
+#bleet-duo .device[data-mode=closed] .sidebar,#bleet-duo .device[data-mode=desk] .sidebar{display:none}
+#bleet-duo .device[data-mode=closed] .node-select,#bleet-duo .device[data-mode=desk] .node-select{display:block}
+#bleet-duo .device[data-mode=closed] .heading h1,#bleet-duo .device[data-mode=desk] .heading h1{display:none}
+#bleet-duo .device[data-mode=closed] .heading,#bleet-duo .device[data-mode=desk] .heading{margin-bottom:5px}
+#bleet-duo .device[data-mode=closed] .memory,#bleet-duo .device[data-mode=desk] .memory{display:block}
+#bleet-duo .device[data-mode=closed] .memory-row+.memory-row,#bleet-duo .device[data-mode=desk] .memory-row+.memory-row{margin-top:12px}
+#bleet-duo .device[data-mode=closed] .instruments,#bleet-duo .device[data-mode=desk] .instruments{grid-template-columns:1fr 1fr}
+#bleet-duo .device[data-mode=closed] .instrument:not(.cpu):not(.selected),#bleet-duo .device[data-mode=desk] .instrument:not(.cpu):not(.selected){display:none}
+#bleet-duo .device[data-mode=closed] .matrix,#bleet-duo .device[data-mode=desk] .matrix{max-width:80px;margin-top:13px;margin-bottom:8px}
+#bleet-duo .device[data-mode=closed] .gauge,#bleet-duo .device[data-mode=desk] .gauge{height:100px}
+#bleet-duo .compact-gpu-picker{display:none;gap:3px;background:var(--d-panel);border-radius:8px;padding:3px}
+#bleet-duo .compact-gpu-picker button{border:0;background:transparent;color:var(--d-sub);border-radius:5px;font-size:10px;padding:5px 8px;min-height:26px}
+#bleet-duo .compact-gpu-picker button[aria-pressed=true]{background:var(--d-ink);color:var(--d-panel)}
+#bleet-duo .device[data-mode=closed] .compact-gpu-picker,#bleet-duo .device[data-mode=desk] .compact-gpu-picker{display:flex}
+#bleet-duo .desk-terminal{display:none;border-top:1px solid var(--d-line);padding:15px 17px 10px;margin-top:0}
+#bleet-duo .desk-terminal .terminal-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;margin-bottom:10px}
+#bleet-duo .term{background:#0b1018;color:#d1dce9;font:11px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace;border-radius:12px;padding:13px}
+#bleet-duo .term .green{color:#8cdec2}
+#bleet-duo .term .muted{color:#94a1b4}
+#bleet-duo .term input{background:transparent;color:inherit;border:0;font:inherit;width:100%;min-width:0;padding:8px 0 0}
+#bleet-duo .term-result{font-size:10px;color:#8cdec2;min-height:17px;white-space:pre-wrap}
+#bleet-duo .device[data-mode=desk] .desk-terminal{display:block}
+#bleet-duo .device[data-mode=desk] .content{padding-top:8px;padding-bottom:12px}
+#bleet-duo .device[data-mode=desk] .node-select{margin-bottom:6px}
+#bleet-duo .device[data-mode=desk] .subtitle{margin-bottom:9px}
+#bleet-duo .device[data-mode=desk] .instrument{padding-top:9px;padding-bottom:8px}
+#bleet-duo .device[data-mode=desk] .matrix{max-width:64px;margin-top:9px;margin-bottom:4px}
+#bleet-duo .device[data-mode=desk] .gauge{height:84px}
+#bleet-duo .device[data-mode=desk] .memory{padding:10px 12px;margin-top:10px}
+#bleet-duo .device[data-mode=desk] .memory-row+.memory-row{margin-top:10px}
+#bleet-duo .device[data-mode=desk] .actions,#bleet-duo .device[data-mode=desk] .small-meta{display:none}
+#bleet-duo .device[data-mode=desk] .matrix-caption{margin-top:5px}
+#bleet-duo .device[data-mode=desk] .screen{flex:1;min-height:0}
+#bleet-duo .device[data-mode=desk] .content{display:grid;grid-template-columns:1fr 1fr;gap:10px;grid-template-areas:"node heading" "instruments instruments" "memory memory";padding-top:12px;padding-bottom:16px}
+#bleet-duo .device[data-mode=desk] .node-select{grid-area:node;margin:0}
+#bleet-duo .device[data-mode=desk] .heading{grid-area:heading;justify-content:flex-end;margin:0}
+#bleet-duo .device[data-mode=desk] .heading>span,#bleet-duo .device[data-mode=desk] .subtitle{display:none}
+#bleet-duo .device[data-mode=desk] .instruments{grid-area:instruments}
+#bleet-duo .device[data-mode=desk] .instrument{display:grid;grid-template-columns:minmax(0,1fr) 54px;column-gap:5px;row-gap:0;padding:10px;align-items:center}
+#bleet-duo .device[data-mode=desk] .instrument-title{grid-column:1;grid-row:1;margin:0}
+#bleet-duo .device[data-mode=desk] .model{grid-column:1;grid-row:2;margin:0;font-size:10px;overflow-wrap:anywhere}
+#bleet-duo .device[data-mode=desk] .matrix{grid-column:2;grid-row:1/4;margin:0;max-width:54px;gap:3px;width:54px}
+#bleet-duo .device[data-mode=desk] .matrix-caption{grid-column:1;grid-row:3;font-size:9px;text-align:left;margin:0}
+#bleet-duo .device[data-mode=desk] .gauge{grid-column:2;grid-row:1/4;width:54px;height:58px;margin:0}
+#bleet-duo .device[data-mode=desk] .gauge .label{display:none}
+#bleet-duo .device[data-mode=desk] .gauge text:not(.label){transform:translateY(6px)}
+#bleet-duo .device[data-mode=desk] .instrument-foot{grid-column:1;grid-row:3;text-align:left;font-size:9px}
+#bleet-duo .device[data-mode=desk] .memory{grid-area:memory;display:grid;grid-template-columns:1fr 1fr;margin:0;gap:13px}
+#bleet-duo .device[data-mode=desk] .memory-row+.memory-row{margin:0}
+#bleet-duo .device[data-mode=desk] .memory-label{flex-direction:column;gap:4px}
+#bleet-duo .device[data-mode=desk] .desk-terminal{flex:1;min-height:240px;display:flex;flex-direction:column;padding-top:18px}
+#bleet-duo .device[data-mode=desk] .term{flex:1;min-height:170px}
+#bleet-duo .footer{display:flex;justify-content:space-between;gap:8px;color:var(--d-sub);font-size:11px;margin-top:14px;flex-wrap:wrap}
+#bleet-duo .notice{font-size:11px;color:var(--d-sub);text-align:center;min-height:17px;margin-top:10px}
+#bleet-duo [hidden]{display:none!important}
+@media(max-width:600px){#bleet-duo .device[data-mode=open]{aspect-ratio:auto;min-height:520px}#bleet-duo .device[data-mode=open] .layout{display:block;min-height:0}#bleet-duo .device[data-mode=open] .sidebar{display:none}#bleet-duo .device[data-mode=open] .node-select{display:block}#bleet-duo .device[data-mode=open] .instruments{gap:7px}#bleet-duo .device[data-mode=open] .instrument{padding:10px 7px}#bleet-duo .device[data-mode=open] .model{font-size:10px}#bleet-duo .device[data-mode=open] .matrix{gap:3px;margin-top:21px}#bleet-duo .device[data-mode=open] .gauge{height:102px}#bleet-duo .device[data-mode=open] .instrument-foot{font-size:9px}#bleet-duo .content{padding-left:13px;padding-right:13px}#bleet-duo .device[data-mode=closed]{min-height:530px}#bleet-duo .device[data-mode=desk]{min-height:590px}}
+</style>
+<div id="bleet-duo" aria-label="Bleet para iPhone Duo">
+  <nav class="modes" aria-label="Disposición de Bleet">
+    <button type="button" data-mode="open" aria-pressed="true">Abierto</button>
+    <button type="button" data-mode="closed" aria-pressed="false">Cerrado</button>
+    <button type="button" data-mode="desk" aria-pressed="false">De mesa</button>
+  </nav>
+  <div id="bleet-duo-stage" class="viz-dotted-background"></div>
+  <p class="notice" aria-live="polite"></p>
+  <div class="footer"><span>Bleet · Concepto adaptativo</span><span>Hardware y lecturas de ejemplo</span></div>
+</div>
+<script>
+(()=>{
+const root=document.getElementById('bleet-duo'),stage=root.querySelector('#bleet-duo-stage');
+const models={brak:{cpu:'Ryzen 9 9950X',cores:16,ram:128,used:73.2,loads:[0,12,20,15,42,92,34,18,11,24,76,38,22,57,29,54],gpus:[{name:'RTX 5090',memory:32,used:26.4,usage:92},{name:'RTX 5090',memory:32,used:18.6,usage:64}]},dexter:{cpu:'Core i9-13900K',cores:24,ram:64,used:22.8,loads:Array.from({length:24},()=>18),gpus:[{name:'RTX 4090',memory:24,used:14.2,usage:46}]}};
+const state={mode:'open',host:'brak',gpu:0,notice:''};
+const format=n=>new Intl.NumberFormat('es-AR',{maximumFractionDigits:1}).format(n);
+const dot=(s='')=>`<span class="dot ${s}"></span>`;
+const coreColor=v=>'var(--d-core'+(v<10?0:v<30?1:v<60?2:v<85?3:4)+')';
+function gauge(g,i){return `<svg class="gauge" viewBox="0 0 128 112" role="img" aria-label="GPU ${i}: ${g.usage}% de utilización"><circle class="track" cx="64" cy="58" r="42" pathLength="100" stroke-dasharray="75 100" transform="rotate(135 64 58)"/><circle class="fill" cx="64" cy="58" r="42" pathLength="100" stroke-dasharray="${g.usage*.75} 100" transform="rotate(135 64 58)"/><text x="64" y="61" text-anchor="middle">${g.usage}%</text><text class="label" x="64" y="80" text-anchor="middle">uso GPU</text></svg>`;}
+function row(label,value,total){return `<div class="memory-row"><div class="memory-label"><span>${label}</span><span>${format(value)} / ${total} GiB</span></div><div class="bar" role="meter" aria-label="${label}" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${value}"><span style="width:${value/total*100}%"></span></div></div>`;}
+function render(){const p=models[state.host],g=p.gpus[state.gpu];root.querySelectorAll('.modes button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===state.mode)));stage.innerHTML=`<div class="device" data-mode="${state.mode}"><div class="screen"><div class="status"><span>9:41</span><span>VPN · Wi-Fi</span></div><div class="layout"><aside class="sidebar"><div class="wordmark">bleet</div><div class="source"><span>Tailscale</span><span>3/4</span></div>${['brak','dexter'].map(name=>`<button type="button" class="host" data-host="${name}" aria-pressed="${name===state.host}">${dot()}${name}</button>`).join('')}<div class="host">${dot('warn')}zorak <small>SSH</small></div><div class="host">${dot()}buster</div><div class="source"><span>ZeroTier</span><span>1/2</span></div><div class="host">${dot()}noctua</div><div class="host">${dot('down')}riki</div><div class="sidebar-bottom">4 de 6 disponibles<br>2 requieren atención</div></aside><main class="content"><div class="node-select"><label><select aria-label="Equipo seleccionado">${Object.keys(models).map(name=>`<option ${name===state.host?'selected':''}>${name}</option>`).join('')}</select></label></div><div class="heading"><h1>${state.host}</h1><div class="compact-gpu-picker" aria-label="GPU seleccionada">${p.gpus.map((gpu,i)=>`<button type="button" data-gpu="${i}" aria-pressed="${i===state.gpu}">GPU ${i}</button>`).join('')}</div><span>Última lectura · Hace 2 s</span></div><p class="subtitle">${dot()}En línea · Tailscale · Ubuntu</p><div class="instruments"><section class="instrument cpu"><div class="instrument-title"><span>CPU</span><span>${p.cores}C</span></div><p class="model">${p.cpu}</p><div class="matrix" role="img" aria-label="Mapa de carga de ${p.cores} núcleos">${p.loads.map((v,i)=>`<span style="background:${coreColor(v)}" aria-label="Núcleo ${i}: ${v}%"></span>`).join('')}</div><p class="matrix-caption">Carga por núcleo</p></section>${p.gpus.map((gpu,i)=>`<button type="button" class="instrument gpu ${state.gpu===i?'selected':''}" data-gpu="${i}" aria-pressed="${state.gpu===i}"><span class="instrument-title"><span>GPU ${i}</span></span><span class="model">${gpu.name}</span>${gauge(gpu,i)}<span class="instrument-foot">${gpu.memory} GiB VRAM</span></button>`).join('')}</div><section class="memory" aria-label="Uso de memoria">${row('RAM',p.used,p.ram)}${row('VRAM · GPU '+state.gpu,g.used,g.memory)}</section><div class="actions"><button type="button" data-action="terminal">Terminal / btop</button><button type="button" data-action="t3">T3 Code</button></div><p class="small-meta"><span>Colector SSH</span><span>Mismo equipo al plegar</span></p></main></div><section class="desk-terminal" aria-label="Terminal de ejemplo"><div class="terminal-heading"><span>Terminal · ${state.host}</span><span>SSH · Demo</span></div><div class="term"><div class="muted">pablo@${state.host}:~$ whoami</div><div class="green">pablo</div><input aria-label="Comando de demostración" placeholder="pablo@${state.host}:~$" autocomplete="off" spellcheck="false"><div class="term-result" aria-live="polite"></div></div></section><div class="homebar" aria-hidden="true"></div></div></div>`;root.querySelector('.notice').textContent=state.notice;}
+root.addEventListener('click',event=>{const b=event.target.closest('button');if(!b)return;if(b.dataset.mode){state.mode=b.dataset.mode;state.notice='';render();return;}if(b.dataset.host){state.host=b.dataset.host;state.gpu=0;state.notice='';render();return;}if(b.dataset.gpu!==undefined){state.gpu=Number(b.dataset.gpu);state.notice='';render();return;}if(b.dataset.action==='terminal'){state.mode='desk';state.notice='La sesión se representa como demostración; no hay conexión real.';render();}else if(b.dataset.action==='t3'){state.notice='Abriría T3 con su sesión; Split View lo organiza iOS.';root.querySelector('.notice').textContent=state.notice;}});
+root.addEventListener('change',event=>{if(event.target.matches('select')){state.host=event.target.value;state.gpu=0;state.notice='';render();}});
+root.addEventListener('keydown',event=>{if(event.target.matches('.term input')&&event.key==='Enter'){event.preventDefault();root.querySelector('.term-result').textContent='Demo: no se ejecutan comandos.';event.target.value='';}});
+render();
+})();
+</script>

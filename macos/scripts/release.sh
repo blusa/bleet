@@ -26,4 +26,4 @@ git tag "$TAG"
 git push origin HEAD "$TAG"
 
 echo "==> Pushed ${TAG}; the Release action takes it from here:"
-echo "    gh run watch --repo blusa/blussh"
+echo "    gh run watch --repo blusa/bleet"
