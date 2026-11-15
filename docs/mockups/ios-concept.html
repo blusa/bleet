@@ -1,0 +1,641 @@
+<style>
+#blussh-ios{--b-bg:light-dark(#f2f2f7,#111216);--b-panel:light-dark(#fff,#1d1e24);--b-text:light-dark(#15161b,#f3f3f7);--b-sub:light-dark(#6b6c76,#aaaab5);--b-line:light-dark(#e6e6ec,#303139);--b-blue:light-dark(#0868d9,#69a5ff);--b-blue-fill:light-dark(#e8f1ff,#1c304b);--b-green:light-dark(#23784c,#68d497);--b-green-fill:light-dark(#e7f5ed,#193629);--b-orange:light-dark(#a15b08,#f3bc6c);--b-orange-fill:light-dark(#fff1db,#3b2d1c);--b-red:light-dark(#b7353d,#ff9199);--b-red-fill:light-dark(#ffedef,#3c2229);--b-black:#080b10;color:var(--b-text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;line-height:1.4;max-width:728px;margin:auto}
+#blussh-ios *{box-sizing:border-box}
+#blussh-ios button,#blussh-ios input{font:inherit}
+#blussh-ios button{cursor:pointer}
+#blussh-ios button:focus-visible,#blussh-ios input:focus-visible{outline:3px solid var(--b-blue);outline-offset:3px}
+#blussh-ios button:disabled{opacity:.5;cursor:default}
+#blussh-ios h1,#blussh-ios h2,#blussh-ios h3,#blussh-ios p{margin:0}
+#blussh-ios .demo-nav{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 20px;padding-right:82px}
+#blussh-ios .demo-nav button{border:0;background:transparent;color:var(--b-sub);border-radius:9px;padding:10px 12px;font-size:13px;font-weight:550;min-height:42px}
+#blussh-ios .demo-nav button[aria-pressed=true]{background:var(--b-blue-fill);color:var(--b-blue)}
+#blussh-ios .stage{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:stretch}
+#blussh-ios .stage>section{display:flex;flex-direction:column}
+#blussh-ios .stage>section>.phone{flex:1}
+#blussh-ios .screen-caption{display:flex;align-items:center;gap:8px;margin-bottom:12px;color:var(--b-sub);font-size:13px;font-weight:550}
+#blussh-ios .screen-caption span:first-child{display:flex;align-items:center;justify-content:center;width:23px;height:23px;border-radius:50%;background:var(--b-panel);color:var(--b-sub);font-size:11px}
+#blussh-ios .phone{border:5px solid light-dark(#26272b,#393a42);border-radius:43px;background:var(--b-bg);min-height:744px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 24px #00000012;position:relative}
+#blussh-ios .statusbar{height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 21px;font-size:13px;font-weight:650;position:relative;flex-shrink:0}
+#blussh-ios .island{width:92px;height:25px;background:#050507;border-radius:18px;position:absolute;left:50%;transform:translateX(-50%);top:8px}
+#blussh-ios .status-right{display:flex;gap:4px;align-items:center;font-size:10px}
+#blussh-ios .status-right i{display:block;width:17px;height:8px;border:1.5px solid currentColor;border-radius:3px;position:relative}
+#blussh-ios .status-right i:after{content:"";position:absolute;inset:1px;background:currentColor;border-radius:1px}
+#blussh-ios .app{display:flex;flex-direction:column;flex:1;min-height:686px}
+#blussh-ios .app-content{padding:5px 17px 20px;flex:1}
+#blussh-ios .eyebrow{font-size:12px;color:var(--b-sub);font-weight:550;display:flex;align-items:center;gap:6px}
+#blussh-ios .topline{display:flex;justify-content:space-between;align-items:center;margin:5px 0 3px}
+#blussh-ios .brand{font-size:15px;font-weight:700;letter-spacing:-.5px;display:flex;align-items:center;gap:6px}
+#blussh-ios .brandmark{display:inline-flex;align-items:center;justify-content:center;background:var(--b-blue);color:var(--b-panel);width:23px;height:23px;border-radius:7px;font:650 13px ui-monospace,monospace}
+#blussh-ios .iconbutton{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border:0;background:transparent;color:var(--b-blue);border-radius:12px;flex-shrink:0}
+#blussh-ios [data-lucide]{width:18px;height:18px;display:inline-block;vertical-align:middle;flex-shrink:0}
+#blussh-ios i.b-icon{font-style:normal;font-family:-apple-system,BlinkMacSystemFont,sans-serif;text-align:center;font-size:20px;line-height:18px;position:relative}
+#blussh-ios i.b-icon[data-lucide=server]{width:17px;height:20px;border:1.4px solid currentColor;border-radius:3px}
+#blussh-ios i.b-icon[data-lucide=server]:before{content:"";position:absolute;left:2px;right:2px;top:8px;border-top:1.4px solid currentColor}
+#blussh-ios i.b-icon[data-lucide=server]:after{content:"";position:absolute;width:2px;height:2px;left:3px;top:3px;background:currentColor;box-shadow:0 10px 0 currentColor}
+#blussh-ios i.b-icon[data-lucide=monitor],#blussh-ios i.b-icon[data-lucide=laptop]{height:13px;width:19px;border:1.5px solid currentColor;border-radius:3px;margin-bottom:4px}
+#blussh-ios i.b-icon[data-lucide=monitor]:after,#blussh-ios i.b-icon[data-lucide=laptop]:after{content:"";position:absolute;left:3px;right:3px;bottom:-5px;border-top:1.5px solid currentColor}
+#blussh-ios i.b-icon[data-lucide=cpu]{width:15px;height:15px;border:3px double currentColor;border-radius:2px}
+#blussh-ios i.b-icon[data-lucide=smartphone]{width:12px;height:20px;border:1.5px solid currentColor;border-radius:3px}
+#blussh-ios i.b-icon[data-lucide=wifi]{font-size:12px;width:12px;height:10px;border-top:2px solid currentColor;border-radius:50%}
+#blussh-ios i.b-icon[data-lucide=key-round]{font-size:0;width:18px;height:18px}
+#blussh-ios i.b-icon[data-lucide=key-round]:before{content:"";width:7px;height:7px;border:1.5px solid currentColor;border-radius:50%;position:absolute;left:0;top:1px}
+#blussh-ios i.b-icon[data-lucide=key-round]:after{content:"";width:10px;height:4px;border-top:1.5px solid currentColor;border-right:1.5px solid currentColor;position:absolute;left:6px;top:10px;transform:rotate(40deg)}
+#blussh-ios .large-title{font-size:31px;line-height:1.1;letter-spacing:-1.1px;font-weight:750;margin:12px 0 6px}
+#blussh-ios .sub{font-size:12px;color:var(--b-sub)}
+#blussh-ios .dot{display:inline-block;width:7px;height:7px;background:var(--b-green);border-radius:50%;flex-shrink:0}
+#blussh-ios .dot.warn{background:var(--b-orange)}
+#blussh-ios .dot.down{background:var(--b-red)}
+#blussh-ios .dot.unknown{background:var(--b-sub)}
+#blussh-ios .summary{display:flex;gap:6px;align-items:baseline;margin:19px 0 14px}
+#blussh-ios .summary strong{font-size:35px;letter-spacing:-1.5px;line-height:1;font-weight:700}
+#blussh-ios .summary span{color:var(--b-sub);font-size:13px}
+#blussh-ios .summary .attention-count{margin-left:auto;color:var(--b-orange);font-size:12px;font-weight:600}
+#blussh-ios .search{height:37px;border-radius:11px;background:light-dark(#e7e7ed,#24252d);display:flex;align-items:center;padding:0 10px;gap:7px;color:var(--b-sub);margin:15px 0 11px}
+#blussh-ios .search input{width:100%;min-width:0;border:0;background:transparent;color:var(--b-text);outline-offset:4px;font-size:14px}
+#blussh-ios .segments{display:flex;gap:3px;background:light-dark(#e4e4eb,#282930);border-radius:9px;padding:3px;margin:11px 0 18px}
+#blussh-ios .segments button{flex:1;min-width:0;min-height:30px;padding:5px 3px;border:0;border-radius:7px;background:transparent;color:var(--b-sub);font-size:12px;font-weight:600}
+#blussh-ios .segments button.selected{background:var(--b-panel);color:var(--b-text);box-shadow:0 1px 3px #00000012}
+#blussh-ios .section-label{display:flex;justify-content:space-between;font-size:11px;font-weight:600;color:var(--b-sub);margin:17px 3px 7px;gap:6px}
+#blussh-ios .group{background:var(--b-panel);border-radius:15px;overflow:hidden}
+#blussh-ios .host{display:flex;width:100%;align-items:center;gap:10px;background:transparent;border:0;color:var(--b-text);text-align:left;padding:var(--b-row-padding,12px) 12px;min-height:64px}
+#blussh-ios .host+.host{border-top:1px solid var(--b-line)}
+#blussh-ios .host-icon{width:34px;height:34px;border-radius:10px;background:var(--b-bg);color:var(--b-sub);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+#blussh-ios .host-text{flex:1;min-width:0}
+#blussh-ios .host-name{font-size:14px;font-weight:650;display:block}
+#blussh-ios .host-meta{display:block;font-size:11px;color:var(--b-sub);margin-top:2px;overflow-wrap:anywhere}
+#blussh-ios .host-end{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0}
+#blussh-ios .state-label{display:flex;gap:4px;align-items:center;font-size:10px;color:var(--b-sub)}
+#blussh-ios .badge{display:inline-block;color:var(--b-sub);font:550 9px ui-monospace,monospace;border-radius:4px;background:var(--b-bg);padding:2px 4px}
+#blussh-ios .bottom-tabs{display:flex;justify-content:space-around;border-top:1px solid var(--b-line);background:var(--b-panel);padding:9px 8px 5px;margin-top:auto}
+#blussh-ios .tab{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--b-sub);font-size:10px;min-width:65px;min-height:45px}
+#blussh-ios .tab.active{color:var(--b-blue)}
+#blussh-ios .homebar{height:21px;background:var(--b-panel);display:flex;justify-content:center;padding-top:7px}
+#blussh-ios .homebar:before{content:"";width:104px;height:4px;border-radius:8px;background:var(--b-text)}
+#blussh-ios .back{border:0;background:transparent;color:var(--b-blue);padding:5px 0;display:inline-flex;align-items:center;gap:3px;font-size:13px;min-height:35px}
+#blussh-ios .detail-heading{display:flex;align-items:center;gap:11px;margin:19px 0 5px}
+#blussh-ios .detail-icon{width:51px;height:51px;border-radius:15px;background:var(--b-panel);display:flex;align-items:center;justify-content:center;color:var(--b-sub)}
+#blussh-ios .detail-icon [data-lucide]{width:27px;height:27px}
+#blussh-ios .detail-heading h1{font-size:28px;font-weight:750;letter-spacing:-.8px}
+#blussh-ios .statusline{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--b-green);margin-top:3px}
+#blussh-ios .signals{display:flex;gap:8px;margin:20px 0 18px}
+#blussh-ios .signal{flex:1;border-radius:11px;padding:10px;background:var(--b-panel)}
+#blussh-ios .signal span{display:block;font-size:11px;color:var(--b-sub);margin-bottom:4px}
+#blussh-ios .signal strong{font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px}
+#blussh-ios .actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:0 0 19px}
+#blussh-ios .action{background:var(--b-blue-fill);color:var(--b-blue);border:0;border-radius:12px;min-height:70px;padding:10px 2px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:7px;font-size:11px;font-weight:650}
+#blussh-ios .kv{padding:11px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;min-height:43px}
+#blussh-ios .kv+.kv{border-top:1px solid var(--b-line)}
+#blussh-ios .kv .value{color:var(--b-sub);font-size:11px;text-align:right;overflow-wrap:anywhere;max-width:65%}
+#blussh-ios .row-action{border:0;background:transparent;width:100%;text-align:left;color:var(--b-blue);min-height:45px;display:flex;align-items:center;gap:8px;padding:11px 12px;font-size:12px}
+#blussh-ios .row-action+.row-action{border-top:1px solid var(--b-line)}
+#blussh-ios .switch{display:inline-block;width:35px;height:22px;position:relative;flex-shrink:0}
+#blussh-ios .switch input{appearance:none;margin:0;width:35px;height:22px;border-radius:15px;background:var(--b-sub);cursor:pointer}
+#blussh-ios .switch input:checked{background:var(--b-green)}
+#blussh-ios .switch input:after{content:"";position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#fff;pointer-events:none;transition:transform .15s}
+#blussh-ios .switch input:checked:after{transform:translateX(13px)}
+#blussh-ios .footnote{font-size:11px;color:var(--b-sub);margin:9px 3px;line-height:1.5}
+#blussh-ios .notice{background:var(--b-orange-fill);color:var(--b-orange);padding:11px 12px;border-radius:12px;font-size:12px;display:flex;align-items:flex-start;gap:8px;margin:15px 0}
+#blussh-ios .notice strong{display:block;font-weight:650;margin-bottom:3px}
+#blussh-ios .notice p{font-size:11px;line-height:1.5}
+#blussh-ios .primary{display:flex;align-items:center;justify-content:center;gap:7px;min-height:45px;border:0;background:var(--b-blue);color:light-dark(#fff,#0d1729);font-size:13px;font-weight:650;border-radius:12px;padding:11px 12px;width:100%}
+#blussh-ios .secondary{display:flex;align-items:center;justify-content:center;gap:7px;min-height:44px;border:0;background:var(--b-panel);color:var(--b-blue);font-size:13px;font-weight:600;border-radius:12px;padding:10px 12px;width:100%;margin-top:9px}
+#blussh-ios .terminal{background:#0d121b;color:#d8e2f0;border-radius:15px;padding:14px 12px;margin-top:17px;min-height:375px;font:11px/1.8 ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere}
+#blussh-ios .term-title{display:flex;justify-content:space-between;color:#8f9cae;font-size:10px;padding-bottom:11px;border-bottom:1px solid #293241;margin-bottom:13px}
+#blussh-ios .term-green{color:#8ce5af}
+#blussh-ios .term-dim{color:#8f9cae}
+#blussh-ios .term-grid{display:grid;grid-template-columns:1fr auto auto;gap:4px 8px;font-size:10px;margin:16px 0}
+#blussh-ios .term-grid .term-head{color:#8f9cae;border-bottom:1px solid #293241;padding-bottom:5px}
+#blussh-ios .terminal input{border:0;background:transparent;color:#d8e2f0;width:100%;font:11px/1.8 ui-monospace,monospace;min-width:0;margin-top:14px}
+#blussh-ios .terminal .term-result{white-space:pre-wrap;color:#8ce5af;font-size:10px;margin-top:8px}
+#blussh-ios .keybar{display:flex;justify-content:space-between;gap:5px;margin-top:9px}
+#blussh-ios .keybar button{flex:1;min-height:35px;background:var(--b-panel);color:var(--b-sub);border:0;border-radius:7px;font:11px ui-monospace,monospace}
+#blussh-ios .service-tile{display:flex;align-items:center;gap:12px;padding:17px 14px;background:var(--b-panel);border-radius:15px;margin:20px 0 13px}
+#blussh-ios .service-logo{background:var(--b-text);color:var(--b-panel);width:43px;height:43px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:750;letter-spacing:-2px}
+#blussh-ios .service-tile strong{display:block;font-size:15px}
+#blussh-ios .pair-secret{background:var(--b-panel);border:1px solid var(--b-line);border-radius:13px;padding:14px;margin-top:12px;text-align:center}
+#blussh-ios .pair-secret strong{display:block;font:600 20px ui-monospace,monospace;letter-spacing:4px;margin:10px 0}
+#blussh-ios .event{display:flex;gap:11px;padding:14px 13px;align-items:flex-start}
+#blussh-ios .event+.event{border-top:1px solid var(--b-line)}
+#blussh-ios .event-mark{width:28px;height:28px;border-radius:9px;background:var(--b-green-fill);color:var(--b-green);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+#blussh-ios .event-mark.down{background:var(--b-red-fill);color:var(--b-red)}
+#blussh-ios .event-mark.warn{background:var(--b-orange-fill);color:var(--b-orange)}
+#blussh-ios .event-text{flex:1;min-width:0}
+#blussh-ios .event-text strong{font-size:12px;display:block;font-weight:650}
+#blussh-ios .event-text p{font-size:11px;color:var(--b-sub);margin-top:3px}
+#blussh-ios .event time{color:var(--b-sub);font-size:10px;white-space:nowrap}
+#blussh-ios .empty-icon{width:70px;height:70px;border-radius:22px;display:flex;align-items:center;justify-content:center;background:var(--b-panel);color:var(--b-blue);margin:30px auto 22px}
+#blussh-ios .empty-icon [data-lucide]{width:32px;height:32px}
+#blussh-ios .center-title{text-align:center;font-size:27px;line-height:1.12;letter-spacing:-.8px;font-weight:750;margin-bottom:13px}
+#blussh-ios .center-copy{text-align:center;color:var(--b-sub);font-size:13px;line-height:1.6;margin:0 8px 24px}
+#blussh-ios .step{display:flex;gap:11px;align-items:center;padding:13px 12px;font-size:12px}
+#blussh-ios .step+.step{border-top:1px solid var(--b-line)}
+#blussh-ios .step>span{display:flex;align-items:center;justify-content:center;background:var(--b-blue-fill);color:var(--b-blue);width:25px;height:25px;border-radius:50%;font-size:11px;flex-shrink:0}
+#blussh-ios .step p{font-size:11px;color:var(--b-sub);margin-top:3px}
+#blussh-ios .route{padding:16px;background:var(--b-panel);border-radius:15px;margin-top:17px}
+#blussh-ios .route-node{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600}
+#blussh-ios .route-link{height:27px;border-left:1px dashed var(--b-line);margin-left:9px;display:flex;align-items:center;padding-left:18px;color:var(--b-sub);font-size:10px}
+#blussh-ios .demo-foot{font-size:11px;color:var(--b-sub);margin:15px 0 0;display:flex;gap:7px;flex-wrap:wrap;justify-content:space-between}
+#blussh-ios .toast{position:absolute;bottom:94px;left:18px;right:18px;border-radius:12px;background:var(--b-text);color:var(--b-panel);text-align:center;font-size:12px;padding:12px;box-shadow:0 5px 15px #0002;z-index:5}
+#blussh-ios [hidden]{display:none!important}
+#blussh-ios .widget-stage{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px}
+#blussh-ios .home-screen{background:light-dark(#d4e0ec,#1f2b3c);min-height:744px;padding:0 17px 14px;display:flex;flex-direction:column;border-radius:43px;border:5px solid light-dark(#26272b,#393a42);overflow:hidden}
+#blussh-ios .home-screen .statusbar{margin:0 -3px}
+#blussh-ios .home-date{text-align:center;font-size:14px;font-weight:500;margin:23px 0 8px}
+#blussh-ios .home-clock{text-align:center;font-size:66px;font-weight:650;letter-spacing:-3px;line-height:1.15;margin-bottom:25px}
+#blussh-ios .small-widget{width:152px;min-height:152px;background:var(--b-panel);border-radius:24px;padding:15px;border:0;text-align:left;color:var(--b-text);display:flex;flex-direction:column;align-items:flex-start}
+#blussh-ios .widget-brand{display:flex;align-items:center;gap:5px;color:var(--b-sub);font-size:10px;font-weight:650}
+#blussh-ios .widget-brand .brandmark{width:18px;height:18px;border-radius:5px;font-size:10px}
+#blussh-ios .widget-number{font-size:32px;letter-spacing:-1.5px;font-weight:700;line-height:1.15;margin-top:12px}
+#blussh-ios .widget-number small{font-size:17px;color:var(--b-sub);letter-spacing:-.5px}
+#blussh-ios .widget-warn{color:var(--b-orange);font-size:10px;margin-top:5px;display:flex;align-items:center;gap:4px}
+#blussh-ios .widget-updated{font-size:9px;color:var(--b-sub);margin-top:auto;padding-top:8px}
+#blussh-ios .medium-widget{background:var(--b-panel);border-radius:24px;padding:14px 15px;margin-top:19px}
+#blussh-ios .widget-top{display:flex;align-items:center;justify-content:space-between;font-size:11px;gap:8px;margin-bottom:10px}
+#blussh-ios .widget-host{border:0;background:transparent;color:var(--b-text);display:flex;align-items:center;justify-content:space-between;width:100%;padding:7px 0;min-height:32px;font-size:12px}
+#blussh-ios .widget-host+.widget-host{border-top:1px solid var(--b-line)}
+#blussh-ios .widget-host span{display:flex;align-items:center;gap:6px}
+#blussh-ios .widget-host small{font-size:10px;color:var(--b-sub)}
+#blussh-ios .home-icons{display:grid;grid-template-columns:repeat(4,1fr);gap:18px 12px;margin-top:25px}
+#blussh-ios .home-app{display:flex;align-items:center;flex-direction:column;gap:5px;font-size:9px;color:light-dark(#324052,#ccd5e2)}
+#blussh-ios .home-app>span{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;background:light-dark(#f3f6fa80,#f3f6fa17);color:light-dark(#64788e,#bacce0)}
+#blussh-ios .lock-widget{background:light-dark(#eaf0f680,#f4f6ff15);border-radius:18px;padding:12px;border:0;color:inherit;text-align:left;width:100%;display:flex;gap:10px;align-items:center;margin-bottom:20px}
+#blussh-ios .lock-widget strong{font-size:13px;display:block}
+#blussh-ios .lock-widget p{font-size:11px;margin-top:3px;opacity:.8}
+#blussh-ios .notification{border-radius:21px;background:light-dark(#f7faffcc,#1d2739dd);padding:13px;margin-top:19px}
+#blussh-ios .notification strong{font-size:12px;display:block;margin-top:8px}
+#blussh-ios .notification p{font-size:11px;color:var(--b-sub);margin-top:4px;line-height:1.5}
+#blussh-ios .lock-spacer{flex:1;min-height:110px}
+#blussh-ios .lock-shortcuts{display:flex;justify-content:space-between;margin:0 10px 12px}
+#blussh-ios .lock-shortcuts span{width:43px;height:43px;background:light-dark(#75859c33,#f3f6fa20);display:flex;align-items:center;justify-content:center;border-radius:50%}
+@media(max-width:650px){#blussh-ios{max-width:385px}#blussh-ios .stage,#blussh-ios .widget-stage{grid-template-columns:minmax(0,1fr);gap:28px}#blussh-ios .demo-nav{padding-right:0}#blussh-ios .demo-nav button{padding:9px 10px}#blussh-ios .phone,#blussh-ios .home-screen{min-height:744px}#blussh-ios .small-widget{width:155px}#blussh-ios .app-content{padding-left:18px;padding-right:18px}}
+@media(prefers-reduced-motion:reduce){#blussh-ios *{transition:none!important}}
+/* Resource direction: instrumentation, graphite, a single mint GPU trace.
+   Design process informed by unslop, Damir Sokolovsky, CC BY 4.0. */
+#blussh-ios{--r-trace:light-dark(#007b68,#83e3c4);--r-trace-fill:light-dark(#e1f3ec,#203c33);--r-mono:ui-monospace,SFMono-Regular,Menlo,monospace}
+#blussh-ios .r-title{font-size:35px;line-height:1.1;letter-spacing:-1px;font-weight:600;margin:13px 0 8px}
+#blussh-ios .r-sub{font-size:12px;line-height:1.5;color:var(--b-sub)}
+#blussh-ios .r-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+#blussh-ios .r-status{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--b-sub);margin:6px 0 0}
+#blussh-ios .r-network{font:10px var(--r-mono);color:var(--b-sub)}
+#blussh-ios .r-counts{display:flex;align-items:center;gap:16px;padding:20px 0 20px;margin-bottom:4px;border-bottom:1px solid var(--b-line)}
+#blussh-ios .r-counts strong{font-size:28px;font-weight:500;letter-spacing:-1px}
+#blussh-ios .r-counts span{font-size:11px;color:var(--b-sub);display:block;margin-top:2px}
+#blussh-ios .r-counts>div:last-child{margin-left:auto;text-align:right}
+#blussh-ios .r-counts .r-alert-number{color:var(--b-orange)}
+#blussh-ios .r-host{background:var(--b-panel);padding:16px 14px;border-radius:17px;border:1px solid transparent;width:100%;color:var(--b-text);text-align:left;margin-top:12px}
+#blussh-ios .r-host[aria-pressed=true]{border-color:color-mix(in srgb,var(--r-trace) 45%,transparent)}
+#blussh-ios .r-host-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:9px}
+#blussh-ios .r-host-heading strong{font-size:20px;font-weight:600;letter-spacing:-.4px}
+#blussh-ios .r-host-heading>span{font-size:10px;color:var(--b-sub);display:flex;align-items:center;gap:5px}
+#blussh-ios .r-host-model{font-size:12px;color:var(--b-text);font-weight:500;line-height:1.45}
+#blussh-ios .r-host-capacity{font-size:11px;color:var(--b-sub);margin-top:3px;line-height:1.5}
+#blussh-ios .r-host-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;border-top:1px solid var(--b-line);padding-top:12px;margin-top:13px}
+#blussh-ios .r-host-metrics label{font:10px var(--r-mono);color:var(--b-sub);display:block;margin-bottom:5px}
+#blussh-ios .r-host-metrics strong{font-size:21px;font-weight:500;font-variant-numeric:tabular-nums;letter-spacing:-.6px}
+#blussh-ios .r-host-metrics strong small{font-size:11px;letter-spacing:0;color:var(--b-sub);font-weight:400}
+#blussh-ios .r-host-metrics .r-gpu-number{color:var(--r-trace)}
+#blussh-ios .r-host-metrics .r-gpu-number small{color:inherit}
+#blussh-ios .r-issue-row{display:flex;align-items:center;justify-content:space-between;gap:10px;border:0;border-bottom:1px solid var(--b-line);background:transparent;color:var(--b-text);width:100%;padding:14px 2px;text-align:left;font-size:12px}
+#blussh-ios .r-issue-row span{display:flex;align-items:center;gap:7px}
+#blussh-ios .r-issue-row small{color:var(--b-sub);font-size:11px}
+#blussh-ios .r-page-meta{font:10px/1.6 var(--r-mono);color:var(--b-sub);margin:16px 0 0;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+#blussh-ios .r-local-tabs{display:flex;gap:20px;border-bottom:1px solid var(--b-line);margin:21px 0 20px}
+#blussh-ios .r-local-tabs button{padding:8px 0 12px;border:0;border-bottom:2px solid transparent;background:transparent;color:var(--b-sub);font-size:12px;font-weight:500;min-height:36px}
+#blussh-ios .r-local-tabs button[aria-selected=true]{color:var(--b-text);border-bottom-color:var(--b-text)}
+#blussh-ios .r-pair-metrics{display:grid;grid-template-columns:1fr 1.25fr;gap:16px;margin:0 0 21px}
+#blussh-ios .r-pair-metrics>div+div{border-left:1px solid var(--b-line);padding-left:16px}
+#blussh-ios .r-label{font:11px var(--r-mono);color:var(--b-sub);display:block;margin-bottom:8px}
+#blussh-ios .r-number{font-size:36px;line-height:1.1;letter-spacing:-1.5px;font-weight:500;font-variant-numeric:tabular-nums;white-space:nowrap}
+#blussh-ios .r-number small{font-size:15px;letter-spacing:-.3px;color:var(--b-sub)}
+#blussh-ios .r-model-caption{color:var(--b-sub);font-size:10px;line-height:1.6;margin-top:6px}
+#blussh-ios .r-gpu{background:var(--b-panel);border-radius:19px;padding:17px 15px 16px;margin-bottom:18px}
+#blussh-ios .r-gpu-title{display:flex;justify-content:space-between;align-items:center;gap:6px}
+#blussh-ios .r-gpu-title>span{font:10px var(--r-mono);color:var(--b-sub)}
+#blussh-ios .r-device-switch{display:flex;gap:3px;background:var(--b-bg);padding:3px;border-radius:7px}
+#blussh-ios .r-device-switch button{border:0;background:transparent;color:var(--b-sub);border-radius:5px;font:10px var(--r-mono);min-height:26px;padding:4px 7px}
+#blussh-ios .r-device-switch button[aria-pressed=true]{background:var(--b-text);color:var(--b-panel)}
+#blussh-ios .r-gpu-model{font-size:18px;font-weight:500;letter-spacing:-.4px;margin:13px 0 3px}
+#blussh-ios .r-gpu-memory{font-size:10px;color:var(--b-sub);font-family:var(--r-mono)}
+#blussh-ios .r-gpu-value-row{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:19px 0 8px}
+#blussh-ios .r-gpu-value{font-size:69px;font-weight:400;line-height:.9;letter-spacing:-4px;font-variant-numeric:tabular-nums}
+#blussh-ios .r-gpu-value span{font-size:30px;letter-spacing:-1px;color:var(--b-sub);margin-left:3px}
+#blussh-ios .r-gpu-value-caption{font-size:11px;color:var(--b-sub);text-align:right;line-height:1.6;max-width:85px}
+#blussh-ios .r-chart{width:100%;height:110px;display:block;overflow:visible;margin:15px 0 1px}
+#blussh-ios .r-chart .r-grid{stroke:var(--b-line);stroke-width:.75;fill:none}
+#blussh-ios .r-chart .r-trace{stroke:var(--r-trace);stroke-width:2;fill:none;stroke-linejoin:round;stroke-linecap:round}
+#blussh-ios .r-chart text{font:9px var(--r-mono);fill:var(--b-sub)}
+#blussh-ios .r-chart .r-plot-dot{fill:var(--b-panel);stroke:var(--r-trace);stroke-width:2}
+#blussh-ios .r-chart-times{display:flex;justify-content:space-between;color:var(--b-sub);font:9px var(--r-mono);margin-top:3px}
+#blussh-ios .r-vram{border-top:1px solid var(--b-line);padding-top:15px;margin-top:16px}
+#blussh-ios .r-vram-heading{display:flex;justify-content:space-between;align-items:baseline;gap:5px;font-size:11px}
+#blussh-ios .r-vram-heading span{color:var(--b-sub)}
+#blussh-ios .r-vram-heading strong{font-size:14px;font-weight:500;font-variant-numeric:tabular-nums}
+#blussh-ios .r-vram-heading strong small{font-size:11px;color:var(--b-sub);font-weight:400}
+#blussh-ios .r-capacity-track{height:5px;border-radius:4px;background:var(--b-line);margin:10px 0;overflow:hidden}
+#blussh-ios .r-capacity-track span{height:5px;background:var(--r-trace);display:block;border-radius:4px}
+#blussh-ios .r-gpu-foot{display:flex;justify-content:space-between;gap:7px;color:var(--b-sub);font:10px/1.5 var(--r-mono)}
+#blussh-ios .r-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:15px}
+#blussh-ios .r-actions button{border:0;background:var(--b-panel);color:var(--b-text);padding:12px 8px;border-radius:11px;font-size:12px;display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px}
+#blussh-ios .r-hardware-block{border-bottom:1px solid var(--b-line);padding:0 0 20px;margin-bottom:20px}
+#blussh-ios .r-hardware-block h2{font-size:19px;font-weight:500;letter-spacing:-.4px;line-height:1.3;margin-bottom:7px}
+#blussh-ios .r-hardware-block p{font-size:12px;color:var(--b-sub);line-height:1.6}
+#blussh-ios .r-chip-diagram{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin:16px 0 4px}
+#blussh-ios .r-chip-diagram span{height:15px;background:var(--b-line);border-radius:2px}
+#blussh-ios .r-module-diagram{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:15px}
+#blussh-ios .r-module-diagram span{display:flex;justify-content:center;align-items:center;min-height:31px;background:var(--b-panel);border-radius:5px;font:9px var(--r-mono);color:var(--b-sub)}
+#blussh-ios .r-hardware-gpu{padding:13px 0;border-top:1px solid var(--b-line);display:flex;justify-content:space-between;gap:10px}
+#blussh-ios .r-hardware-gpu:first-of-type{margin-top:12px}
+#blussh-ios .r-hardware-gpu strong{font-size:13px;font-weight:500;display:block;line-height:1.5}
+#blussh-ios .r-hardware-gpu span{font:10px/1.5 var(--r-mono);color:var(--b-sub)}
+#blussh-ios .r-shared{padding:15px;background:var(--b-panel);border-radius:17px;margin:15px 0}
+#blussh-ios .r-shared h2{font-size:18px;font-weight:500;margin:8px 0 5px}
+#blussh-ios .r-shared p{font-size:11px;color:var(--b-sub);line-height:1.6}
+#blussh-ios .r-shared strong{font-size:36px;font-weight:500;letter-spacing:-1px;display:block;margin:13px 0}
+#blussh-ios .r-shared strong small{font-size:15px;color:var(--b-sub)}
+#blussh-ios .r-no-data{background:var(--b-panel);padding:20px 16px;border-radius:17px;margin:22px 0}
+#blussh-ios .r-no-data strong{font-size:18px;font-weight:500;display:block;margin-bottom:8px}
+#blussh-ios .r-no-data p{font-size:12px;color:var(--b-sub);line-height:1.6}
+#blussh-ios .r-widget-top{display:flex;justify-content:space-between;gap:5px;align-items:center}
+#blussh-ios .r-widget-host{font-size:14px;font-weight:600;display:flex;align-items:center;gap:5px}
+#blussh-ios .r-widget-model{font-size:10px;color:var(--b-sub);margin:5px 0 11px;line-height:1.5}
+#blussh-ios .r-widget-cpu{font-size:31px;line-height:1;letter-spacing:-1px;font-weight:500}
+#blussh-ios .r-widget-cpu small{font-size:14px;color:var(--b-sub)}
+#blussh-ios .r-widget-row{display:flex;justify-content:space-between;gap:5px;font-size:10px;margin-top:9px;color:var(--b-sub)}
+#blussh-ios .r-widget-row strong{font-weight:500;color:var(--b-text)}
+#blussh-ios .r-medium-title{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:3px}
+#blussh-ios .r-medium-title strong{font-size:14px;font-weight:600}
+#blussh-ios .r-medium-title span{font-size:10px;color:var(--b-sub)}
+#blussh-ios .r-widget-gpu{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center;background:transparent;border:0;border-top:1px solid var(--b-line);width:100%;text-align:left;color:var(--b-text);padding:10px 0 3px;margin-top:8px}
+#blussh-ios .r-widget-gpu strong{font-size:12px;font-weight:500}
+#blussh-ios .r-widget-gpu small{display:block;font:10px var(--r-mono);color:var(--b-sub);margin-top:4px}
+#blussh-ios .r-widget-gpu>span:last-child{font-size:24px;color:var(--r-trace);font-weight:500;font-variant-numeric:tabular-nums;letter-spacing:-.5px}
+#blussh-ios .r-widget-gpu>span:last-child small{font-size:10px;display:inline;color:var(--b-sub)}
+#blussh-ios .r-widget-caption{font-size:10px;line-height:1.5;color:var(--b-sub);margin-top:11px;display:flex;justify-content:space-between;gap:5px}
+#blussh-ios .r-lock-widget{display:flex;align-items:center;justify-content:space-between;gap:8px;border:0;background:light-dark(#eaf0f680,#f4f6ff15);border-radius:18px;padding:13px 14px;color:inherit;width:100%;text-align:left}
+#blussh-ios .r-lock-widget strong{font-size:13px;display:block;font-weight:600}
+#blussh-ios .r-lock-widget small{display:block;font-size:10px;margin-top:5px;color:var(--b-sub)}
+#blussh-ios .r-lock-widget>span:last-child{font-size:28px;font-weight:500;letter-spacing:-1px}
+#blussh-ios .r-lock-widget>span:last-child small{display:inline;font-size:13px}
+@media(max-width:340px){#blussh-ios .r-number{font-size:31px}#blussh-ios .r-number small{font-size:13px}#blussh-ios .r-device-switch button{padding:4px 5px}#blussh-ios .r-gpu{padding:16px 12px}#blussh-ios .r-host-metrics strong{font-size:20px}}
+/* Craft pass: actual device proportions, readable type and a compact hierarchy.
+   Direction: personal fleet instruments; graphite, precise, restrained.
+   One signature: each hardware quantity is represented by its own core/slot. */
+#blussh-ios{--b-bg:light-dark(#f4f4f7,#0e0e11);--b-panel:light-dark(#ffffff,#1b1b20);--b-sub:light-dark(#63636c,#a1a1ac);--b-line:light-dark(#e4e4e9,#2b2b32);--r-trace:light-dark(#087c67,#8fe2c4)}
+#blussh-ios .demo-nav{gap:4px;padding-right:0;margin-bottom:20px}
+#blussh-ios .demo-nav button{padding:9px 11px;font-size:12px;font-weight:500;min-height:38px;border-radius:8px}
+#blussh-ios .stage{gap:24px}
+#blussh-ios .screen-caption{font-size:12px;font-weight:400;margin-bottom:12px}
+#blussh-ios .screen-caption>span:first-child{display:none}
+#blussh-ios .phone{height:790px;min-height:790px;border-width:5px;border-radius:43px;box-shadow:0 16px 32px #00000014;flex:none!important}
+#blussh-ios .statusbar{height:46px;flex-shrink:0;padding-left:22px;padding-right:22px}
+#blussh-ios .app{min-height:0;flex:1;overflow:hidden}
+#blussh-ios .app-content{padding:4px 16px 16px;min-height:0;overflow-y:auto;scrollbar-width:none;overscroll-behavior:contain}
+#blussh-ios .app-content::-webkit-scrollbar{display:none}
+#blussh-ios .bottom-tabs{padding:8px 8px 0;flex-shrink:0;background:var(--b-bg)}
+#blussh-ios .tab{min-height:39px;font-size:10px;gap:3px}
+#blussh-ios .homebar{height:23px;background:var(--b-bg);flex-shrink:0}
+#blussh-ios .home-screen{height:790px;min-height:790px;padding:0 16px 12px;background:light-dark(#dde3e9,#252d38)}
+#blussh-ios .home-date{font-size:13px;margin-top:20px;margin-bottom:8px}
+#blussh-ios .home-clock{font-size:66px;line-height:1;margin-bottom:24px}
+#blussh-ios .v-nav{display:flex;align-items:center;justify-content:space-between;min-height:30px;margin:0 0 8px;gap:8px}
+#blussh-ios .v-back{display:flex;align-items:center;gap:4px;border:0;background:transparent;color:var(--b-sub);padding:4px 0;font-size:12px;min-height:30px}
+#blussh-ios .v-back i{color:var(--b-sub)}
+#blussh-ios .v-icon-button{border:0;background:transparent;color:var(--b-sub);width:32px;min-height:32px;display:flex;align-items:center;justify-content:center;border-radius:10px;font-size:21px;padding:0}
+#blussh-ios .v-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:5px}
+#blussh-ios .v-heading h1{font-size:30px;line-height:1.1;font-weight:600;letter-spacing:-.8px}
+#blussh-ios .v-small-link{font-size:12px;color:var(--b-sub);border:0;background:transparent;padding:8px 0;min-height:32px;display:flex;align-items:center;gap:5px}
+#blussh-ios .v-status{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;color:var(--b-sub);margin-bottom:20px}
+#blussh-ios .v-status>span{display:flex;align-items:center;gap:5px}
+#blussh-ios .v-status time{font-variant-numeric:tabular-nums;font-size:11px}
+#blussh-ios .v-top-metrics{display:grid;grid-template-columns:1fr 1.15fr;gap:12px;margin:0 0 16px}
+#blussh-ios .v-top-metric{min-width:0;padding:12px;background:var(--b-panel);border-radius:14px}
+#blussh-ios .v-top-metric .v-label{font-size:11px;color:var(--b-sub);display:block;margin-bottom:8px}
+#blussh-ios .v-top-metric strong{font-size:30px;line-height:1;font-weight:500;letter-spacing:-1px;white-space:nowrap;display:block;font-variant-numeric:tabular-nums}
+#blussh-ios .v-top-metric strong small{font-size:13px;font-weight:400;letter-spacing:0;color:var(--b-sub)}
+#blussh-ios .v-top-metric p{font-size:11px;color:var(--b-sub);line-height:1.5;margin-top:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#blussh-ios .v-top-metric p span{display:block;font-size:11px}
+#blussh-ios .v-section-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:16px 0 8px}
+#blussh-ios .v-section-heading h2{font-size:15px;font-weight:500;letter-spacing:0}
+#blussh-ios .v-section-heading>span{color:var(--b-sub);font-size:11px}
+#blussh-ios .v-gpu-panel{background:var(--b-panel);border-radius:17px;padding:14px;margin-bottom:12px}
+#blussh-ios .v-gpu-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+#blussh-ios .v-gpu-head h3{font-size:16px;font-weight:500;letter-spacing:-.2px;line-height:1.2}
+#blussh-ios .v-gpu-head p{color:var(--b-sub);font-size:11px;margin-top:5px}
+#blussh-ios .r-device-switch{border-radius:8px;padding:3px;gap:2px;background:var(--b-bg);flex-shrink:0}
+#blussh-ios .r-device-switch button{min-height:25px;font-size:10px;padding:4px 6px;border-radius:5px}
+#blussh-ios .v-gpu-number-row{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin:16px 0 8px}
+#blussh-ios .r-gpu-value{font-size:59px;line-height:.9;letter-spacing:-2px;font-weight:400}
+#blussh-ios .r-gpu-value span{font-size:25px;letter-spacing:-.5px;margin-left:3px}
+#blussh-ios .v-gpu-secondary{text-align:right;color:var(--b-sub);font-size:11px;line-height:1.7;font-variant-numeric:tabular-nums}
+#blussh-ios .r-chart{height:92px;margin:4px 0 0}
+#blussh-ios .r-chart text{font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:11px}
+#blussh-ios .r-chart .r-grid{stroke-width:.6}
+#blussh-ios .r-chart .r-trace{stroke-width:2.25}
+#blussh-ios .r-chart-times{font:10px/1.5 -apple-system,BlinkMacSystemFont,sans-serif;margin-top:4px}
+#blussh-ios .v-vram{padding-top:12px;margin-top:11px;border-top:1px solid var(--b-line)}
+#blussh-ios .r-vram-heading{font-size:11px}
+#blussh-ios .r-vram-heading strong{font-size:13px;font-weight:500}
+#blussh-ios .r-vram-heading strong small{font-size:11px}
+#blussh-ios .r-capacity-track{height:4px;margin:8px 0}
+#blussh-ios .r-capacity-track span{height:4px}
+#blussh-ios .v-vram-foot{display:flex;justify-content:space-between;color:var(--b-sub);font-size:10px;font-variant-numeric:tabular-nums}
+#blussh-ios .v-shortcuts{display:flex;gap:8px;margin-top:14px}
+#blussh-ios .v-shortcuts button{display:flex;align-items:center;justify-content:center;gap:7px;flex:1;background:var(--b-panel);color:var(--b-text);border:0;border-radius:11px;font-size:12px;min-height:42px;padding:10px 6px}
+#blussh-ios .v-meta{display:flex;justify-content:space-between;gap:8px;color:var(--b-sub);font-size:10px;line-height:1.5;margin-top:12px}
+#blussh-ios .v-inventory-intro{font-size:12px;color:var(--b-sub);margin-bottom:18px}
+#blussh-ios .v-inventory-group{padding:15px;background:var(--b-panel);border-radius:15px;margin:0 0 12px}
+#blussh-ios .v-inventory-label{font-size:11px;color:var(--b-sub);display:flex;justify-content:space-between;gap:8px;margin-bottom:12px}
+#blussh-ios .v-processor-row{display:flex;align-items:center;gap:12px}
+#blussh-ios .v-processor-row h2{font-size:16px;font-weight:500;line-height:1.35}
+#blussh-ios .v-processor-row p{font-size:11px;color:var(--b-sub);margin-top:5px;line-height:1.5}
+#blussh-ios .v-die{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;width:52px;height:52px;padding:7px;background:var(--b-bg);border:1px solid var(--b-line);border-radius:9px;flex-shrink:0}
+#blussh-ios .v-die span{background:light-dark(#c1c5cb,#63636e);border-radius:1px}
+#blussh-ios .v-ram-title{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+#blussh-ios .v-ram-title strong{font-size:25px;font-weight:500;letter-spacing:-.7px}
+#blussh-ios .v-ram-title span{color:var(--b-sub);font-size:11px}
+#blussh-ios .v-dimms{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:14px 0 8px}
+#blussh-ios .v-dimm{background:var(--b-bg);border-radius:4px 4px 2px 2px;min-height:35px;padding:6px 4px;border-bottom:2px solid light-dark(#bea673,#a99468);display:flex;gap:3px;justify-content:center;align-items:center;position:relative}
+#blussh-ios .v-dimm:before,#blussh-ios .v-dimm:after{content:"";width:12px;height:15px;border-radius:1px;background:light-dark(#c2c5cc,#3d3d47)}
+#blussh-ios .v-dimm-labels{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;text-align:center;color:var(--b-sub);font-size:10px}
+#blussh-ios .v-gpu-inventory{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 0}
+#blussh-ios .v-gpu-inventory+.v-gpu-inventory{border-top:1px solid var(--b-line)}
+#blussh-ios .v-gpu-inventory:first-of-type{padding-top:0}
+#blussh-ios .v-gpu-inventory:last-child{padding-bottom:0}
+#blussh-ios .v-gpu-inventory strong{font-size:14px;font-weight:500;display:block}
+#blussh-ios .v-gpu-inventory p{font-size:11px;color:var(--b-sub);margin-top:5px}
+#blussh-ios .v-gpu-memory-number{font-size:19px;font-weight:500;white-space:nowrap;font-variant-numeric:tabular-nums}
+#blussh-ios .v-gpu-memory-number small{font-size:10px;color:var(--b-sub);font-weight:400;display:block;text-align:right;margin-top:4px}
+#blussh-ios .v-inventory-note{display:flex;align-items:flex-start;gap:7px;font-size:11px;line-height:1.6;color:var(--b-sub);padding:2px 2px 0}
+#blussh-ios .v-fleet-summary{display:flex;align-items:center;justify-content:space-between;margin:16px 0 20px;gap:8px;color:var(--b-sub);font-size:12px}
+#blussh-ios .v-fleet-summary strong{font-weight:500;color:var(--b-text)}
+#blussh-ios .v-fleet-summary>span:last-child{font-size:11px;color:var(--b-orange)}
+#blussh-ios .v-fleet-card{border:0;background:var(--b-panel);color:var(--b-text);text-align:left;border-radius:16px;padding:14px;width:100%;margin-bottom:10px}
+#blussh-ios .v-fleet-card .r-host-heading{margin-bottom:7px}
+#blussh-ios .v-fleet-card .r-host-heading strong{font-size:19px;font-weight:500}
+#blussh-ios .v-fleet-card .r-host-model{font-size:12px;font-weight:400}
+#blussh-ios .v-fleet-card .r-host-capacity{font-size:11px;margin-top:4px}
+#blussh-ios .v-fleet-card .r-host-metrics{margin-top:12px;padding-top:10px;gap:8px}
+#blussh-ios .v-fleet-card .r-host-metrics strong{font-size:23px}
+#blussh-ios .v-compact-host{border:0;border-bottom:1px solid var(--b-line);background:transparent;color:var(--b-text);width:100%;padding:13px 0;text-align:left}
+#blussh-ios .v-compact-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:5px}
+#blussh-ios .v-compact-top strong{font-size:15px;font-weight:500;display:flex;align-items:center;gap:6px}
+#blussh-ios .v-compact-top>span{font-size:11px;color:var(--b-sub)}
+#blussh-ios .v-compact-host p{font-size:11px;color:var(--b-sub);line-height:1.5}
+#blussh-ios .v-compact-stats{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:var(--b-sub);margin-top:10px}
+#blussh-ios .v-compact-stats strong{color:var(--b-text);font-weight:500}
+#blussh-ios .v-others{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:42px;font-size:12px;color:var(--b-sub);border:0;background:transparent;width:100%;padding:10px 0}
+#blussh-ios .v-widget-small{width:150px;min-height:150px;border-radius:23px;background:var(--b-panel);padding:14px;display:flex;flex-direction:column;align-items:flex-start;color:var(--b-text);border:0;text-align:left}
+#blussh-ios .v-widget-small .r-widget-host{font-size:13px;font-weight:500}
+#blussh-ios .v-widget-small .r-widget-model{font-size:10px;margin:5px 0 12px}
+#blussh-ios .v-widget-small .r-widget-cpu{font-size:32px}
+#blussh-ios .v-widget-small .r-widget-row{font-size:10px;margin-top:9px}
+#blussh-ios .v-widget-small .widget-updated{font-size:10px;padding-top:10px}
+#blussh-ios .medium-widget{border-radius:23px;padding:15px;margin-top:20px}
+#blussh-ios .r-widget-gpu{padding:11px 0 3px}
+#blussh-ios .r-widget-gpu strong{font-size:12px}
+#blussh-ios .r-widget-gpu small{font-size:10px}
+#blussh-ios .r-widget-caption{font-size:10px}
+#blussh-ios .home-icons{gap:16px 10px;margin-top:24px}
+#blussh-ios .v-lock-widgets{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+#blussh-ios .v-lock-widget{border:0;background:light-dark(#f8faff55,#ffffff0c);border-radius:15px;padding:10px;color:inherit;text-align:left;min-height:78px}
+#blussh-ios .v-lock-widget strong{font-size:11px;display:block;font-weight:500;white-space:nowrap}
+#blussh-ios .v-lock-widget .v-lock-value{display:block;font-size:27px;line-height:1.2;font-weight:500;letter-spacing:-.7px;margin:4px 0}
+#blussh-ios .v-lock-widget .v-lock-value small{font-size:13px;letter-spacing:0;font-weight:400}
+#blussh-ios .v-lock-widget p{font-size:11px;white-space:nowrap;opacity:.8}
+#blussh-ios .v-lock-timestamp{font-size:11px;text-align:center;opacity:.7;margin-top:12px}
+#blussh-ios .v-t3-mark{display:flex;align-items:center;gap:12px;margin:20px 0}
+#blussh-ios .v-t3-mark .service-logo{width:45px;height:45px;border-radius:13px;font-size:20px}
+#blussh-ios .v-t3-mark strong{display:block;font-size:16px;font-weight:500}
+#blussh-ios .v-t3-mark p{font-size:11px;color:var(--b-sub);margin-top:4px}
+#blussh-ios .v-primary{border:0;background:var(--b-text);color:var(--b-panel);border-radius:12px;min-height:44px;width:100%;padding:12px;font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px}
+#blussh-ios .v-qr-card{background:var(--b-panel);border-radius:17px;padding:15px;text-align:center;margin:16px 0}
+#blussh-ios .v-qr-card img{width:142px;height:142px;display:block;margin:0 auto 12px;border-radius:6px;image-rendering:pixelated;background:#fff}
+#blussh-ios .v-qr-card p{font-size:11px;color:var(--b-sub);line-height:1.5}
+#blussh-ios .v-mcp-note{padding:14px;border-radius:13px;background:var(--b-panel);margin-top:16px}
+#blussh-ios .v-mcp-note strong{font-size:12px;font-weight:500;display:block;margin-bottom:5px}
+#blussh-ios .v-mcp-note p{font-size:11px;color:var(--b-sub);line-height:1.6}
+#blussh-ios .v-mcp-note code{font:11px var(--r-mono);color:var(--b-text)}
+@media(max-width:650px){#blussh-ios{max-width:385px}#blussh-ios .stage{gap:28px}#blussh-ios .phone,#blussh-ios .home-screen{height:790px;min-height:790px}}
+@media(max-width:340px){#blussh-ios .v-top-metric{padding:11px 10px}#blussh-ios .v-top-metric strong{font-size:27px}#blussh-ios .v-gpu-head h3{font-size:14px}#blussh-ios .v-gpu-panel{padding:12px}#blussh-ios .r-device-switch button{padding:4px 5px}#blussh-ios .v-lock-widget p{font-size:10px}}
+/* Usage is read as shape first; numbers remain secondary and inspectable. */
+#blussh-ios{--h-zero:light-dark(#e5e9e8,#252d2b);--h-low:light-dark(#c9e6dc,#2d5749);--h-mid:light-dark(#91cdb7,#67ab8d);--h-high:light-dark(#d7b975,#c3aa6e);--h-hot:light-dark(#d88e67,#d88e67);--h-unknown:light-dark(#e0e0e5,#34343d)}
+#blussh-ios .h-resource-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 14px;align-items:stretch}
+#blussh-ios .h-unit{background:var(--b-panel);border-radius:16px;padding:13px 12px;min-width:0;display:flex;flex-direction:column}
+#blussh-ios .h-unit-heading{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:12px;font-weight:500;margin-bottom:5px}
+#blussh-ios .h-unit-heading>span:last-child{font-size:10px;color:var(--b-sub);font-weight:400}
+#blussh-ios .h-model{font-size:11px;color:var(--b-sub);line-height:1.5;margin-bottom:12px;min-height:17px}
+#blussh-ios .h-matrix-button{border:0;background:transparent;color:inherit;width:100%;padding:3px 0;display:block;border-radius:8px;margin:auto 0;min-height:112px}
+#blussh-ios .h-matrix{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;max-width:106px;margin:0 auto}
+#blussh-ios .h-core{display:block;aspect-ratio:1;border-radius:4px;background:var(--h-zero)}
+#blussh-ios .h-core[data-missing=true]{background:repeating-linear-gradient(135deg,var(--h-unknown),var(--h-unknown) 3px,var(--b-panel) 3px,var(--b-panel) 6px)}
+#blussh-ios .h-core-caption{font-size:11px;color:var(--b-sub);text-align:center;margin:8px 0 0;line-height:1.5}
+#blussh-ios .h-legend{display:flex;align-items:center;justify-content:space-between;gap:4px;font-size:9px;color:var(--b-sub);margin-top:9px}
+#blussh-ios .h-legend-swatches{display:flex;gap:3px;flex:1;max-width:58px}
+#blussh-ios .h-legend-swatches i{height:4px;flex:1;border-radius:1px}
+#blussh-ios .h-gpu-switch{display:flex;gap:3px;margin-top:1px;align-self:flex-start;background:var(--b-bg);padding:3px;border-radius:7px}
+#blussh-ios .h-gpu-switch button{min-width:32px;min-height:25px;padding:4px 7px;font-size:10px;border:0;border-radius:4px;background:transparent;color:var(--b-sub)}
+#blussh-ios .h-gpu-switch button[aria-pressed=true]{background:var(--b-text);color:var(--b-panel)}
+#blussh-ios .h-gauge{display:block;width:100%;max-width:128px;height:111px;margin:auto auto 0;overflow:visible}
+#blussh-ios .h-gauge .h-gauge-track{fill:none;stroke:var(--b-line);stroke-width:7;stroke-linecap:round}
+#blussh-ios .h-gauge .h-gauge-fill{fill:none;stroke:var(--r-trace);stroke-width:7;stroke-linecap:round}
+#blussh-ios .h-gauge text{font-family:-apple-system,BlinkMacSystemFont,sans-serif;fill:var(--b-text);font-size:23px;font-weight:500;font-variant-numeric:tabular-nums}
+#blussh-ios .h-gauge .h-gauge-sub{font-size:11px;fill:var(--b-sub);font-weight:400}
+#blussh-ios .h-gauge-meta{font-size:11px;color:var(--b-sub);text-align:center;line-height:1.5;margin-top:0}
+#blussh-ios .h-memory{background:var(--b-panel);padding:15px;border-radius:16px;margin:14px 0 0}
+#blussh-ios .h-memory-row+.h-memory-row{margin-top:17px}
+#blussh-ios .h-bar-label{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:12px}
+#blussh-ios .h-bar-label>span:last-child{font-size:11px;color:var(--b-sub);font-variant-numeric:tabular-nums;white-space:nowrap}
+#blussh-ios .h-bar{height:7px;background:var(--b-line);border-radius:5px;overflow:hidden;margin-top:9px}
+#blussh-ios .h-bar span{height:7px;display:block;border-radius:5px;background:var(--r-trace)}
+#blussh-ios .h-memory-note{font-size:11px;line-height:1.5;color:var(--b-sub);margin:12px 0 0}
+#blussh-ios .h-more-row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:12px 0 0}
+#blussh-ios .h-more-button{border:0;background:transparent;color:var(--b-sub);font-size:11px;min-height:30px;padding:4px 0;display:flex;align-items:center;gap:6px}
+#blussh-ios .h-more-panel{padding:12px 0 0;font-size:12px;color:var(--b-sub);line-height:1.8}
+#blussh-ios .h-more-panel>div{display:flex;justify-content:space-between;gap:8px}
+#blussh-ios .h-more-panel strong{font-weight:400;color:var(--b-text);font-variant-numeric:tabular-nums}
+#blussh-ios .h-usage-summary{font-size:11px;color:var(--b-sub);display:flex;justify-content:space-between;margin-top:12px}
+#blussh-ios .h-sheet-backdrop{position:absolute;inset:0;background:#0008;border:0;padding:0;z-index:20;width:100%;border-radius:37px}
+#blussh-ios .h-core-sheet{position:absolute;bottom:0;left:0;right:0;background:var(--b-panel);z-index:21;padding:12px 20px 27px;border-radius:24px 24px 36px 36px;box-shadow:0 -8px 30px #0002}
+#blussh-ios .h-sheet-grip{height:4px;width:30px;background:var(--b-sub);opacity:.5;border-radius:4px;margin:0 auto 12px}
+#blussh-ios .h-sheet-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:4px}
+#blussh-ios .h-sheet-heading h2{font-size:20px;font-weight:500;letter-spacing:-.4px}
+#blussh-ios .h-sheet-sub{font-size:12px;color:var(--b-sub);margin-bottom:17px}
+#blussh-ios .h-core-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+#blussh-ios .h-core-tile{min-height:44px;min-width:44px;border:0;border-radius:8px;background:var(--h-zero);color:light-dark(#163528,#edfff6);font-size:12px;font-weight:500}
+#blussh-ios .h-core-tile[data-hot=true]{color:#281b0f}
+#blussh-ios .h-core-tile[aria-pressed=true]{outline:2px solid var(--b-text);outline-offset:2px}
+#blussh-ios .h-selected-core{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:20px 0 0;font-size:13px}
+#blussh-ios .h-selected-core strong{font-size:24px;font-weight:500;letter-spacing:-.5px}
+#blussh-ios .h-core-sheet .h-legend{font-size:11px;margin-top:16px;justify-content:flex-start;gap:10px}
+#blussh-ios .h-core-sheet .h-legend-swatches{max-width:106px;height:5px}
+#blussh-ios .h-core-sheet .h-legend-swatches i{height:5px}
+#blussh-ios .h-widget-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#blussh-ios .h-small-widget{background:var(--b-panel);border:0;border-radius:23px;color:var(--b-text);padding:13px 12px;text-align:left;min-width:0;min-height:158px;display:flex;flex-direction:column;align-items:stretch}
+#blussh-ios .h-widget-host{font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:space-between;gap:4px;margin-bottom:5px}
+#blussh-ios .h-widget-host span{color:var(--b-sub);font-size:10px;font-weight:400}
+#blussh-ios .h-widget-model{font-size:10px;color:var(--b-sub);margin-bottom:9px;white-space:nowrap}
+#blussh-ios .h-small-widget .h-matrix{width:68px;gap:3px;max-width:68px;margin:3px auto 6px}
+#blussh-ios .h-small-widget .h-core{border-radius:2px}
+#blussh-ios .h-small-widget .h-gauge{height:92px;max-width:109px;margin:-3px auto 0}
+#blussh-ios .h-small-widget .h-gauge text{font-size:22px}
+#blussh-ios .h-widget-time{font-size:9px;color:var(--b-sub);margin-top:auto;padding-top:6px;text-align:left}
+#blussh-ios .h-medium-widget{background:var(--b-panel);border-radius:23px;margin-top:20px;padding:15px}
+#blussh-ios .h-medium-widget .h-widget-host{font-size:13px;margin-bottom:12px}
+#blussh-ios .h-medium-widget .h-memory-row+.h-memory-row{margin-top:12px}
+#blussh-ios .h-medium-widget .h-bar-label{font-size:11px}
+#blussh-ios .h-medium-widget .h-bar-label>span:last-child{font-size:10px}
+#blussh-ios .h-medium-widget .h-bar{height:5px;margin-top:7px}
+#blussh-ios .h-medium-widget .h-bar span{height:5px}
+#blussh-ios .h-medium-widget .h-widget-time{margin-top:12px;display:flex;justify-content:space-between;padding-top:0}
+#blussh-ios .h-lock-matrix{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:3px;margin:10px 0 7px}
+#blussh-ios .h-lock-matrix .h-core{border-radius:2px}
+#blussh-ios .h-lock-widget-gpu{display:flex;align-items:center;gap:2px;margin-top:2px}
+#blussh-ios .h-lock-widget-gpu .h-gauge{width:57px;height:57px;flex-shrink:0;margin:0}
+#blussh-ios .h-lock-widget-gpu .h-gauge text{font-size:24px}
+#blussh-ios .h-small-widget .h-gauge .h-gauge-sub,#blussh-ios .h-lock-widget-gpu .h-gauge .h-gauge-sub{display:none}
+#blussh-ios .h-small-widget .h-gauge text:not(.h-gauge-sub),#blussh-ios .h-lock-widget-gpu .h-gauge text:not(.h-gauge-sub){transform:translateY(6px)}
+#blussh-ios .h-lock-widget-gpu p{font-size:10px;line-height:1.6;white-space:normal}
+#blussh-ios .h-fleet-bars{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:15px 0 0}
+#blussh-ios .h-fleet-bars>div>span{font-size:10px;color:var(--b-sub);display:block;margin-bottom:7px}
+#blussh-ios .h-fleet-bars .h-bar{height:5px;margin-top:0}
+#blussh-ios .h-fleet-bars .h-bar span{height:5px}
+@media(max-width:340px){#blussh-ios .h-unit{padding:12px 10px}#blussh-ios .h-gpu-switch button{min-width:30px;padding:4px 5px}#blussh-ios .h-model{font-size:10px}#blussh-ios .h-resource-grid{gap:9px}#blussh-ios .h-bar-label{font-size:11px}#blussh-ios .h-small-widget{padding:12px 10px}#blussh-ios .h-widget-model{font-size:9px}#blussh-ios .h-widget-row{gap:10px}}
+</style>
+<div id="blussh-ios" aria-label="Propuesta de Bleet para iPhone">
+  <nav class="demo-nav" aria-label="Pantallas de la propuesta">
+    <button type="button" data-pair="hardware" aria-pressed="true">Recursos</button>
+    <button type="button" data-pair="resources" aria-pressed="false">Mi red</button>
+    <button type="button" data-pair="tools" aria-pressed="false">Terminal y T3</button>
+    <button type="button" data-pair="network" aria-pressed="false">Actividad y red</button>
+    <button type="button" data-pair="setup" aria-pressed="false">Vinculación</button>
+    <button type="button" data-pair="widgets" aria-pressed="false">Widgets</button>
+  </nav>
+  <div class="stage viz-dotted-background" id="blussh-stage"></div>
+  <div class="demo-foot"><span>Hardware y lecturas de ejemplo</span><span>Tocá los equipos y explorá las pestañas.</span></div>
+</div>
+<script>
+(()=>{
+const root=document.getElementById('blussh-ios');
+const stage=root.querySelector('#blussh-stage');
+const fallback={'refresh-cw':'↻','chevron-left':'‹','star':'☆','terminal':'>_','activity':'⌁','link':'↗','copy':'⧉','triangle-alert':'!','external-link':'↗','scan-line':'⌗','key-round':'⚿','lock-keyhole':'▣','arrow-up-right':'↗','arrow-down-right':'↘','bell':'♧','network':'⌘','shield-check':'✓','wifi-off':'×','search':'⌕','camera':'◎','mail':'✉','calendar':'▦','settings':'⚙','flashlight':'⌁'};
+const icons=name=>`<i class="b-icon" data-lucide="${name}" aria-hidden="true">${fallback[name]||''}</i>`;
+const hosts=[
+ {name:'brak',address:'100.80.0.11',source:'Tailscale',state:'online',label:'Disponible',ssh:true,t3:true,icon:'server'},
+ {name:'dexter',address:'100.80.0.12',source:'Tailscale',state:'online',label:'Disponible',ssh:true,t3:true,icon:'monitor'},
+ {name:'zorak',address:'100.80.0.13',source:'Tailscale',state:'warn',label:'SSH sin respuesta',ssh:true,t3:false,icon:'server'},
+ {name:'buster',address:'100.80.0.14',source:'Tailscale',state:'online',label:'Disponible',ssh:true,t3:false,icon:'laptop'},
+ {name:'noctua',address:'10.147.0.21',source:'ZeroTier',state:'online',label:'Disponible',ssh:true,t3:false,icon:'cpu'},
+ {name:'riki',address:'10.147.0.22',source:'ZeroTier',state:'down',label:'Sin conexión',ssh:true,t3:false,icon:'server'}
+];
+let state={pair:'hardware',selected:'brak',filter:'all',query:'',vpn:'Tailscale',pairShown:false,gpuIndex:0,resourceTab:'live',coreSheet:false,coreIndex:5,metricValues:false};
+const dot=s=>`<span class="dot ${s==='online'?'':s}"></span>`;
+const selected=()=>hosts.find(h=>h.name===state.selected)||hosts[0];
+const statusbar=()=>`<div class="statusbar"><span>9:41</span><span class="island" aria-hidden="true"></span><span class="status-right">▮▮▮ ${icons('wifi')} <i aria-label="Batería"></i></span></div>`;
+const tabs=active=>`<nav class="bottom-tabs" aria-label="Navegación de la app">${[['hosts','server','Equipos'],['network','activity','Actividad'],['settings','network','Red']].map(([id,icon,label])=>`<button type="button" class="tab ${active===id?'active':''}" data-action="tab-${id}">${icons(icon)}<span>${label}</span></button>`).join('')}</nav><div class="homebar" aria-hidden="true"></div>`;
+const phone=(title,number,body,active='hosts')=>`<section><div class="screen-caption"><span>${number}</span>${title}</div><div class="phone">${statusbar()}<div class="app"><div class="app-content">${body}</div>${tabs(active)}</div></div></section>`;
+const back=label=>`<button type="button" class="back" data-action="hosts">${icons('chevron-left')}${label}</button>`;
+const toggle=(label,checked=true)=>`<label class="switch"><input type="checkbox" aria-label="${label}" ${checked?'checked':''}></label>`;
+const hostrow=(h,cached=false)=>`<button type="button" class="host" data-host="${h.name}"><span class="host-icon">${icons(h.icon)}</span><span class="host-text"><span class="host-name">${h.name}</span><span class="host-meta">${cached?'Último estado guardado':h.address}</span></span><span class="host-end"><span class="state-label">${dot(cached?'unknown':h.state)}${cached?'Sin verificar':h.state==='online'?'En línea':h.state==='warn'?'SSH caído':'Sin red'}</span><span>${h.ssh?'<span class="badge">SSH</span>':''} ${h.t3?'<span class="badge">T3</span>':''}</span></span></button>`;
+function listMarkup(){
+ const visible=hosts.filter(h=>(state.filter!=='attention'||h.state!=='online')&&(h.name.includes(state.query.toLowerCase())||h.address.includes(state.query)));
+ return ['Tailscale','ZeroTier'].map(source=>{const items=visible.filter(h=>h.source===source);return items.length?`<div class="section-label"><span>${source}</span><span>${source==='Tailscale'?'3 de 4 disponibles':'1 de 2 disponibles'}</span></div><div class="group">${items.map(h=>hostrow(h)).join('')}</div>`:''}).join('')||'<p class="footnote">No hay equipos que coincidan.</p>';
+}
+function hostsScreen(){return `<div class="topline"><span class="brand"><span class="brandmark">&gt;_</span>bleet</span><button type="button" class="iconbutton" aria-label="Actualizar equipos" data-action="refresh">${icons('refresh-cw')}</button></div><h1 class="large-title">Equipos</h1><p class="eyebrow">${dot('online')} Servicio de red conectado</p><div class="summary"><strong>4<span>/6</span></strong><span>disponibles</span><span class="attention-count">2 requieren atención</span></div><label class="search">${icons('search')}<input aria-label="Buscar equipos" placeholder="Buscar equipo o IP" value="${state.query.replace(/[^a-zA-Z0-9. -]/g,'')}"></label><div class="segments"><button type="button" data-filter="all" class="${state.filter==='all'?'selected':''}">Todos</button><button type="button" data-filter="attention" class="${state.filter==='attention'?'selected':''}">Con problemas · 2</button></div><div id="host-list">${listMarkup()}</div><p class="footnote" id="last-update">Comprobado a las 9:41 · Desde el servicio de red</p>`;}
+function detailScreen(){const h=selected();const sshUp=h.state==='online';return `${back('Equipos')}<div class="detail-heading"><div class="detail-icon">${icons(h.icon)}</div><div><h1>${h.name}</h1><p class="statusline" style="color:var(--b-${h.state==='online'?'green':h.state==='warn'?'orange':'red'})">${dot(h.state)}${h.label}</p></div><button type="button" class="iconbutton" aria-label="Guardar favorito" data-action="favorite" style="margin-left:auto">${icons('star')}</button></div><p class="sub">${h.source} · ${h.address}</p><div class="signals"><div class="signal"><span>Red VPN</span><strong>${dot(h.state==='down'?'down':'online')}${h.state==='down'?'Sin conexión':'En línea'}</strong></div><div class="signal"><span>Puerto SSH · 22</span><strong>${dot(sshUp?'online':h.state==='down'?'unknown':'warn')}${sshUp?'Responde':h.state==='down'?'Sin verificar':'No responde'}</strong></div></div><div class="actions"><button class="action" type="button" data-action="terminal" ${!sshUp?'disabled':''}>${icons('terminal')}Terminal</button><button class="action" type="button" data-action="monitor" ${!sshUp?'disabled':''}>${icons('activity')}Monitor</button><button class="action" type="button" data-action="t3" ${!h.t3?'disabled':''}>${icons('link')}T3 Code</button></div>${h.state==='warn'?`<div class="notice">${icons('triangle-alert')}<div><strong>La red responde; SSH no.</strong><p>Revisá el servicio SSH o su firewall.</p></div></div>`:''}<div class="section-label"><span>Conexión</span></div><div class="group"><div class="kv"><span>Usuario</span><span class="value">pablo</span></div><div class="kv"><span>Dirección</span><span class="value">${h.address}</span></div><div class="kv"><span>Puerto</span><span class="value">22</span></div><button type="button" class="row-action" data-action="copy-ssh">${icons('copy')}Copiar comando SSH</button></div><div class="section-label"><span>Monitoreo</span></div><div class="group"><div class="kv"><span>Incluir este equipo</span>${toggle('Incluir equipo')}</div><div class="kv"><span>Comprobar SSH</span>${toggle('Comprobar SSH')}</div></div><p class="footnote">Los estados se confirman con dos comprobaciones consecutivas.</p>`;}
+function terminalScreen(){const terminalHost=selected().state==='online'?selected():hosts[0];return `${back('Equipos')}<div class="topline"><h1 class="large-title" style="font-size:28px;margin-top:12px">Monitor</h1><span class="badge">SSH · DEMO</span></div><p class="eyebrow">${dot('online')} pablo@${terminalHost.name} · Sesión interactiva</p><div class="terminal"><div class="term-title"><span>${terminalHost.name} / btop</span><span>CPU · MEM · PROC</span></div><div class="term-green">${resourceProfiles[terminalHost.name]?.os||"Linux"} · ${resourceProfiles[terminalHost.name]?.arch||"aarch64"}</div><div class="term-dim">Uptime 12d 04h 23m</div><div style="margin-top:18px">CPU&nbsp; <span class="term-green">${resourceProfiles[terminalHost.name]?.cpuUsage||18}%</span>&nbsp; ·&nbsp; 46°C</div><div>MEM&nbsp; ${rFormat(resourceProfiles[terminalHost.name]?.ramUsed||6.4)} GiB / ${resourceProfiles[terminalHost.name]?.ram||16} GiB</div><div>LOAD 0.42 &nbsp;0.38 &nbsp;0.31</div><div class="term-grid"><span class="term-head">Proceso</span><span class="term-head">CPU%</span><span class="term-head">MEM%</span><span>node / t3</span><span>8.4</span><span>3.2</span><span>tailscaled</span><span>1.1</span><span>0.8</span><span>python3</span><span>0.4</span><span>0.5</span><span>sshd</span><span>0.1</span><span>0.2</span></div><div class="term-dim">q salir · ↑↓ seleccionar</div><input aria-label="Comando de terminal de demostración" placeholder="pablo@${terminalHost.name}:~$" autocomplete="off" spellcheck="false"><div class="term-result" aria-live="polite"></div></div><div class="keybar"><button type="button" data-action="term-key">esc</button><button type="button" data-action="term-key">ctrl</button><button type="button" data-action="term-key">tab</button><button type="button" data-action="term-key">↑</button><button type="button" data-action="term-key">↓</button></div><p class="footnote">Terminal SSH nativa. El monitor abre btop, htop o top según el equipo.</p><button type="button" class="secondary" data-action="close-terminal">Cerrar sesión</button>`;}
+function t3Screen(){const t3Host=selected().t3?selected():hosts[0];return `${back('Equipos')}<h1 class="large-title">T3 Code</h1><p class="sub">Acceso a ${t3Host.name} dentro de tu red</p><div class="service-tile"><span class="service-logo">t3</span><div><strong>${t3Host.name}</strong><p class="statusline">${dot('online')}Servidor disponible</p><p class="sub">HTTPS · Tailscale</p></div></div><button type="button" class="primary" data-action="open-t3">${icons('external-link')}Abrir T3 Code</button><p class="footnote">Si este iPhone ya está vinculado, entrás con su sesión.</p><div class="section-label"><span>Vincular un dispositivo nuevo</span></div><div class="group"><button type="button" class="row-action" data-action="scan-t3">${icons('scan-line')}Escanear el QR de una computadora</button><button type="button" class="row-action" data-action="generate-pair">${icons('key-round')}Generar enlace temporal</button></div><div class="notice">${icons('lock-keyhole')}<div><strong>El enlace permite vincularse.</strong><p>Generalo cuando lo necesites. No se guarda en el historial ni se copia automáticamente.</p></div></div><div class="pair-secret" ${!state.pairShown?'hidden':''}><p class="sub">Vista de un enlace recién generado</p><strong>•••• ••••</strong><p class="sub">Válido hasta las 10:41 · Ejemplo</p><button type="button" class="secondary" data-action="copy-pair">${icons('copy')}Copiar enlace</button></div><div class="section-label"><span>Cómo se transmite</span></div><div class="group"><div class="kv"><span>Transporte</span><span class="value">VPN + HTTPS autenticado</span></div><div class="kv"><span>Generación</span><span class="value">SSH al equipo elegido</span></div><div class="kv"><span>Almacenamiento</span><span class="value">Sólo en memoria</span></div></div><p class="footnote">Vigencia actual: 1 hora. No se presupone uso único.</p>`;}
+function activityScreen(){const events=[['warn','zorak','SSH dejó de responder','Red VPN disponible · 2 comprobaciones','9:38'],['down','riki','Se perdió la conexión','ZeroTier · 2 comprobaciones','9:27'],['online','dexter','Volvió a estar disponible','Red y SSH responden','8:56']];return `<div class="topline"><span class="brand">bleet</span><button type="button" class="iconbutton" aria-label="Actualizar actividad" data-action="refresh">${icons('refresh-cw')}</button></div><h1 class="large-title">Actividad</h1><p class="sub">Cambios confirmados por el servicio de red</p><div class="section-label" style="margin-top:28px"><span>Hoy · 14 de noviembre</span><span>3 cambios</span></div><div class="group">${events.map(([s,h,title,desc,t])=>`<div class="event"><div class="event-mark ${s}">${icons(s==='online'?'arrow-up-right':s==='down'?'arrow-down-right':'triangle-alert')}</div><div class="event-text"><strong>${h}</strong><p style="color:var(--b-text)">${title}</p><p>${desc}</p></div><time>${t}</time></div>`).join('')}</div><div class="section-label"><span>Avisos en este iPhone</span></div><div class="group"><div class="kv"><span>Al abrir la app</span>${toggle('Avisar al abrir la app')}</div><div class="kv"><span>En segundo plano</span><span class="value">Requiere push</span></div></div><p class="footnote">El servicio registra los cambios aunque la app esté cerrada. Los avisos inmediatos en segundo plano requieren APNs.</p><div class="notice">${icons('bell')}<div><strong>Sin alertas por perder la VPN.</strong><p>Si el iPhone pierde acceso al servicio, los equipos pasan a “sin verificar”. No se registran como caídos.</p></div></div>`;}
+function networkScreen(){return `<div class="topline"><span class="brand">bleet</span><span class="badge">PRIVADA</span></div><h1 class="large-title">Tu red</h1><p class="sub">Acceso al servicio de monitoreo</p><div class="segments" style="margin-top:23px"><button type="button" data-vpn="Tailscale" class="${state.vpn==='Tailscale'?'selected':''}">Tailscale</button><button type="button" data-vpn="ZeroTier" class="${state.vpn==='ZeroTier'?'selected':''}">ZeroTier</button></div><div class="route"><div class="route-node">${icons('smartphone')}Este iPhone</div><div class="route-link">Ruta ${state.vpn} · Acceso comprobado</div><div class="route-node">${icons('shield-check')}Tu red privada</div><div class="route-link">HTTPS autenticado</div><div class="route-node">${icons('server')}Servicio bleetd</div><p class="sub" style="margin:8px 0 0 28px">gateway · Siempre encendido</p></div><div class="section-label"><span>Estado de acceso</span></div><div class="group"><div class="kv"><span>Servicio</span><span class="value" style="color:var(--b-green)">Responde</span></div><div class="kv"><span>Última comprobación</span><span class="value">9:41</span></div><div class="kv"><span>Dirección del servicio</span><span class="value">${state.vpn==='Tailscale'?'100.80.0.10':'10.147.0.10'}</span></div><div class="kv"><span>Actualizar en la app</span><span class="value">Cada 10 segundos</span></div></div><p class="footnote">Elegís la ruta configurada para tu VPN. La app comprueba el acceso; la VPN se administra en su propia app.</p><button type="button" class="secondary" data-action="test-route">${icons('refresh-cw')}Comprobar acceso</button><div class="section-label"><span>Backend · Integraciones</span></div><div class="group"><div class="kv"><span>MCP</span><span class="value">Datos · Código · T3</span></div><div class="kv"><span>Acceso</span><span class="value">VPN + HTTPS · /mcp</span></div><div class="kv"><span>Vínculos T3</span><span class="value">Permiso de emisión</span></div></div><div class="section-label"><span>Datos</span></div><div class="group"><div class="kv"><span>Conservar última lectura</span>${toggle('Conservar última lectura')}</div></div>`;}
+function setupScreen(){return `<div class="topline"><span class="brand"><span class="brandmark">&gt;_</span>bleet</span></div><div class="empty-icon">${icons('network')}</div><h1 class="center-title">Tu red.<br>En el bolsillo.</h1><p class="center-copy">Conectá este iPhone al servicio bleetd que corre en una de tus máquinas.</p><div class="group"><div class="step"><span>1</span><div>Activá tu VPN<p>Tailscale o ZeroTier en este iPhone.</p></div></div><div class="step"><span>2</span><div>Escaneá el QR de Bleet<p>Dirección del servicio y alta de este teléfono.</p></div></div><div class="step"><span>3</span><div>Elegí qué equipos ver<p>Se importan desde tu servicio de red.</p></div></div></div><button type="button" class="primary" data-action="scan-setup" style="margin-top:24px">${icons('scan-line')}Escanear QR de Bleet</button><button type="button" class="secondary" data-action="manual-setup">Ingresar dirección manualmente</button><p class="footnote" style="text-align:center;margin-top:16px">Este QR vincula Bleet.<br>El vínculo con T3 se hace por separado.</p>`;}
+function offlineScreen(){return `<div class="topline"><span class="brand">bleet</span><span class="badge">SIN VERIFICAR</span></div><h1 class="large-title">Equipos</h1><div class="notice" style="margin-top:20px">${icons('wifi-off')}<div><strong>No llegamos a tu servicio.</strong><p>Puede ser la VPN o la máquina que lo ejecuta. Tus equipos conservan su última lectura.</p></div></div><div class="summary" style="margin-top:23px"><strong style="color:var(--b-sub)">—<span>/6</span></strong><span>sin verificar</span></div><p class="sub" style="margin-bottom:17px">Última lectura: 9:33 · Hace 8 minutos</p><div class="group">${hosts.slice(0,3).map(h=>hostrow(h,true)).join('')}</div><button type="button" class="primary" style="margin-top:25px" data-action="retry">${icons('refresh-cw')}Reintentar conexión</button><button type="button" class="secondary" data-action="settings">Revisar acceso a la red</button><p class="footnote" style="margin-top:16px">Los estados guardados no prueban que un equipo siga disponible.</p>`;}
+function widgetScreen(){return `<section><div class="screen-caption"><span>9</span>Widgets · Inicio</div><div class="home-screen">${statusbar()}<p class="home-date">Sábado, 14 de noviembre</p><p class="home-clock">9:41</p><button type="button" class="small-widget" data-action="hosts"><span class="widget-brand"><span class="brandmark">&gt;_</span>bleet</span><span class="widget-number">4<small> / 6</small></span><span style="font-size:11px">equipos disponibles</span><span class="widget-warn">${dot('warn')}2 con problemas</span><span class="widget-updated">Última lectura · 9:33</span></button><div class="medium-widget"><div class="widget-top"><span class="widget-brand"><span class="brandmark">&gt;_</span>bleet</span><span style="color:var(--b-sub);font-size:10px">Última lectura · 9:33</span></div><button type="button" class="widget-host" data-host="zorak"><span>${dot('warn')}zorak</span><small>SSH sin respuesta</small></button><button type="button" class="widget-host" data-host="riki"><span>${dot('down')}riki</span><small>Sin conexión</small></button><button type="button" class="widget-host" data-host="brak"><span>${dot('online')}brak</span><small>Disponible</small></button></div><div class="home-icons">${[['mail','Mail'],['calendar','Calendario'],['camera','Cámara'],['settings','Ajustes']].map(([i,t])=>`<div class="home-app"><span>${icons(i)}</span>${t}</div>`).join('')}</div><div class="lock-spacer" style="min-height:30px"></div><div class="homebar" style="background:transparent"></div></div></section><section><div class="screen-caption"><span>10</span>Widget · Pantalla bloqueada</div><div class="home-screen">${statusbar()}<p class="home-date">Sábado, 14 de noviembre</p><p class="home-clock" style="font-size:78px">9:41</p><button type="button" class="lock-widget" data-action="hosts">${icons('server')}<span><strong>bleet · 4/6 disponibles</strong><p>2 con problemas · Lectura 9:33</p></span></button><div class="lock-spacer"></div><div class="lock-shortcuts"><span>${icons('flashlight')}</span><span>${icons('camera')}</span></div><div class="homebar" style="background:transparent"></div></div></section>`;}
+// Fictional hardware and measurements for the design; not an inventory scan.
+const resourceProfiles={
+ brak:{cpu:'AMD Ryzen 9 9950X',shortCPU:'Ryzen 9 9950X',cores:16,threads:32,cpuUsage:34,ram:128,ramUsed:73.2,ramModules:'4 × 32 GiB',ramType:'DDR5-5600',os:'Ubuntu 24.04 LTS',arch:'x86_64',gpus:[{id:0,name:'GeForce RTX 5090',vendor:'NVIDIA',memory:32,memoryType:'GDDR7',usage:92,used:26.4,temp:68,power:382,trace:[12,15,14,20,18,31,29,45,40,55,52,74,69,86,82,92]},{id:1,name:'GeForce RTX 5090',vendor:'NVIDIA',memory:32,memoryType:'GDDR7',usage:64,used:18.6,temp:61,power:244,trace:[8,9,12,10,18,17,29,22,34,32,45,39,48,53,60,64]}]},
+ dexter:{cpu:'Intel Core i9-13900K',shortCPU:'Core i9-13900K',cores:24,threads:32,cpuUsage:18,ram:64,ramUsed:22.8,ramModules:'2 × 32 GiB',ramType:'DDR5-5600',os:'Ubuntu 24.04 LTS',arch:'x86_64',gpus:[{id:0,name:'GeForce RTX 4090',vendor:'NVIDIA',memory:24,memoryType:'GDDR6X',usage:46,used:14.2,temp:56,power:189,trace:[12,10,14,22,18,19,24,29,24,30,35,31,40,38,42,46]}]},
+ buster:{cpu:'Apple M4 Pro',shortCPU:'Apple M4 Pro',cores:12,threads:12,cpuUsage:24,ram:64,ramUsed:38.4,ramModules:'Memoria integrada',ramType:'LPDDR5X unificada',os:'macOS',arch:'arm64',unified:true,gpuCores:16,gpus:[]},
+ noctua:{cpu:'Broadcom BCM2712',shortCPU:'Raspberry Pi 5',cores:4,threads:4,cpuUsage:12,ram:8,ramUsed:2.1,ramModules:'Memoria integrada',ramType:'LPDDR4X',os:'Debian GNU/Linux',arch:'aarch64',shared:true,gpuName:'VideoCore VII',gpus:[]}
+};
+resourceProfiles.brak.coreLoads=[0,12,20,15,42,92,34,18,11,24,76,38,22,57,29,54];
+for(const p of Object.values(resourceProfiles)){if(!p.coreLoads)p.coreLoads=Array.from({length:p.cores},()=>p.cpuUsage);}
+const rFormat=value=>new Intl.NumberFormat('es-AR',{maximumFractionDigits:1}).format(value);
+function resourceOverview(){return `<div class="topline"><span class="brand"><span class="brandmark">&gt;_</span>bleet</span><button type="button" class="iconbutton" data-action="refresh" aria-label="Actualizar recursos">${icons('refresh-cw')}</button></div><h1 class="r-title">Mi red</h1><p class="r-status">${dot('online')}Acceso privado · Tailscale</p><div class="r-counts"><div><strong>4<span>disponibles</span></strong></div><div><strong>6<span>equipos</span></strong></div><div><strong class="r-alert-number">2<span>con problemas</span></strong></div></div>${['brak','dexter','buster'].map(name=>{const p=resourceProfiles[name];return `<button type="button" class="r-host" data-resource-host="${name}" aria-pressed="${state.selected===name}"><span class="r-host-heading"><strong>${name}</strong><span>${dot('online')}${name==='buster'?'macOS':'Linux'}</span></span><span class="r-host-model">${p.shortCPU}</span><p class="r-host-capacity">${p.cores} núcleos · ${p.ram} GiB RAM<br>${p.unified?'GPU de 16 núcleos · Memoria unificada':p.gpus.length+' × '+p.gpus[0].name.replace('GeForce ','')+' · '+p.gpus[0].memory+' GiB c/u'}</p><span class="r-host-metrics"><span><label>CPU</label><strong>${p.cpuUsage}<small>%</small></strong></span><span><label>RAM</label><strong>${rFormat(p.ramUsed)}<small> GiB</small></strong></span><span><label>${p.unified?'GPU':'GPU 0'}</label><strong class="${p.unified?'':'r-gpu-number'}">${p.unified?'—':p.gpus[0].usage}${p.unified?'':'<small>%</small>'}</strong></span></span></button>`;}).join('')}<div class="section-label"><span>Otros equipos</span></div><button type="button" class="r-issue-row" data-resource-host="noctua"><span>${dot('online')}noctua</span><small>Raspberry Pi 5 · 8 GiB</small></button><button type="button" class="r-issue-row" data-resource-host="zorak"><span>${dot('warn')}zorak</span><small>SSH sin respuesta</small></button><button type="button" class="r-issue-row" data-resource-host="riki"><span>${dot('down')}riki</span><small>Sin conexión</small></button><p class="r-page-meta"><span>Lectura · 9:41:02</span><span>Datos de ejemplo</span></p>`;}
+function resourceChart(g){const w=264,h=100,left=3,right=262,top=9,bottom=89;const pts=g.trace.map((v,i)=>[left+i*(right-left)/(g.trace.length-1),bottom-v*(bottom-top)/100]);const path=pts.map(([x,y],i)=>(i?'L':'M')+x.toFixed(2)+','+y.toFixed(2)).join(' ');const last=pts[pts.length-1];return `<svg class="r-chart" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" role="img" aria-label="Uso de GPU ${g.id} en los últimos 15 minutos: de ${g.trace[0]} a ${g.usage} por ciento. Datos de ejemplo."><title>Uso de GPU ${g.id} · Últimos 15 minutos · Porcentaje</title><line class="r-grid" x1="0" y1="9" x2="264" y2="9"/><line class="r-grid" x1="0" y1="49" x2="264" y2="49"/><line class="r-grid" x1="0" y1="89" x2="264" y2="89"/><text x="0" y="6">100%</text><path class="r-trace" d="${path}"/>${pts.map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="6" fill="transparent" data-tooltip="${'9:'+String(26+i).padStart(2,'0')} · GPU ${g.id}: ${g.trace[i]}%"/>`).join('')}<circle class="r-plot-dot" cx="${last[0]}" cy="${last[1]}" r="3.5"/><text x="0" y="100">0%</text></svg><div class="r-chart-times"><span>9:26</span><span>Últimos 15 minutos</span><span>9:41</span></div>`;}
+function resourceHardware(p){return `<section class="r-hardware-block"><span class="r-label">Procesador · 1 CPU</span><h2>${p.cpu}</h2><p>${p.cores} núcleos${p.unified?'':' · '+p.threads+' hilos'} · ${p.arch}</p><div class="r-chip-diagram" role="img" aria-label="${p.cores} núcleos físicos">${Array.from({length:p.cores},()=>'<span></span>').join('')}</div></section><section class="r-hardware-block"><span class="r-label">${p.unified?'Memoria unificada':'Memoria RAM'}</span><h2>${p.ram} GiB</h2><p>${p.ramModules} · ${p.ramType}</p>${!p.unified&&!p.shared?`<div class="r-module-diagram" role="img" aria-label="${p.ramModules}">${Array.from({length:p.ram/32},()=>'<span>32 GiB</span>').join('')}</div>`:''}</section><section class="r-hardware-block"><span class="r-label">Gráficos · ${p.gpus.length||1} ${p.gpus.length>1?'GPU':'GPU'}</span>${p.gpus.length?p.gpus.map(g=>`<div class="r-hardware-gpu"><div><strong>${g.vendor} ${g.name}</strong><span>GPU ${g.id} · ${g.memoryType}</span></div><div><strong>${g.memory} GiB</strong><span>VRAM dedicada</span></div></div>`).join(''):`<h2>${p.unified?'Apple M4 Pro':p.gpuName}</h2><p>${p.unified?p.gpuCores+' núcleos GPU · Memoria unificada':'GPU integrada · Memoria compartida'}</p>`}</section><p class="footnote">${p.gpus.length>1?'La VRAM se muestra por placa; no se considera una única memoria compartida.':p.unified?'CPU y GPU usan la misma memoria física.':'El inventario y las capacidades se detectan por equipo.'}</p>`;}
+function resourceDetail(){const h=selected();const p=resourceProfiles[h.name];const ready=h.state==='online'&&p;const g=ready&&p.gpus.length?p.gpus[Math.min(state.gpuIndex,p.gpus.length-1)]:null;return `<button type="button" class="back" data-action="resource-fleet">${icons('chevron-left')}Equipos</button><div class="r-top"><h1 class="r-title">${h.name}</h1><span class="r-network">${h.source}</span></div><p class="r-status">${dot(h.state)}${h.label}${ready?' · Lectura hace 2 s':''}</p><p class="r-sub" style="margin-top:5px">${p?p.os+' · '+p.arch:h.address}</p><div class="r-local-tabs" role="tablist" aria-label="Información del equipo"><button type="button" data-resource-tab="live" role="tab" aria-selected="${state.resourceTab==='live'}">Recursos</button><button type="button" data-resource-tab="hardware" role="tab" aria-selected="${state.resourceTab==='hardware'}">Hardware</button></div>${!ready?`<div class="r-no-data"><strong>Métricas sin verificar</strong><p>${h.state==='warn'?'El equipo aparece en la VPN, pero el colector no puede acceder por SSH.':'El equipo no está disponible. Conservamos la identidad y la fecha de su última lectura.'}</p></div>`:state.resourceTab==='hardware'?resourceHardware(p):`<div class="r-pair-metrics"><div><span class="r-label">CPU</span><strong class="r-number">${p.cpuUsage}<small>%</small></strong><p class="r-model-caption">${p.shortCPU}<br>${p.cores} núcleos${p.unified?'':' / '+p.threads+' hilos'}</p></div><div><span class="r-label">${p.unified?'Memoria unificada':'RAM'}</span><strong class="r-number">${rFormat(p.ramUsed)}<small>/${p.ram}</small></strong><p class="r-model-caption">GiB en uso · ${p.ramType}<br>${p.ramModules}</p></div></div>${g?`<section class="r-gpu" aria-label="Métricas de GPU ${g.id}"><div class="r-gpu-title"><span>${g.vendor} · ${p.gpus.length} GPU</span><div class="r-device-switch" aria-label="Seleccionar placa gráfica">${p.gpus.map((v,i)=>`<button type="button" data-gpu="${i}" aria-pressed="${i===Math.min(state.gpuIndex,p.gpus.length-1)}">GPU ${v.id}</button>`).join('')}</div></div><h2 class="r-gpu-model">${g.name}</h2><p class="r-gpu-memory">${g.memory} GiB ${g.memoryType} · PCIe</p><div class="r-gpu-value-row"><strong class="r-gpu-value">${g.usage}<span>%</span></strong><p class="r-gpu-value-caption">Uso de GPU<br>Lectura actual</p></div>${resourceChart(g)}<div class="r-vram"><div class="r-vram-heading"><span>VRAM en uso</span><strong>${rFormat(g.used)} <small>/ ${g.memory} GiB</small></strong></div><div class="r-capacity-track" role="meter" aria-label="VRAM ocupada en GPU ${g.id}" aria-valuemin="0" aria-valuemax="${g.memory}" aria-valuenow="${g.used}"><span style="width:${g.used/g.memory*100}%"></span></div><div class="r-gpu-foot"><span>${g.temp} °C · ${g.power} W</span><span>${rFormat(g.memory-g.used)} GiB libres</span></div></div></section>`:`<div class="r-shared"><span class="r-label">${p.unified?'GPU · '+p.gpuCores+' núcleos':'GPU integrada'}</span><h2>${p.unified?'Apple M4 Pro':p.gpuName}</h2><strong>—<small> uso no informado</small></strong><p>El colector no informa utilización de esta GPU.</p><div class="r-vram"><div class="r-vram-heading"><span>${p.unified?'Memoria unificada':'Memoria compartida'}</span><strong>${p.ram} <small>GiB totales</small></strong></div><p style="margin-top:9px">${p.unified?'La GPU usa el mismo bloque de memoria que la CPU.':'Esta GPU usa memoria del sistema.'} No tiene VRAM dedicada separada.</p></div></div>`}<div class="r-actions"><button type="button" data-action="terminal">${icons('terminal')}Terminal SSH</button><button type="button" data-action="t3" ${!h.t3?'disabled':''}>${icons('link')}T3 Code</button></div>`}<p class="r-page-meta"><span>${ready?'Colector SSH · Hace 2 s':'Última lectura no disponible'}</span><span>Ejemplo</span></p>`;}
+function resourceWidgets(){const p=resourceProfiles.brak;return `<section><div class="screen-caption"><span>9</span>Widgets · Recursos del equipo</div><div class="home-screen">${statusbar()}<p class="home-date">Sábado, 14 de noviembre</p><p class="home-clock">9:41</p><button type="button" class="small-widget" data-resource-host="brak"><span class="r-widget-host">${dot('online')}brak</span><span class="r-widget-model">Ryzen 9 9950X</span><span class="r-widget-cpu">34<small>% CPU</small></span><span class="r-widget-row"><span>RAM</span><strong>73,2 / 128 GiB</strong></span><span class="widget-updated">Lectura · 9:33</span></button><div class="medium-widget"><div class="r-medium-title"><strong>brak</strong><span>2 GPU · NVIDIA</span></div><p class="r-widget-model" style="margin-bottom:3px">2 × GeForce RTX 5090 · 32 GiB c/u</p>${p.gpus.map(g=>`<button type="button" class="r-widget-gpu" data-widget-gpu="${g.id}"><span><strong>GPU ${g.id} · RTX 5090</strong><small>VRAM ${rFormat(g.used)} / ${g.memory} GiB</small></span><span>${g.usage}<small>%</small></span></button>`).join('')}<p class="r-widget-caption"><span>bleet</span><span>Lectura · 9:33</span></p></div><div class="home-icons">${[['mail','Mail'],['calendar','Calendario'],['camera','Cámara'],['settings','Ajustes']].map(([i,t])=>`<div class="home-app"><span>${icons(i)}</span>${t}</div>`).join('')}</div><div class="lock-spacer" style="min-height:16px"></div><div class="homebar" style="background:transparent"></div></div></section><section><div class="screen-caption"><span>10</span>Widget · Pantalla bloqueada</div><div class="home-screen">${statusbar()}<p class="home-date">Sábado, 14 de noviembre</p><p class="home-clock" style="font-size:78px">9:41</p><button type="button" class="r-lock-widget" data-widget-gpu="0"><span><strong>brak · RTX 5090</strong><small>GPU 0 · 26,4 / 32 GiB VRAM</small><small>Lectura · 9:33</small></span><span>92<small>%</small></span></button><div class="lock-spacer"></div><div class="lock-shortcuts"><span>${icons('flashlight')}</span><span>${icons('camera')}</span></div><div class="homebar" style="background:transparent"></div></div></section>`;}
+function resourceInventoryScreen(){const h=selected();const p=resourceProfiles[h.name];return `<button type="button" class="back" data-action="resource-fleet">${icons('chevron-left')}${h.name}</button><h1 class="r-title">Hardware</h1><p class="r-sub">${h.name} · ${p?p.os:'Inventario pendiente'}</p><p class="r-status" style="margin-bottom:25px">${dot(h.state)}${h.label}</p>${p?resourceHardware(p):'<div class="r-no-data"><strong>Sin inventario disponible</strong><p>El colector todavía no obtuvo el modelo y las capacidades de este equipo.</p></div>'}<p class="r-page-meta"><span>Inventario de ejemplo</span><span>bleet</span></p>`;}
+function polishedTop(h,p){return `<div class="v-nav"><button type="button" class="v-back" data-action="resource-fleet">${icons('chevron-left')}Mi red</button><button type="button" class="v-icon-button" data-action="favorite" aria-label="Guardar favorito">${icons('star')}</button></div><div class="v-heading"><h1>${h.name}</h1><button type="button" class="v-small-link" data-resource-tab="hardware">Hardware <span aria-hidden="true">›</span></button></div><div class="v-status"><span>${dot(h.state)}${h.state==='online'?'En línea':h.label} · ${h.source}</span><time>${p&&h.state==='online'?'Hace 2 s':'Sin verificar'}</time></div>`;}
+function polishedChart(g){const left=2,right=264,top=10,bottom=82;const pts=g.trace.map((v,i)=>[left+i*(right-left)/(g.trace.length-1),bottom-v*(bottom-top)/100]);let path=`M${pts[0][0]},${pts[0][1]}`;for(let i=1;i<pts.length;i++){const a=pts[i-1],b=pts[i],cx=(a[0]+b[0])/2;path+=` C${cx},${a[1]} ${cx},${b[1]} ${b[0]},${b[1]}`;}const last=pts[pts.length-1];return `<svg class="r-chart" viewBox="0 0 266 100" preserveAspectRatio="none" role="img" aria-label="Uso de GPU ${g.id}, últimos 15 minutos, de ${g.trace[0]} a ${g.usage} por ciento. Ejemplo."><title>GPU ${g.id} · Uso en porcentaje · 9:26 a 9:41</title><line class="r-grid" x1="0" y1="10" x2="266" y2="10"/><line class="r-grid" x1="0" y1="46" x2="266" y2="46"/><line class="r-grid" x1="0" y1="82" x2="266" y2="82"/><path d="${path} L${right},${bottom} L${left},${bottom} Z" fill="var(--r-trace)" opacity=".07"/><path class="r-trace" d="${path}"/><circle class="r-plot-dot" cx="${last[0]}" cy="${last[1]}" r="3"/><text x="0" y="98">9:26</text><text x="133" y="98" text-anchor="middle">Uso · Últimos 15 min</text><text x="266" y="98" text-anchor="end">9:41</text></svg>`;}
+function polishedDetail(){const h=selected(),p=resourceProfiles[h.name],ready=h.state==='online'&&p;if(state.resourceTab==='hardware')return polishedInventory(true);if(!ready)return polishedTop(h,p)+`<div class="r-no-data"><strong>Métricas sin verificar</strong><p>${h.state==='warn'?'La red responde, pero el colector no llega al equipo por SSH.':'Este equipo está desconectado. Su última lectura no se presenta como un estado actual.'}</p></div>`;const g=p.gpus.length?p.gpus[Math.min(state.gpuIndex,p.gpus.length-1)]:null;return `${polishedTop(h,p)}<div class="v-top-metrics"><div class="v-top-metric"><span class="v-label">CPU</span><strong>${p.cpuUsage}<small>%</small></strong><p>${p.shortCPU}<span>${p.cores} núcleos${p.unified?'':' · '+p.threads+' hilos'}</span></p></div><div class="v-top-metric"><span class="v-label">${p.unified?'Memoria unificada':'RAM'}</span><strong>${rFormat(p.ramUsed)}<small> / ${p.ram}</small></strong><p>GiB utilizados<span>${p.unified?'CPU y GPU':p.ramModules+' · DDR5'}</span></p></div></div><div class="v-section-heading"><h2>Gráficos</h2><span>${p.gpus.length||1} ${p.gpus.length>1?'placas':'GPU integrada'}</span></div>${g?`<section class="v-gpu-panel" aria-label="Métricas de GPU ${g.id}"><div class="v-gpu-head"><div><h3>${g.name.replace('GeForce ','NVIDIA ')}</h3><p>${g.memory} GiB ${g.memoryType}</p></div><div class="r-device-switch" aria-label="Seleccionar GPU">${p.gpus.map((v,i)=>`<button type="button" data-gpu="${i}" aria-pressed="${i===Math.min(state.gpuIndex,p.gpus.length-1)}">GPU ${v.id}</button>`).join('')}</div></div><div class="v-gpu-number-row"><strong class="r-gpu-value">${g.usage}<span>%</span></strong><div class="v-gpu-secondary">Utilización<br>${g.temp} °C · ${g.power} W</div></div>${polishedChart(g)}<div class="v-vram"><div class="r-vram-heading"><span>VRAM</span><strong>${rFormat(g.used)} <small>/ ${g.memory} GiB</small></strong></div><div class="r-capacity-track" role="meter" aria-label="VRAM de GPU ${g.id}" aria-valuemin="0" aria-valuemax="${g.memory}" aria-valuenow="${g.used}"><span style="width:${g.used/g.memory*100}%"></span></div><div class="v-vram-foot"><span>${rFormat(g.used/g.memory*100)}% ocupado</span><span>${rFormat(g.memory-g.used)} GiB libres</span></div></div></section>`:`<div class="r-shared"><span class="r-label">${p.unified?'Apple M4 Pro · '+p.gpuCores+' núcleos':p.gpuName}</span><h2>GPU integrada</h2><strong>—<small> uso no informado</small></strong><p>${p.unified?'Memoria unificada: CPU y GPU comparten los '+p.ram+' GiB del equipo.':'Memoria del sistema compartida con la GPU.'} No se suma una VRAM dedicada.</p></div>`}<div class="v-shortcuts"><button type="button" data-action="btop">${icons('activity')}Abrir btop</button><button type="button" data-action="t3" ${!h.t3?'disabled':''}>${icons('link')}T3 Code</button></div><p class="v-meta"><span>Colector SSH · ${p.os}</span><span>Ejemplo</span></p>`;}
+function polishedInventory(inDetail=false){const h=selected(),p=resourceProfiles[h.name];return `<div class="v-nav"><button type="button" class="v-back" data-resource-tab="live">${icons('chevron-left')}${h.name}</button><span class="r-network">${p?p.arch:''}</span></div><div class="v-heading"><h1>Hardware</h1></div><p class="v-inventory-intro">${h.name}${p?' · '+p.os:''}</p>${!p?'<div class="r-no-data"><strong>Inventario no disponible</strong><p>El colector todavía no obtuvo las capacidades de este equipo.</p></div>':`<section class="v-inventory-group"><div class="v-inventory-label"><span>Procesador</span><span>1 CPU</span></div><div class="v-processor-row"><div class="v-die" role="img" aria-label="${p.cores} núcleos físicos">${Array.from({length:p.cores},()=>'<span></span>').join('')}</div><div><h2>${p.cpu}</h2><p>${p.cores} núcleos${p.unified?'':' · '+p.threads+' hilos'}</p></div></div></section><section class="v-inventory-group"><div class="v-inventory-label"><span>${p.unified?'Memoria unificada':'Memoria RAM'}</span><span>${p.ramType}</span></div><div class="v-ram-title"><strong>${p.ram} GiB</strong><span>${p.ramModules}</span></div>${!p.unified&&!p.shared?`<div class="v-dimms" role="img" aria-label="${p.ramModules}">${Array.from({length:p.ram/32},()=>'<div class="v-dimm"></div>').join('')}</div><div class="v-dimm-labels">${Array.from({length:p.ram/32},()=>'<span>32 GiB</span>').join('')}</div>`:`<p class="r-sub" style="margin-top:10px">${p.unified?'Compartida por CPU y GPU':'Soldada a la placa'}</p>`}</section><section class="v-inventory-group"><div class="v-inventory-label"><span>Gráficos</span><span>${p.gpus.length||1} GPU</span></div>${p.gpus.length?p.gpus.map(g=>`<div class="v-gpu-inventory"><div><strong>${g.name.replace('GeForce ','NVIDIA ')}</strong><p>GPU ${g.id} · ${g.memoryType}</p></div><div class="v-gpu-memory-number">${g.memory} GiB<small>VRAM</small></div></div>`).join(''):`<div class="v-gpu-inventory"><div><strong>${p.unified?'Apple M4 Pro':p.gpuName}</strong><p>${p.unified?p.gpuCores+' núcleos GPU':'GPU integrada'}</p></div><div class="v-gpu-memory-number">${p.unified?'Unificada':'Compartida'}</div></div>`}</section><p class="v-inventory-note">${icons('cpu')}<span>${p.gpus.length>1?'Cada GPU conserva su propia memoria. La VRAM de ambas placas no forma un único bloque.':p.unified?'La memoria unificada se cuenta una sola vez para todo el equipo.':'Las capacidades corresponden al inventario del equipo.'}</span></p>`}<p class="v-meta"><span>Inventario de ejemplo</span><span>bleet</span></p>`;}
+function polishedOverview(){const featured=resourceProfiles.brak;return `<div class="v-nav"><span class="brand"><span class="brandmark">&gt;_</span>bleet</span><button type="button" class="v-icon-button" data-action="refresh" aria-label="Actualizar">${icons('refresh-cw')}</button></div><div class="v-heading"><h1>Mi red</h1></div><div class="v-fleet-summary"><span>${dot('online')} <strong>4 de 6</strong> disponibles</span><span>2 requieren atención</span></div><button type="button" class="v-fleet-card" data-resource-host="brak"><span class="r-host-heading"><strong>brak</strong><span>${dot('online')}Linux</span></span><span class="r-host-model">AMD Ryzen 9 9950X</span><p class="r-host-capacity">16 núcleos · 128 GiB RAM<br>2 × RTX 5090 · 32 GiB VRAM c/u</p><span class="r-host-metrics"><span><label>CPU</label><strong>34<small>%</small></strong></span><span><label>RAM</label><strong>73,2<small> GiB</small></strong></span><span><label>GPU 0</label><strong class="r-gpu-number">92<small>%</small></strong></span></span></button>${['dexter','buster'].map(name=>{const p=resourceProfiles[name];return `<button type="button" class="v-compact-host" data-resource-host="${name}"><span class="v-compact-top"><strong>${dot('online')}${name}</strong><span>${p.unified?'macOS':'Linux'}</span></span><p>${p.cpu} · ${p.ram} GiB<br>${p.unified?'16 núcleos GPU · Memoria unificada':'RTX 4090 · 24 GiB VRAM'}</p><span class="v-compact-stats"><span>CPU <strong>${p.cpuUsage}%</strong></span><span>RAM <strong>${rFormat(p.ramUsed)} GiB</strong></span><span>GPU <strong>${p.unified?'—':p.gpus[0].usage+'%'}</strong></span></span></button>`;}).join('')}<button type="button" class="v-others" data-action="show-other-hosts"><span>Otros 3 equipos</span><span>Ver todos ›</span></button><p class="v-meta"><span>Tailscale + ZeroTier</span><span>Lectura · 9:41</span></p>`;}
+function polishedWidgets(){const original=resourceWidgets();let out=original.replace('class="small-widget"','class="v-widget-small"');const start=out.indexOf('<button type="button" class="r-lock-widget"');const end=out.indexOf('</button>',start)+9;if(start!==-1){out=out.slice(0,start)+`<div class="v-lock-widgets"><button type="button" class="v-lock-widget" data-resource-host="brak"><strong>brak · Ryzen 9</strong><span class="v-lock-value">34<small>% CPU</small></span><p>RAM 73,2 / 128 GiB</p></button><button type="button" class="v-lock-widget" data-widget-gpu="0"><strong>RTX 5090 · GPU 0</strong><span class="v-lock-value">92<small>%</small></span><p>VRAM 26,4 / 32 GiB</p></button></div><p class="v-lock-timestamp">bleet · Última lectura 9:33</p>`+out.slice(end);}return out;}
+function polishedT3(){const h=selected().t3?selected():hosts[0];return `${back('Equipos')}<div class="v-heading" style="margin-top:10px"><h1>T3 Code</h1></div><div class="v-t3-mark"><span class="service-logo">t3</span><div><strong>${h.name}</strong><p>${dot('online')} Disponible por HTTPS · Tailscale</p></div></div><button type="button" class="v-primary" data-action="open-t3">Abrir mi sesión ${icons('external-link')}</button><div class="v-section-heading" style="margin-top:22px"><h2>Vincular otro dispositivo</h2></div><div class="group"><button type="button" class="row-action" data-action="scan-t3">${icons('scan-line')}Escanear un QR</button><button type="button" class="row-action" data-action="generate-pair">${icons('key-round')}Crear enlace y QR temporal</button></div>${state.pairShown?`<div class="v-qr-card"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASgAAAEoAQMAAADRyf5aAAAABlBMVEUAAAD///+l2Z/dAAAAAnRSTlP//8i138cAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAEySURBVGiB7dXBDoMwDANQ//9PZ4LYacLKtiPSXKQC7YND5ADilwErKyurZyrkCE3HMmrV6k2xdMhLqZjAak1nOcuUA6w+qSOQeWv1gwJV61urrWpWO322mkp/hXnc/Tv+XmmcS9Cpb1h1lW2KYAgDjCS72OqilksBBjOs9grVpaFJJbbaqfMIrSuMUOtaTaVddW8+2Nraqiu2K9izDN+1a62mYqsqjNy02iksjlATr2E1FLc1VWnXa6yGan2aJ+EWR6uWwmi1bAK9qlYrhSylHlAka9Oqq1ZJFTPX9LGzGqpVVo8ELy8ptKqqou6hLKKA1VBZ07rJvwIzabVRzBvq66ZCW31SIcs/xOxaq4vKbX3r7lJotbo2g0fGklq9KbWobiIYw/4aqyrot2FlZWX1PPUCjxvsnadg5fUAAAAASUVORK5CYII=" alt="QR de ejemplo sin credenciales; apunta a example.com"><p>QR de demostración · Sin credenciales<br>Vigencia de un vínculo real: 1 hora</p><button type="button" class="secondary" data-action="copy-pair">${icons('copy')}Copiar enlace</button></div>`:''}<div class="v-mcp-note"><strong>También disponible por MCP</strong><p><code>create_t3_pairing</code> devuelve enlace, QR o ambos para el equipo elegido. Requiere permiso de emisión T3 del cliente.</p></div><p class="footnote" style="margin-top:13px">El QR y el enlace contienen la misma credencial. El servidor no la guarda; el cliente MCP podría conservarla en su historial.</p>`;}
+function hCoreColor(value){return value==null?'var(--h-unknown)':value<10?'var(--h-zero)':value<30?'var(--h-low)':value<60?'var(--h-mid)':value<85?'var(--h-high)':'var(--h-hot)';}
+function hCoreCells(p){return p.coreLoads.map((value,index)=>`<span class="h-core" data-core-id="${index}" data-core-load="${value==null?'':value}" data-missing="${value==null}" style="${value==null?'':'background:'+hCoreColor(value)}" aria-label="Núcleo ${index}: ${value==null?'sin datos':value+'% de uso'}"></span>`).join('');}
+function hLegend(){return `<div class="h-legend" aria-label="Escala de carga por núcleo, de 0 a 100 por ciento"><span>Baja</span><span class="h-legend-swatches" aria-hidden="true">${['zero','low','mid','high','hot'].map(name=>`<i style="background:var(--h-${name})"></i>`).join('')}</span><span>Alta</span></div>`;}
+function hGauge(value,label='Uso de GPU'){const known=value!=null;return `<svg class="h-gauge" viewBox="0 0 128 112" role="img" aria-label="${label}: ${known?value+' por ciento':'sin datos'}"><title>${label}: ${known?value+'%':'sin datos'}</title><circle class="h-gauge-track" cx="64" cy="58" r="42" pathLength="100" stroke-dasharray="75 100" transform="rotate(135 64 58)"/>${known&&value>0?`<circle class="h-gauge-fill" cx="64" cy="58" r="42" pathLength="100" stroke-dasharray="${value*.75} 100" transform="rotate(135 64 58)"/>`:''}<text x="64" y="61" text-anchor="middle">${known?value+'%':'—'}</text><text class="h-gauge-sub" x="64" y="80" text-anchor="middle">${known?'uso GPU':'Sin datos'}</text></svg>`;}
+function hMemoryRow(label,used,total,attribute=''){return `<div class="h-memory-row" ${attribute}><div class="h-bar-label"><span>${label}</span><span>${rFormat(used)} / ${total} GiB</span></div><div class="h-bar" role="meter" aria-label="${label}: ${rFormat(used)} de ${total} GiB" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${used}"><span style="width:${used/total*100}%"></span></div></div>`;}
+function heatDetail(){const h=selected(),p=resourceProfiles[h.name],ready=h.state==='online'&&p;if(state.resourceTab==='hardware')return polishedInventory(true);if(!ready)return polishedTop(h,p)+`<div class="r-no-data"><strong>Métricas sin verificar</strong><p>${h.state==='warn'?'La red responde, pero no se pudieron obtener muestras del equipo.':'No hay una muestra actual para este equipo.'}</p></div>`;const g=p.gpus.length?p.gpus[Math.min(state.gpuIndex,p.gpus.length-1)]:null;return `${polishedTop(h,p)}<div class="h-resource-grid"><section class="h-unit" aria-label="CPU, carga por núcleo"><div class="h-unit-heading"><span>CPU</span><span>${p.cores} núcleos</span></div><p class="h-model">${p.shortCPU}</p><button type="button" class="h-matrix-button" data-action="cpu-cores" aria-label="Ver utilización de cada uno de los ${p.cores} núcleos"><span class="h-matrix" role="img" aria-label="Mapa de carga de los ${p.cores} núcleos">${hCoreCells(p)}</span></button><p class="h-core-caption">Carga por núcleo</p>${hLegend()}</section><section class="h-unit" aria-label="GPU seleccionada"><div class="h-unit-heading"><span>GPU</span><span>${p.gpus.length||1} ${p.gpus.length>1?'placas':'integrada'}</span></div><p class="h-model">${g?g.name.replace('GeForce ',''):p.unified?'M4 Pro · 16 núcleos':p.gpuName}</p>${g?`<div class="h-gpu-switch" aria-label="Seleccionar placa">${p.gpus.map((gpu,i)=>`<button type="button" data-gpu="${i}" aria-pressed="${i===Math.min(state.gpuIndex,p.gpus.length-1)}">GPU ${gpu.id}</button>`).join('')}</div>`:''}${hGauge(g?g.usage:null,g?'Uso de GPU '+g.id:'Uso de GPU integrada')}<p class="h-gauge-meta">${g?g.memory+' GiB '+g.memoryType:p.unified?'Memoria unificada':'Memoria compartida'}</p></section></div><section class="h-memory" aria-label="Memoria ocupada">${hMemoryRow(p.unified?'Memoria unificada':'RAM',p.ramUsed,p.ram,'data-memory-kind="ram"')}${g?hMemoryRow('VRAM · GPU '+g.id,g.used,g.memory,'data-memory-kind="vram"'):`<p class="h-memory-note">${p.unified?'CPU y GPU comparten esta memoria.':'La GPU usa memoria del sistema.'} No se cuenta una VRAM separada.</p>`}</section><div class="h-more-row"><button type="button" class="h-more-button" data-action="metric-values" aria-expanded="${state.metricValues}">${state.metricValues?'Ocultar':'Ver'} valores detallados <span aria-hidden="true">${state.metricValues?'−':'+'}</span></button><span class="sub" style="font-size:10px">Lectura hace 2 s</span></div>${state.metricValues?`<div class="h-more-panel"><div><span>CPU · Total</span><strong>${p.cpuUsage}%</strong></div>${g?`<div><span>GPU ${g.id} · Temperatura</span><strong>${g.temp} °C</strong></div><div><span>GPU ${g.id} · Potencia</span><strong>${g.power} W</strong></div>`:''}<div><span>Sistema</span><strong>${p.os}</strong></div></div>`:''}<div class="v-shortcuts"><button type="button" data-action="btop">${icons('activity')}Abrir btop</button><button type="button" data-action="t3" ${!h.t3?'disabled':''}>${icons('link')}T3 Code</button></div><p class="v-meta"><span>Colector SSH</span><span>Datos de ejemplo</span></p>`;}
+function hCoreSheet(p){const index=Math.min(state.coreIndex,p.cores-1),value=p.coreLoads[index];return `<button type="button" class="h-sheet-backdrop" data-action="close-cores" aria-label="Cerrar detalle de núcleos"></button><section class="h-core-sheet" role="dialog" aria-modal="true" aria-label="Carga por núcleo"><div class="h-sheet-grip" aria-hidden="true"></div><div class="h-sheet-heading"><h2>Carga por núcleo</h2><button type="button" class="v-icon-button" data-action="close-cores" aria-label="Cerrar">×</button></div><p class="h-sheet-sub">${p.cpu} · ${p.cores} núcleos</p><div class="h-core-grid" aria-label="Seleccionar núcleo">${p.coreLoads.map((v,i)=>`<button type="button" class="h-core-tile" data-core-index="${i}" data-hot="${v>=30}" aria-pressed="${i===index}" aria-label="Núcleo ${i}: ${v==null?'sin datos':v+'% de uso'}" style="background:${hCoreColor(v)}">C${i}</button>`).join('')}</div><div class="h-selected-core" aria-live="polite"><span>Núcleo ${index}</span><strong>${value==null?'Sin datos':value+'%'}</strong></div>${hLegend()}<p class="h-memory-note">Color = uso de CPU, no temperatura · Hace 2 s</p></section>`;}
+function hFleetBars(p){return `<div class="h-fleet-bars">${[['CPU',p.cpuUsage],['RAM',p.ramUsed/p.ram*100],['GPU',p.gpus.length?p.gpus[0].usage:null]].map(([label,value])=>`<div><span>${label}${value==null?' —':''}</span><div class="h-bar" ${value==null?'role="img" aria-label="GPU sin datos"':`role="meter" aria-label="${label}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${value}"`}><span style="width:${value==null?0:value}%"></span></div></div>`).join('')}</div>`;}
+function heatOverview(){const t=document.createElement('template');t.innerHTML=polishedOverview();const first=t.content.querySelector('.r-host-metrics');if(first)first.outerHTML=hFleetBars(resourceProfiles.brak);t.content.querySelectorAll('.v-compact-stats').forEach((element,index)=>{element.outerHTML=hFleetBars(resourceProfiles[['dexter','buster'][index]]);});return t.innerHTML;}
+function heatWidgets(){const p=resourceProfiles.brak,g=p.gpus[Math.min(state.gpuIndex,p.gpus.length-1)];return `<section><div class="screen-caption">Widgets · Recursos visuales</div><div class="home-screen">${statusbar()}<p class="home-date">Sábado, 14 de noviembre</p><p class="home-clock">9:41</p><div class="h-widget-row"><button type="button" class="h-small-widget" data-action="widget-cpu"><span class="h-widget-host">brak <span>CPU</span></span><span class="h-widget-model">Ryzen 9 9950X · 16C</span><span class="h-matrix" role="img" aria-label="Carga de 16 núcleos de CPU">${hCoreCells(p)}</span><span class="h-widget-time">Lectura · 9:33</span></button><button type="button" class="h-small-widget" data-widget-gpu="${g.id}"><span class="h-widget-host">brak <span>GPU ${g.id}</span></span><span class="h-widget-model">RTX 5090 · 32 GiB</span>${hGauge(g.usage,'GPU '+g.id)}<span class="h-widget-time">Lectura · 9:33</span></button></div><div class="h-medium-widget"><div class="h-widget-host">brak <span>Memoria</span></div>${hMemoryRow('RAM',p.ramUsed,p.ram)}${p.gpus.map(v=>hMemoryRow('VRAM · RTX 5090 #'+v.id,v.used,v.memory)).join('')}<div class="h-widget-time"><span>bleet</span><span>Lectura · 9:33</span></div></div><div class="home-icons">${[['mail','Mail'],['calendar','Calendario'],['camera','Cámara'],['settings','Ajustes']].map(([i,t])=>`<div class="home-app"><span>${icons(i)}</span>${t}</div>`).join('')}</div><div class="lock-spacer" style="min-height:12px"></div><div class="homebar" style="background:transparent"></div></div></section><section><div class="screen-caption">Widgets · Pantalla bloqueada</div><div class="home-screen">${statusbar()}<p class="home-date">Sábado, 14 de noviembre</p><p class="home-clock" style="font-size:78px">9:41</p><div class="v-lock-widgets"><button type="button" class="v-lock-widget" data-action="widget-cpu"><strong>brak · CPU</strong><span class="h-lock-matrix" role="img" aria-label="Carga de 16 núcleos">${hCoreCells(p)}</span><p>Ryzen 9 9950X · 16C</p></button><button type="button" class="v-lock-widget" data-widget-gpu="${g.id}"><strong>brak · GPU ${g.id}</strong><div class="h-lock-widget-gpu">${hGauge(g.usage,'GPU '+g.id)}<p>RTX 5090<br>32 GiB</p></div></button></div><p class="v-lock-timestamp">bleet · Última lectura 9:33</p><div class="lock-spacer"></div><div class="lock-shortcuts"><span>${icons('flashlight')}</span><span>${icons('camera')}</span></div><div class="homebar" style="background:transparent"></div></div></section>`;}
+function render(){
+root.querySelectorAll('[data-pair]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.pair===state.pair)));
+stage.classList.toggle('widget-stage',state.pair==='widgets');
+if(state.pair==='hardware')stage.innerHTML=phone('Uso del equipo',11,heatDetail())+phone('Inventario de hardware',12,polishedInventory());
+if(state.pair==='resources')stage.innerHTML=phone('Tu red',11,heatOverview())+phone('Uso del equipo',12,heatDetail());
+if(state.pair==='hosts')stage.innerHTML=phone('Equipos · Resumen',1,hostsScreen())+phone('Equipo · Detalle',2,detailScreen());
+if(state.pair==='tools')stage.innerHTML=phone('Terminal y monitor',3,terminalScreen())+phone('T3 · Acceso y vinculación',4,polishedT3());
+if(state.pair==='network')stage.innerHTML=phone('Actividad · Cambios confirmados',5,activityScreen(),'network')+phone('Red · Acceso privado',6,networkScreen(),'settings');
+if(state.pair==='setup')stage.innerHTML=phone('Primera apertura',7,setupScreen())+phone('Sin acceso · Datos guardados',8,offlineScreen());
+if(state.pair==='widgets')stage.innerHTML=heatWidgets();
+if(state.coreSheet&&state.resourceTab==='live'&&['hardware','resources'].includes(state.pair)){const p=resourceProfiles[selected().name];const target=stage.querySelectorAll('.phone')[state.pair==='hardware'?0:1];if(p&&target)target.insertAdjacentHTML('beforeend',hCoreSheet(p));}
+if(globalThis.lucide)globalThis.lucide.createIcons();
+}
+function toast(message,element){const p=element.closest('.phone,.home-screen')||stage.firstElementChild;const old=p.querySelector('.toast');if(old)old.remove();const n=document.createElement('div');n.className='toast';n.setAttribute('role','status');n.textContent=message;p.appendChild(n);setTimeout(()=>n.remove(),3200);}
+root.addEventListener('click',event=>{
+const b=event.target.closest('button');if(!b||!root.contains(b))return;
+if(b.dataset.coreIndex!==undefined){state.coreIndex=Number(b.dataset.coreIndex);render();const core=root.querySelector('[data-core-index="'+state.coreIndex+'"]');if(core)core.focus({preventScroll:true});return;}
+if(b.dataset.resourceHost){state.selected=b.dataset.resourceHost;state.pair='hardware';state.gpuIndex=0;state.resourceTab='live';state.coreSheet=false;render();return;}
+if(b.dataset.widgetGpu!==undefined){state.selected='brak';state.pair='hardware';state.gpuIndex=Number(b.dataset.widgetGpu);state.resourceTab='live';state.coreSheet=false;render();return;}
+if(b.dataset.gpu!==undefined){state.gpuIndex=Number(b.dataset.gpu);render();return;}
+if(b.dataset.resourceTab){state.resourceTab=b.dataset.resourceTab;state.coreSheet=false;render();return;}
+if(b.dataset.pair){state.pair=b.dataset.pair;state.coreSheet=false;if(state.pair!=='tools')state.pairShown=false;render();return;}
+if(b.dataset.host){state.selected=b.dataset.host;state.pair='hosts';render();return;}
+if(b.dataset.filter){state.filter=b.dataset.filter;render();return;}
+if(b.dataset.vpn){state.vpn=b.dataset.vpn;render();return;}
+const a=b.dataset.action;
+if(a==='cpu-cores'){const p=resourceProfiles[selected().name];if(p)state.coreIndex=Math.min(state.coreIndex,p.cores-1);state.coreSheet=true;render();const core=root.querySelector('[data-core-index="'+state.coreIndex+'"]');if(core)core.focus({preventScroll:true});return;}
+if(a==='close-cores'){state.coreSheet=false;render();const opener=root.querySelector('[data-action="cpu-cores"]');if(opener)opener.focus({preventScroll:true});return;}
+if(a==='widget-cpu'){state.selected='brak';state.pair='hardware';state.resourceTab='live';state.coreSheet=true;render();return;}
+if(a==='metric-values'){state.metricValues=!state.metricValues;render();return;}
+if(a==='resource-fleet'){state.pair='resources';render();}
+else if(['hosts','tab-hosts'].includes(a)){state.pair='hosts';render();}
+else if(['settings','tab-settings','tab-network'].includes(a)){state.pair='network';render();}
+else if(a==='monitor'){state.pair='hardware';state.resourceTab='live';render();}
+else if(a==='btop'){state.pair='tools';render();}
+else if(a==='show-other-hosts'){state.pair='hosts';state.filter='all';render();}
+else if(['terminal','t3'].includes(a)){state.pair='tools';if(a==='t3'&&!selected().t3)state.selected='brak';render();}
+else if(a==='generate-pair'){state.pairShown=true;render();}
+else if(a==='refresh'){const last=stage.querySelector('#last-update');if(last)last.textContent='Comprobado recién · Demostración';toast('Vista de ejemplo actualizada',b);}
+else if(a==='copy-ssh')toast('Demo: ssh pablo@'+selected().address,b);
+else if(a==='copy-pair')toast('Demo: el enlace se copiaría sólo al pedirlo',b);
+else if(a==='open-t3')toast('Demo: abriría la sesión de T3 por HTTPS',b);
+else if(a==='scan-t3')toast('Demo: escáner de QR de vinculación T3',b);
+else if(a==='scan-setup')toast('Demo: escáner del QR del servicio bleetd',b);
+else if(a==='manual-setup')toast('Demo: dirección HTTPS y alta del iPhone',b);
+else if(a==='favorite')toast('Equipo guardado en favoritos · Demo',b);
+else if(a==='test-route')toast('Ruta '+state.vpn+' al servicio verificada · Demo',b);
+else if(a==='retry')toast('Demo: el servicio sigue sin responder',b);
+else if(a==='close-terminal'){state.pair='hosts';render();}
+else if(a==='term-key')toast('Tecla '+b.textContent+' · Demostración',b);
+});
+root.addEventListener('input',event=>{if(event.target.matches('.search input')){state.query=event.target.value;const list=root.querySelector('#host-list');if(list){list.innerHTML=listMarkup();if(globalThis.lucide)globalThis.lucide.createIcons();}}});
+root.addEventListener('keydown',event=>{if(event.key==='Escape'&&state.coreSheet){state.coreSheet=false;render();const opener=root.querySelector('[data-action="cpu-cores"]');if(opener)opener.focus({preventScroll:true});return;}if(event.target.matches('.terminal input')&&event.key==='Enter'){event.preventDefault();event.target.parentElement.querySelector('.term-result').textContent='Demostración: no se ejecutan comandos en tus equipos.';event.target.value='';}});
+render();
+if(globalThis.Tweak){const design={compact:false};const tweak=new Tweak({container:root,onChange:()=>{root.style.setProperty('--b-row-padding',design.compact?'9px':'12px');}});tweak.addToggle(design,'compact',{label:'Filas compactas'});}
+})();
+</script>

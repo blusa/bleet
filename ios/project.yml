@@ -1,0 +1,68 @@
+name: Bleet
+options:
+  bundleIdPrefix: cloud.blusa
+  deploymentTarget:
+    iOS: "18.0"
+settings:
+  base:
+    DEVELOPMENT_TEAM: VMGQ6AAMB5
+    MARKETING_VERSION: 0.1.0
+    CURRENT_PROJECT_VERSION: 1
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+    TARGETED_DEVICE_FAMILY: "1,2"
+packages:
+  SwiftTerm:
+    url: https://github.com/migueldeicaza/SwiftTerm.git
+    revision: 7691f85b222a67a66b58499e1b2647443cf0dda7
+targets:
+  Bleet:
+    type: application
+    platform: iOS
+    sources:
+      - Bleet
+      - Shared
+    dependencies:
+      - package: SwiftTerm
+      - target: BleetWidgets
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: cloud.blusa.bleet
+        INFOPLIST_FILE: Bleet/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Bleet/Bleet.entitlements
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        SUPPORTS_MACCATALYST: NO
+  BleetWidgets:
+    type: app-extension
+    platform: iOS
+    sources:
+      - BleetWidgets
+      - Shared
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: cloud.blusa.bleet.widgets
+        INFOPLIST_FILE: BleetWidgets/Info.plist
+        CODE_SIGN_ENTITLEMENTS: BleetWidgets/BleetWidgets.entitlements
+        SKIP_INSTALL: YES
+        APPLICATION_EXTENSION_API_ONLY: YES
+  BleetTests:
+    type: bundle.unit-test
+    platform: iOS
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+    sources:
+      - path: Tests
+        excludes: [snapshot.example.json]
+      - path: Tests/snapshot.example.json
+        buildPhase: resources
+    dependencies:
+      - target: Bleet
+schemes:
+  Bleet:
+    build:
+      targets:
+        Bleet: all
+        BleetWidgets: all
+    test:
+      targets: [BleetTests]

@@ -11,10 +11,10 @@ cask "blussh" do
   version "${VERSION}"
   sha256 "${SHA256}"
 
-  url "https://github.com/blusa/blussh/releases/download/v#{version}/blussh-v#{version}.zip"
+  url "https://github.com/blusa/bleet/releases/download/v#{version}/blussh-v#{version}.zip"
   name "blussh"
   desc "Menu bar app that monitors host connectivity across SSH config, Tailscale, and ZeroTier"
-  homepage "https://github.com/blusa/blussh"
+  homepage "https://github.com/blusa/bleet"
 
   depends_on macos: :sequoia
 

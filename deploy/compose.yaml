@@ -1,0 +1,39 @@
+name: bleet
+services:
+  bleetd:
+    container_name: bleetd
+    image: bleetd:${BLEET_IMAGE_TAG:-0.1.0}
+    build:
+      context: ../backend
+    restart: unless-stopped
+    init: true
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    ports:
+      - "127.0.0.1:8791:8791"
+    dns:
+      - 100.100.100.100
+    volumes:
+      - ${BLEET_DATA_DIR:-/mnt/user/appdata/bleet}/state:/var/lib/bleetd
+      - ${BLEET_DATA_DIR:-/mnt/user/appdata/bleet}/config/config.json:/etc/bleetd/config.json:ro
+      - ${BLEET_DATA_DIR:-/mnt/user/appdata/bleet}/ssh/known_hosts:/etc/bleetd/known_hosts:ro
+      - ${BLEET_DATA_DIR:-/mnt/user/appdata/bleet}/ssh/id_ed25519:/etc/bleetd/ssh/id_ed25519:ro
+      - /proc/stat:/host/proc/stat:ro
+      - /proc/meminfo:/host/proc/meminfo:ro
+      - /proc/cpuinfo:/host/proc/cpuinfo:ro
+      - /sys/devices/system/cpu:/host/sys/devices/system/cpu:ro
+      - ${BLEET_CODE_ROOT:?Set BLEET_CODE_ROOT to the release source directory}:/code/blussh:ro
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8791/health', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"

@@ -1,0 +1,662 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		01D81A517D7575E909951145 /* ModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428273C4AA172ADCE1344D80 /* ModelsTests.swift */; };
+		0A5BE500A553A00BF58DFE78 /* BleetWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0BE3D3CBA7380CB878A1E697 /* BleetWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		17CA6C9033424C22001D147F /* snapshot.example.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B065D0D9262236E1122C816 /* snapshot.example.json */; };
+		1DA58C7F9FF156822DC30817 /* SnapshotCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3379AC2F4043D73FE76D9EBD /* SnapshotCache.swift */; };
+		1F7C39BCCEC6B42F0EC5BC97 /* Instruments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F047691FA3CF0A328A1146 /* Instruments.swift */; };
+		3907D595B6D1D3A957971E03 /* Instruments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F047691FA3CF0A328A1146 /* Instruments.swift */; };
+		435554E5A8012EAF8801E31C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB711110729718569973900 /* Assets.xcassets */; };
+		6E446987E048BBD5CCA02098 /* SwiftTerm in Frameworks */ = {isa = PBXBuildFile; productRef = A318574702117308DBA00597 /* SwiftTerm */; };
+		74B2BE3C6E2BEF4D86BE7C6D /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AD804FC856EEC8A08E5A04 /* Models.swift */; };
+		76FE1BC359A7DF3CF354258C /* SessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E951BDF9480ED93BB5658DEA /* SessionTests.swift */; };
+		926F616BE21858A73808F95C /* TerminalScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26749C1C7C2F5C55A72347 /* TerminalScreen.swift */; };
+		953F8027D55C2A27DC6E9472 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AD804FC856EEC8A08E5A04 /* Models.swift */; };
+		96B97FBD2FBC4CB7E69E1FBF /* SnapshotCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3379AC2F4043D73FE76D9EBD /* SnapshotCache.swift */; };
+		986EF6FE252A39CE39F5F63C /* snapshot.example.json in Resources */ = {isa = PBXBuildFile; fileRef = 170C306A75DD776178A08A68 /* snapshot.example.json */; };
+		B059F5B9E0204D137894990D /* APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1376A1AD1640C077291A358 /* APITests.swift */; };
+		C26E75367B994CE4ACAA97B9 /* ConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E320C9B666216D393D68582D /* ConnectionView.swift */; };
+		C34515568B31FDCE4247FD36 /* BleetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A87C76C8B77F802D1FFCF7B /* BleetApp.swift */; };
+		CADD3060F31A6A1388FADD11 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 5AAFFAA203434726ADD55570 /* PrivacyInfo.xcprivacy */; };
+		DBB50C7CBE9793155FA5E975 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 675F5AD557596449ECC8D64D /* PrivacyInfo.xcprivacy */; };
+		ED11B683FD700FC5AD6A113B /* BleetWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7711ED1F1387881E5488B1 /* BleetWidgets.swift */; };
+		F7CEB0F0B9082BFE13714352 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = F474043C44EE442927F95DC0 /* Session.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		28F2B05B9AF362685BEE75B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 673AC27B5530BE5F32C23A37 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 73DE94E73A32A7BA70B81B4B;
+			remoteInfo = BleetWidgets;
+		};
+		9952DAB0C4F9534AA99F8404 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 673AC27B5530BE5F32C23A37 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E40BAD64659E7AF4CBC44CEE;
+			remoteInfo = Bleet;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F6F38B450D23D18117E992D4 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				0A5BE500A553A00BF58DFE78 /* BleetWidgets.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0A26749C1C7C2F5C55A72347 /* TerminalScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalScreen.swift; sourceTree = "<group>"; };
+		0BE3D3CBA7380CB878A1E697 /* BleetWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = BleetWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		170C306A75DD776178A08A68 /* snapshot.example.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = snapshot.example.json; sourceTree = "<group>"; };
+		3379AC2F4043D73FE76D9EBD /* SnapshotCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotCache.swift; sourceTree = "<group>"; };
+		33F047691FA3CF0A328A1146 /* Instruments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instruments.swift; sourceTree = "<group>"; };
+		3B065D0D9262236E1122C816 /* snapshot.example.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = snapshot.example.json; sourceTree = "<group>"; };
+		3F7711ED1F1387881E5488B1 /* BleetWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleetWidgets.swift; sourceTree = "<group>"; };
+		428273C4AA172ADCE1344D80 /* ModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsTests.swift; sourceTree = "<group>"; };
+		57648F8E5466B5B73AA24AB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5AAFFAA203434726ADD55570 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		6550B45728C22FC8DD55B934 /* Bleet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bleet.entitlements; sourceTree = "<group>"; };
+		675F5AD557596449ECC8D64D /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		70B5BFDD2666F2381ECF8261 /* BleetWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BleetWidgets.entitlements; sourceTree = "<group>"; };
+		86CB5C95B1DD8E5EF48005C1 /* BleetTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BleetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		88850EB0B69BA2E679DEB92A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8A87C76C8B77F802D1FFCF7B /* BleetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleetApp.swift; sourceTree = "<group>"; };
+		D1376A1AD1640C077291A358 /* APITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITests.swift; sourceTree = "<group>"; };
+		D4AD804FC856EEC8A08E5A04 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		DAB711110729718569973900 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E320C9B666216D393D68582D /* ConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionView.swift; sourceTree = "<group>"; };
+		E951BDF9480ED93BB5658DEA /* SessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTests.swift; sourceTree = "<group>"; };
+		F474043C44EE442927F95DC0 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		FE162612BDF0137B2A5B361E /* Bleet.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Bleet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9E1C90C7AAB8A69FF3A65A31 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E446987E048BBD5CCA02098 /* SwiftTerm in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		78B8BC6DB72F457AE99F91EB /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				33F047691FA3CF0A328A1146 /* Instruments.swift */,
+				D4AD804FC856EEC8A08E5A04 /* Models.swift */,
+				3379AC2F4043D73FE76D9EBD /* SnapshotCache.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		BA9C04611C81555A648C0EF2 /* Bleet */ = {
+			isa = PBXGroup;
+			children = (
+				6550B45728C22FC8DD55B934 /* Bleet.entitlements */,
+				8A87C76C8B77F802D1FFCF7B /* BleetApp.swift */,
+				E320C9B666216D393D68582D /* ConnectionView.swift */,
+				88850EB0B69BA2E679DEB92A /* Info.plist */,
+				F474043C44EE442927F95DC0 /* Session.swift */,
+				0A26749C1C7C2F5C55A72347 /* TerminalScreen.swift */,
+				DF8ED717C7CAF7CAC3823D3C /* Resources */,
+			);
+			path = Bleet;
+			sourceTree = "<group>";
+		};
+		DF8ED717C7CAF7CAC3823D3C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DAB711110729718569973900 /* Assets.xcassets */,
+				5AAFFAA203434726ADD55570 /* PrivacyInfo.xcprivacy */,
+				3B065D0D9262236E1122C816 /* snapshot.example.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		ECCA0709E1B80AF9D1A3D238 /* BleetWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				70B5BFDD2666F2381ECF8261 /* BleetWidgets.entitlements */,
+				3F7711ED1F1387881E5488B1 /* BleetWidgets.swift */,
+				57648F8E5466B5B73AA24AB5 /* Info.plist */,
+				675F5AD557596449ECC8D64D /* PrivacyInfo.xcprivacy */,
+			);
+			path = BleetWidgets;
+			sourceTree = "<group>";
+		};
+		EFE0FBF558AC5072E8807490 = {
+			isa = PBXGroup;
+			children = (
+				BA9C04611C81555A648C0EF2 /* Bleet */,
+				ECCA0709E1B80AF9D1A3D238 /* BleetWidgets */,
+				78B8BC6DB72F457AE99F91EB /* Shared */,
+				F31C71E7C1FA26BF9A2C4819 /* Tests */,
+				FA74BC51DA85C768EB702D22 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F31C71E7C1FA26BF9A2C4819 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				D1376A1AD1640C077291A358 /* APITests.swift */,
+				428273C4AA172ADCE1344D80 /* ModelsTests.swift */,
+				E951BDF9480ED93BB5658DEA /* SessionTests.swift */,
+				170C306A75DD776178A08A68 /* snapshot.example.json */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		FA74BC51DA85C768EB702D22 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FE162612BDF0137B2A5B361E /* Bleet.app */,
+				86CB5C95B1DD8E5EF48005C1 /* BleetTests.xctest */,
+				0BE3D3CBA7380CB878A1E697 /* BleetWidgets.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		73DE94E73A32A7BA70B81B4B /* BleetWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8C13A6EE7EF17FFE162EECE3 /* Build configuration list for PBXNativeTarget "BleetWidgets" */;
+			buildPhases = (
+				8587E1544E1B4E14D97728EF /* Sources */,
+				0D32FFDBC645441763BD1225 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BleetWidgets;
+			packageProductDependencies = (
+			);
+			productName = BleetWidgets;
+			productReference = 0BE3D3CBA7380CB878A1E697 /* BleetWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		7CF7196A0D46A38D1B874B4F /* BleetTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 68BCD9512072685FE7C47833 /* Build configuration list for PBXNativeTarget "BleetTests" */;
+			buildPhases = (
+				7EAAE03F5DD128F678B050A2 /* Sources */,
+				EE54457AC97CFBD7C5B82E10 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C442E8FC6993A5A831C5A369 /* PBXTargetDependency */,
+			);
+			name = BleetTests;
+			packageProductDependencies = (
+			);
+			productName = BleetTests;
+			productReference = 86CB5C95B1DD8E5EF48005C1 /* BleetTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E40BAD64659E7AF4CBC44CEE /* Bleet */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 62A768C412BDFCEC53FC53F4 /* Build configuration list for PBXNativeTarget "Bleet" */;
+			buildPhases = (
+				5CF3AC4B7B6DE36C00588263 /* Sources */,
+				98683ADFD8D27BE65BC9560F /* Resources */,
+				9E1C90C7AAB8A69FF3A65A31 /* Frameworks */,
+				F6F38B450D23D18117E992D4 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				57C92AAE8B38E3E436DFD82A /* PBXTargetDependency */,
+			);
+			name = Bleet;
+			packageProductDependencies = (
+				A318574702117308DBA00597 /* SwiftTerm */,
+			);
+			productName = Bleet;
+			productReference = FE162612BDF0137B2A5B361E /* Bleet.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		673AC27B5530BE5F32C23A37 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					73DE94E73A32A7BA70B81B4B = {
+						DevelopmentTeam = VMGQ6AAMB5;
+					};
+					7CF7196A0D46A38D1B874B4F = {
+						DevelopmentTeam = VMGQ6AAMB5;
+					};
+					E40BAD64659E7AF4CBC44CEE = {
+						DevelopmentTeam = VMGQ6AAMB5;
+					};
+				};
+			};
+			buildConfigurationList = FEF6AB3633CAC29C8C72CF3E /* Build configuration list for PBXProject "Bleet" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = EFE0FBF558AC5072E8807490;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				495DA8DA33BC8F2C81F9342D /* XCRemoteSwiftPackageReference "SwiftTerm" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = FA74BC51DA85C768EB702D22 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E40BAD64659E7AF4CBC44CEE /* Bleet */,
+				73DE94E73A32A7BA70B81B4B /* BleetWidgets */,
+				7CF7196A0D46A38D1B874B4F /* BleetTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0D32FFDBC645441763BD1225 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBB50C7CBE9793155FA5E975 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		98683ADFD8D27BE65BC9560F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				435554E5A8012EAF8801E31C /* Assets.xcassets in Resources */,
+				CADD3060F31A6A1388FADD11 /* PrivacyInfo.xcprivacy in Resources */,
+				17CA6C9033424C22001D147F /* snapshot.example.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE54457AC97CFBD7C5B82E10 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				986EF6FE252A39CE39F5F63C /* snapshot.example.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5CF3AC4B7B6DE36C00588263 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C34515568B31FDCE4247FD36 /* BleetApp.swift in Sources */,
+				C26E75367B994CE4ACAA97B9 /* ConnectionView.swift in Sources */,
+				3907D595B6D1D3A957971E03 /* Instruments.swift in Sources */,
+				953F8027D55C2A27DC6E9472 /* Models.swift in Sources */,
+				F7CEB0F0B9082BFE13714352 /* Session.swift in Sources */,
+				96B97FBD2FBC4CB7E69E1FBF /* SnapshotCache.swift in Sources */,
+				926F616BE21858A73808F95C /* TerminalScreen.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7EAAE03F5DD128F678B050A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B059F5B9E0204D137894990D /* APITests.swift in Sources */,
+				01D81A517D7575E909951145 /* ModelsTests.swift in Sources */,
+				76FE1BC359A7DF3CF354258C /* SessionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8587E1544E1B4E14D97728EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED11B683FD700FC5AD6A113B /* BleetWidgets.swift in Sources */,
+				1F7C39BCCEC6B42F0EC5BC97 /* Instruments.swift in Sources */,
+				74B2BE3C6E2BEF4D86BE7C6D /* Models.swift in Sources */,
+				1DA58C7F9FF156822DC30817 /* SnapshotCache.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		57C92AAE8B38E3E436DFD82A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 73DE94E73A32A7BA70B81B4B /* BleetWidgets */;
+			targetProxy = 28F2B05B9AF362685BEE75B8 /* PBXContainerItemProxy */;
+		};
+		C442E8FC6993A5A831C5A369 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E40BAD64659E7AF4CBC44CEE /* Bleet */;
+			targetProxy = 9952DAB0C4F9534AA99F8404 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0133473D3DA9760DB1B3496A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Bleet/Bleet.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Bleet/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cloud.blusa.bleet;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		42B5E11855BB720041B7934E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = VMGQ6AAMB5;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		5294A77ABD36875507BD4063 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = BleetWidgets/BleetWidgets.entitlements;
+				INFOPLIST_FILE = BleetWidgets/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cloud.blusa.bleet.widgets;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8AA1E8140D4383D54D239A9B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cloud.blusa.BleetTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bleet.app/Bleet";
+			};
+			name = Debug;
+		};
+		A99BCD951A55C4F3CF290D88 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Bleet/Bleet.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Bleet/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cloud.blusa.bleet;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B3DD7AD54DBD7C2F965780AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = BleetWidgets/BleetWidgets.entitlements;
+				INFOPLIST_FILE = BleetWidgets/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cloud.blusa.bleet.widgets;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DD1E9CAAFE80EEECE4A352E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = VMGQ6AAMB5;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EEC6A3D960D90495594CCF3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cloud.blusa.BleetTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bleet.app/Bleet";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		62A768C412BDFCEC53FC53F4 /* Build configuration list for PBXNativeTarget "Bleet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0133473D3DA9760DB1B3496A /* Debug */,
+				A99BCD951A55C4F3CF290D88 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		68BCD9512072685FE7C47833 /* Build configuration list for PBXNativeTarget "BleetTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8AA1E8140D4383D54D239A9B /* Debug */,
+				EEC6A3D960D90495594CCF3B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		8C13A6EE7EF17FFE162EECE3 /* Build configuration list for PBXNativeTarget "BleetWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3DD7AD54DBD7C2F965780AF /* Debug */,
+				5294A77ABD36875507BD4063 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		FEF6AB3633CAC29C8C72CF3E /* Build configuration list for PBXProject "Bleet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD1E9CAAFE80EEECE4A352E4 /* Debug */,
+				42B5E11855BB720041B7934E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		495DA8DA33BC8F2C81F9342D /* XCRemoteSwiftPackageReference "SwiftTerm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/migueldeicaza/SwiftTerm.git";
+			requirement = {
+				kind = revision;
+				revision = 7691f85b222a67a66b58499e1b2647443cf0dda7;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A318574702117308DBA00597 /* SwiftTerm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 495DA8DA33BC8F2C81F9342D /* XCRemoteSwiftPackageReference "SwiftTerm" */;
+			productName = SwiftTerm;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 673AC27B5530BE5F32C23A37 /* Project object */;
+}

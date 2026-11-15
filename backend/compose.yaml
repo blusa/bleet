@@ -1,0 +1,26 @@
+services:
+  bleetd:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8791:8791"
+    dns:
+      - 100.100.100.100
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ./config.json:/etc/bleetd/config.json:ro
+      - ./ssh:/etc/bleetd/ssh:ro
+      - ./known_hosts:/etc/bleetd/known_hosts:ro
+      - ./state:/var/lib/bleetd
+      - ..:/code/blussh:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8791/health', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
