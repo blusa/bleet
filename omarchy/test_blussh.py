@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Tests for the ported monitoring logic: python3 omarchy/test_blussh.py"""
 
+import base64
 import json
 import os
 import shlex
@@ -282,6 +283,57 @@ class PairingTests(unittest.TestCase):
         run, calls = self.fake_run(PAIR_OUTPUT)
         blussh.t3_pair(None, "brak.tail.ts.net", "dexter", run=run, copy=lambda _: None)
         self.assertEqual(calls[0][:2], ["bash", "-lc"])
+
+    def windows_script(self, cmd):
+        self.assertEqual(cmd[-1].split(" ")[:5],
+                         ["powershell", "-NoProfile", "-NonInteractive", "-OutputFormat", "Text"])
+        return base64.b64decode(cmd[-1].rsplit(" ", 1)[1]).decode("utf-16-le")
+
+    def test_windows_host_runs_powershell_instead_of_bash(self):
+        # bash on Windows is at best the WSL launcher: `bash -lc` fails before reaching t3
+        run, calls = self.fake_run(PAIR_OUTPUT)
+        copied = []
+        result = blussh.t3_pair("blusa@bugs", "bugs.tail.ts.net", "dexter", run=run, copy=copied.append,
+                                windows=True)
+        self.assertTrue(result["ok"])
+        self.assertEqual(calls[0][:3], ["ssh", "-o", "BatchMode=yes"])
+        self.assertNotIn("bash", calls[0][-1])
+        script = self.windows_script(calls[0])
+        self.assertIn("$label = 'dexter'", script)
+        self.assertIn("'--ttl', $ttl, '--label', $label", script)
+        self.assertIn("--tailscale", script)
+        # The desktop app's CLI, also under another account's profile
+        self.assertIn("'*\\.t3\\bin\\t3.cmd'", script)
+
+    def test_windows_link_mints_with_powershell(self):
+        calls = []
+
+        def run(cmd, **kwargs):
+            calls.append(cmd)
+            return subprocess.CompletedProcess(cmd, 0, PAIR_OUTPUT if cmd[0] == "ssh" else "Linked\n", "")
+        result = blussh.t3_link("blusa@bugs", "bugs.tail.ts.net", "dexter", "auto", run=run, local_t3="/x/t3",
+                                windows=True)
+        self.assertTrue(result["ok"], result)
+        self.windows_script(calls[0])
+
+    def test_windows_label_cannot_break_out_of_the_script(self):
+        script = blussh.t3_pair_script_windows("it's & calc | %PATH% \u2019x")
+        self.assertIn("$label = 'it-s---calc----PATH---x'", script)
+
+    def test_local_pair_ignores_the_windows_flag(self):
+        self.assertEqual(blussh.t3_pair_command(None, "dexter", windows=True)[:2], ["bash", "-lc"])
+
+    def test_is_windows(self):
+        self.assertTrue(blussh.is_windows("windows"))
+        self.assertTrue(blussh.is_windows("Windows"))
+        for other in ("linux", "macOS", "iOS", "", None):
+            self.assertFalse(blussh.is_windows(other))
+
+    def test_tailscale_os_reaches_the_host(self):
+        root = {"MagicDNSSuffix": "tail.ts.net", "Peer": {"k": {
+            "HostName": "BUGS", "DNSName": "bugs.tail.ts.net.", "OS": "windows", "Online": True}}}
+        hosts, _ = blussh.parse_tailscale_status(root)
+        self.assertTrue(blussh.is_windows(hosts[0]["os"]))
 
 
 def stub(directory, name, body):

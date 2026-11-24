@@ -10,6 +10,7 @@ Standard library only, so it runs on a stock Omarchy install.
 """
 
 import argparse
+import base64
 import concurrent.futures
 import fcntl
 import getpass
@@ -469,6 +470,65 @@ exit $rc
 """
 
 
+# PowerShell twin of t3_pair_script, for Windows hosts: OpenSSH there starts
+# cmd or PowerShell, and `bash` is at best the WSL launcher. Written for
+# Windows PowerShell 5.1, which every Windows has. The T3 desktop app keeps its
+# CLI in <profile>\.t3\bin, and the ssh account is often not the one running
+# the app, so every profile is searched.
+T3_PAIR_SCRIPT_WINDOWS = r"""$ProgressPreference = 'SilentlyContinue'
+$label = '__LABEL__'
+$ttl = '__TTL__'
+$t3 = $null
+$found = Get-Command t3 -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
+if ($found) { $t3 = $found.Source }
+if (-not $t3) {
+  $own = Join-Path $HOME '.t3\bin\t3.cmd'
+  $all = Join-Path (Split-Path $HOME -Parent) '*\.t3\bin\t3.cmd'
+  $t3 = @($own) + @(Get-ChildItem $all -ErrorAction SilentlyContinue | ForEach-Object { $_.FullName }) |
+    Where-Object { Test-Path $_ } | Select-Object -First 1
+}
+$npx = Get-Command npx.cmd -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
+$rc = 127
+foreach ($tailscale in $true, $false) {
+  $a = @('pair')
+  if ($tailscale) { $a += '--tailscale' }
+  $a += '--ttl', $ttl, '--label', $label
+  if ($t3) { & $t3 @a }
+  elseif ($npx) { & $npx.Source -y t3 @a }
+  else { [Console]::Error.WriteLine("t3 not found on $env:COMPUTERNAME"); break }
+  $rc = $LASTEXITCODE
+  if ($rc -eq 0) { break }
+}
+exit $rc
+"""
+
+
+def is_windows(os_name):
+    """Tailscale's `OS` for the host says Windows (it reports "windows")."""
+    return (os_name or "").strip().lower() == "windows"
+
+
+def t3_pair_script_windows(label):
+    # The label ends up on a cmd.exe command line (t3.cmd), which has no safe quoting
+    label = re.sub(r"[^A-Za-z0-9._-]", "-", label)
+    return T3_PAIR_SCRIPT_WINDOWS.replace("__LABEL__", label).replace("__TTL__", T3_PAIR_TTL)
+
+
+def t3_pair_command(target, label, windows=False):
+    """The command that runs the pairing script: over ssh on `target`, or locally when None."""
+    if not target:
+        return ["bash", "-lc", t3_pair_script(label)]
+    if windows:
+        # -EncodedCommand (UTF-16LE base64) needs no quoting, whatever shell sshd starts
+        encoded = base64.b64encode(t3_pair_script_windows(label).encode("utf-16-le")).decode()
+        remote = "powershell -NoProfile -NonInteractive -OutputFormat Text -EncodedCommand " + encoded
+    else:
+        remote = "bash -lc " + shlex.quote(t3_pair_script(label))
+    # ServerAlive*: give up on a host that drops off mid-run in ~10 s
+    return ["ssh", "-o", "BatchMode=yes", "-o", "ConnectTimeout=10", "-o", "ServerAliveInterval=5",
+            "-o", "ServerAliveCountMax=2", target, remote]
+
+
 def copy_sensitive(text):
     # --sensitive keeps it out of clipboard history (Omarchy's honours the hint)
     subprocess.run(["wl-copy", "--sensitive"], input=text, text=True,
@@ -509,19 +569,14 @@ def run_group(cmd, timeout=None, **_ignored):
     return subprocess.CompletedProcess(cmd, proc.returncode, out, err)
 
 
-def mint_pairing_url(target, magic_dns, label, run=run_group):
-    """Run `t3 pair` on `target` (ssh destination, None = this machine).
+def mint_pairing_url(target, magic_dns, label, run=run_group, windows=False):
+    """Run `t3 pair` on `target` (ssh destination, None = this machine; `windows`
+    when that host runs Windows).
 
     Returns (url, None) or (None, error message). The output, token included,
     only ever lives in memory here.
     """
-    script = t3_pair_script(label)
-    if target:
-        # ServerAlive*: give up on a host that drops off mid-run in ~10 s
-        cmd = ["ssh", "-o", "BatchMode=yes", "-o", "ConnectTimeout=10", "-o", "ServerAliveInterval=5",
-               "-o", "ServerAliveCountMax=2", target, "bash -lc " + shlex.quote(script)]
-    else:
-        cmd = ["bash", "-lc", script]
+    cmd = t3_pair_command(target, label, windows)
     where = target or "this machine"
     try:
         out = run(cmd, capture_output=True, text=True, timeout=T3_PAIR_TIMEOUT, stdin=subprocess.DEVNULL)
@@ -542,11 +597,11 @@ def last_line(out):
 
 
 def t3_pair(target, magic_dns, label, run=run_group, copy=copy_sensitive, qr=False, render_qr=render_qr,
-            code_only=False):
+            code_only=False, windows=False):
     """Mint a T3 pairing link on `target` (ssh destination, None = this machine)
     and copy it, or with `qr` return it as a QR code SVG instead. The result
     never contains the token as text: callers print it."""
-    url, error = mint_pairing_url(target, magic_dns, label, run)
+    url, error = mint_pairing_url(target, magic_dns, label, run, windows)
     if error:
         return {"ok": False, "message": error}
     where = magic_dns or target or "this machine"
@@ -593,7 +648,7 @@ def find_local_t3():
     return None
 
 
-def t3_link(target, magic_dns, label, access, run=run_group, local_t3=None):
+def t3_link(target, magic_dns, label, access, run=run_group, local_t3=None, windows=False):
     """Link the host's T3 Code server to this machine's, so agents here can work
     there (server to server): mint a pairing code on the host over ssh and
     redeem it here with `t3 environment link`. Never returns the token."""
@@ -602,7 +657,7 @@ def t3_link(target, magic_dns, label, access, run=run_group, local_t3=None):
     binary = local_t3 or find_local_t3()
     if not binary:
         return {"ok": False, "message": "t3 isn't installed on this machine"}
-    url, error = mint_pairing_url(target, magic_dns, label, run)
+    url, error = mint_pairing_url(target, magic_dns, label, run, windows)
     if error:
         return {"ok": False, "message": error}
     code = urllib.parse.urlsplit(url).fragment.partition("token=")[2]
@@ -881,9 +936,10 @@ def cmd_t3_pair(args):
     signal.signal(signal.SIGTERM, lambda *_: sys.exit(143))
     label = args.label or socket.gethostname().split(".")[0]
     if args.link:
-        result = t3_link(args.target or None, args.dns, label, args.link)
+        result = t3_link(args.target or None, args.dns, label, args.link, windows=is_windows(args.os))
     else:
-        result = t3_pair(args.target or None, args.dns, label, qr=args.qr, code_only=args.code)
+        result = t3_pair(args.target or None, args.dns, label, qr=args.qr, code_only=args.code,
+                         windows=is_windows(args.os))
     if args.notify:
         name = args.name or (args.dns or "").split(".")[0] or "this machine"
         if result["ok"] and args.qr:
@@ -1035,6 +1091,7 @@ def main():
     pair = sub.add_parser("t3-pair", help="copy a T3 Code pairing link for a host (never prints the token)")
     pair.add_argument("--target", help="ssh destination (user@alias); omit for this machine")
     pair.add_argument("--dns", required=True, help="the host's Tailscale MagicDNS name")
+    pair.add_argument("--os", default="", help="the host's OS as Tailscale reports it (windows runs PowerShell, not bash)")
     pair.add_argument("--name", help="host name for the notification")
     pair.add_argument("--label", help="connection label on the server (default: this machine's hostname)")
     pair.add_argument("--notify", action="store_true", help="send a desktop notification with the result")

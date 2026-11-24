@@ -156,24 +156,73 @@ enum T3 {
         """
     }
 
-    /// The command that runs the pairing script: over ssh on `target`, or locally when nil.
-    static func pairCommand(target: String?, label: String) -> [String] {
-        let script = pairScript(label: label)
-        if let target = target {
-            // ServerAlive*: give up on a host that drops off mid-run in ~10 s
-            return ["/usr/bin/ssh", "-o", "BatchMode=yes", "-o", "ConnectTimeout=10", "-o", "ServerAliveInterval=5",
-                    "-o", "ServerAliveCountMax=2", target, "bash -lc " + shellQuote(script)]
+    /// PowerShell twin of `pairScript`, for Windows hosts: OpenSSH there starts cmd
+    /// or PowerShell, and `bash` is at best the WSL launcher. Written for Windows
+    /// PowerShell 5.1, which every Windows has. The T3 desktop app keeps its CLI in
+    /// <profile>\.t3\bin, and the ssh account is often not the one running the app,
+    /// so every profile is searched. Identical to `T3_PAIR_SCRIPT_WINDOWS`.
+    private static let windowsPairTemplate = #"""
+$ProgressPreference = 'SilentlyContinue'
+$label = '__LABEL__'
+$ttl = '__TTL__'
+$t3 = $null
+$found = Get-Command t3 -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
+if ($found) { $t3 = $found.Source }
+if (-not $t3) {
+  $own = Join-Path $HOME '.t3\bin\t3.cmd'
+  $all = Join-Path (Split-Path $HOME -Parent) '*\.t3\bin\t3.cmd'
+  $t3 = @($own) + @(Get-ChildItem $all -ErrorAction SilentlyContinue | ForEach-Object { $_.FullName }) |
+    Where-Object { Test-Path $_ } | Select-Object -First 1
+}
+$npx = Get-Command npx.cmd -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
+$rc = 127
+foreach ($tailscale in $true, $false) {
+  $a = @('pair')
+  if ($tailscale) { $a += '--tailscale' }
+  $a += '--ttl', $ttl, '--label', $label
+  if ($t3) { & $t3 @a }
+  elseif ($npx) { & $npx.Source -y t3 @a }
+  else { [Console]::Error.WriteLine("t3 not found on $env:COMPUTERNAME"); break }
+  $rc = $LASTEXITCODE
+  if ($rc -eq 0) { break }
+}
+exit $rc
+"""#
+
+    static func pairScriptWindows(label: String) -> String {
+        // The label ends up on a cmd.exe command line (t3.cmd), which has no safe quoting
+        let allowed = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._-")
+        let safe = String(String.UnicodeScalarView(label.unicodeScalars.map { allowed.contains($0) ? $0 : "-" }))
+        return windowsPairTemplate
+            .replacingOccurrences(of: "__LABEL__", with: safe)
+            .replacingOccurrences(of: "__TTL__", with: pairTTL)
+    }
+
+    /// The command that runs the pairing script: over ssh on `target` (`windows`
+    /// when that host runs Windows), or locally when nil.
+    static func pairCommand(target: String?, label: String, windows: Bool = false) -> [String] {
+        guard let target = target else { return ["/bin/bash", "-lc", pairScript(label: label)] }
+        let remote: String
+        if windows {
+            // -EncodedCommand (UTF-16LE base64) needs no quoting, whatever shell sshd starts
+            let encoded = pairScriptWindows(label: label).data(using: .utf16LittleEndian)!.base64EncodedString()
+            remote = "powershell -NoProfile -NonInteractive -OutputFormat Text -EncodedCommand " + encoded
+        } else {
+            remote = "bash -lc " + shellQuote(pairScript(label: label))
         }
-        return ["/bin/bash", "-lc", script]
+        // ServerAlive*: give up on a host that drops off mid-run in ~10 s
+        return ["/usr/bin/ssh", "-o", "BatchMode=yes", "-o", "ConnectTimeout=10", "-o", "ServerAliveInterval=5",
+                "-o", "ServerAliveCountMax=2", target, remote]
     }
 
     typealias Runner = (_ command: [String], _ timeout: TimeInterval) async throws -> ProcessResult
 
-    /// Run `t3 pair` on `target` (ssh destination, nil = this machine) and
-    /// return the pairing URL. The output, token included, only lives in memory.
-    static func mintPairingURL(target: String?, magicDNS: String?, label: String,
+    /// Run `t3 pair` on `target` (ssh destination, nil = this machine; `windows`
+    /// when that host runs Windows) and return the pairing URL. The output, token
+    /// included, only lives in memory.
+    static func mintPairingURL(target: String?, magicDNS: String?, label: String, windows: Bool = false,
                                run: Runner = runProcess) async -> Result<String, T3Error> {
-        let command = pairCommand(target: target, label: label)
+        let command = pairCommand(target: target, label: label, windows: windows)
         let place = target ?? "this machine"
         let result: ProcessResult
         do {
@@ -193,9 +242,9 @@ enum T3 {
 
     /// Mint as for the link, but return just the pairing code, to hand to another
     /// machine (`t3 environment link … --pairing-code`). Only lives in memory.
-    static func mintPairingCode(target: String?, magicDNS: String?, label: String,
+    static func mintPairingCode(target: String?, magicDNS: String?, label: String, windows: Bool = false,
                                 run: Runner = runProcess) async -> Result<String, T3Error> {
-        switch await mintPairingURL(target: target, magicDNS: magicDNS, label: label, run: run) {
+        switch await mintPairingURL(target: target, magicDNS: magicDNS, label: label, windows: windows, run: run) {
         case .failure(let error): return .failure(error)
         case .success(let url):
             guard let code = pairingCode(fromURL: url) else {
@@ -237,7 +286,7 @@ enum T3 {
     /// Link the host's T3 Code server to this machine's, so agents here can work
     /// there: mint a pairing code on the host over ssh and redeem it here with
     /// `t3 environment link`. The returned message never contains the token.
-    static func link(target: String?, magicDNS: String, label: String, access: String,
+    static func link(target: String?, magicDNS: String, label: String, access: String, windows: Bool = false,
                      localT3: String? = nil, run: Runner = runProcess) async -> Result<String, T3Error> {
         guard linkAccessLevels.contains(where: { $0.level == access }) else {
             return .failure(T3Error("unknown access level \(access)"))
@@ -246,7 +295,7 @@ enum T3 {
             return .failure(T3Error("t3 isn't installed on this machine"))
         }
         let url: String
-        switch await mintPairingURL(target: target, magicDNS: magicDNS, label: label, run: run) {
+        switch await mintPairingURL(target: target, magicDNS: magicDNS, label: label, windows: windows, run: run) {
         case .failure(let error): return .failure(error)
         case .success(let minted): url = minted
         }
