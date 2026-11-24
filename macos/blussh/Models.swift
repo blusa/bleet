@@ -55,6 +55,11 @@ struct MonitoredHost: Identifiable {
     var isT3: Bool = false
     /// This machine (Tailscale Self): never monitored, only offered T3 pairing
     var isSelf: Bool = false
+    /// Operating system as Tailscale reports it ("windows", "linux", "macOS"…); nil for other sources
+    var os: String?
+
+    /// Windows hosts get PowerShell over ssh: `bash` there is at best the WSL launcher
+    var isWindows: Bool { os?.trimmingCharacters(in: .whitespaces).lowercased() == "windows" }
 
     /// Combined liveness: VPN state gates first, then the SSH check if applicable.
     var isOnline: Bool {

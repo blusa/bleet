@@ -172,6 +172,7 @@ Item {
     if (!local && !host.isSSHServer) { flash("T3 pairing needs SSH access to " + host.name); return }
     var command = ["python3", scriptPath, "t3-pair", "--notify", "--dns", host.magicDNS, "--name", host.name]
     if (!local) command.push("--target", sshTarget(host))
+    if (!local && host.os) command.push("--os", host.os)
     if (asQr) command.push("--qr")
     if (linkAccess) command.push("--link", linkAccess)
     if (codeOnly) command.push("--code")

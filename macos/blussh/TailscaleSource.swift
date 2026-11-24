@@ -78,6 +78,7 @@ struct TailscaleSource: HostSource {
                 aliases: aliases
             )
             host.magicDNS = magic
+            host.os = (peer["OS"] as? String)?.nilIfEmpty
             return host
         }
 

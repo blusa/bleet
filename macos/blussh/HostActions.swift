@@ -51,7 +51,8 @@ final class HostActions: ObservableObject {
     func copyPairingLink(for host: MonitoredHost) {
         guard let magic = startT3(host, progress: "Minting T3 pairing link for \(host.name)…") else { return }
         task = Task {
-            let result = await T3.mintPairingURL(target: target(host), magicDNS: magic, label: T3.localShortHostname(), run: run)
+            let result = await T3.mintPairingURL(target: target(host), magicDNS: magic, label: T3.localShortHostname(),
+                                                  windows: host.isWindows, run: run)
             // A cancel that arrived after the process finished still wins: nothing is copied or shown
             if Task.isCancelled { finish(T3Error.cancelled.message); return }
             switch result {
@@ -72,7 +73,8 @@ final class HostActions: ObservableObject {
     func copyPairingCode(for host: MonitoredHost) {
         guard let magic = startT3(host, progress: "Minting T3 pairing code for \(host.name)…") else { return }
         task = Task {
-            let result = await T3.mintPairingCode(target: target(host), magicDNS: magic, label: T3.localShortHostname(), run: run)
+            let result = await T3.mintPairingCode(target: target(host), magicDNS: magic, label: T3.localShortHostname(),
+                                                  windows: host.isWindows, run: run)
             // A cancel that arrived after the process finished still wins: nothing is copied or shown
             if Task.isCancelled { finish(T3Error.cancelled.message); return }
             switch result {
@@ -91,7 +93,8 @@ final class HostActions: ObservableObject {
     func showPairingQR(for host: MonitoredHost) {
         guard let magic = startT3(host, progress: "Minting T3 pairing QR for \(host.name)…") else { return }
         task = Task {
-            let result = await T3.mintPairingURL(target: target(host), magicDNS: magic, label: T3.localShortHostname(), run: run)
+            let result = await T3.mintPairingURL(target: target(host), magicDNS: magic, label: T3.localShortHostname(),
+                                                  windows: host.isWindows, run: run)
             // A cancel that arrived after the process finished still wins: nothing is copied or shown
             if Task.isCancelled { finish(T3Error.cancelled.message); return }
             switch result {
@@ -117,7 +120,7 @@ final class HostActions: ObservableObject {
             // T3.link honours a cancel only up to the local link step: once that ran, the link
             // exists, so its real result is reported even if a cancel arrived meanwhile
             let result = await T3.link(target: target(host), magicDNS: magic, label: T3.localShortHostname(),
-                                       access: access, run: run)
+                                       access: access, windows: host.isWindows, run: run)
             switch result {
             case .success(let message):
                 finish(message)

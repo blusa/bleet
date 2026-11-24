@@ -191,7 +191,20 @@ Tailscale Serve at `https://<name>.<MagicDNSSuffix>/`. For each Tailscale host
   Non-interactive ssh often lacks `t3` on PATH, so the binary is the first of:
   `t3` on PATH; `~/.local/bin/t3`; `~/.t3/runtime/versions/<activeVersion>/t3`
   with `activeVersion` from `~/.t3/runtime/service-state.json`; `npx -y t3`.
-  If `--tailscale` fails, retry without it. Output includes:
+  If `--tailscale` fails, retry without it.
+
+  **Windows hosts** (Tailscale `OS == "windows"`): OpenSSH there starts cmd or
+  PowerShell and `bash` is at best the WSL launcher, so the same steps run as
+  a PowerShell 5.1 script sent with `powershell -NoProfile -NonInteractive
+  -OutputFormat Text -EncodedCommand <UTF-16LE base64>` (no quoting to get
+  wrong). The binary is the first of: `t3` on PATH; `~\.t3\bin\t3.cmd`; the
+  same under any other profile (`C:\Users\*\.t3\bin\t3.cmd`: the ssh account
+  is often not the one running the T3 desktop app); `npx -y t3`. The label is
+  reduced to `[A-Za-z0-9._-]` because `t3.cmd` puts it on a cmd.exe command
+  line. `--tailscale` usually fails there (tailscaled belongs to the desktop
+  user), so the retry and the MagicDNS rewrite below do the work.
+
+  Output includes:
 
   ```
   Pairing URL: https://brak.<suffix>/pair#token=<TOKEN>
